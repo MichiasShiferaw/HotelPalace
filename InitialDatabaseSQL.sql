@@ -7,6 +7,7 @@ drop table if exists booking_info cascade;
 drop table if exists hotel_phone cascade;
 
 drop table if exists role cascade;
+drop table if exists hotel_management cascade;
 drop table if exists employee cascade;
 
 drop table if exists room cascade;
@@ -28,7 +29,7 @@ CREATE TABLE IF NOT EXISTS address_info(
 	street_name VARCHAR(50) NOT NULL,
     street_number SMALLINT NOT NULL,
     city VARCHAR(20) NOT NULL,
-    province VARCHAR(20) NOT NULL,
+    province VARCHAR(60) NOT NULL,
     postal_code VARCHAR(6) NOT NULL,
     country VARCHAR(20) NOT NULL,
 
@@ -43,16 +44,16 @@ FK = Address Info
 */
 CREATE TABLE IF NOT EXISTS hotel_chain (
 	chain_id VARCHAR(20) NOT NULL PRIMARY KEY,
-    chain_name VARCHAR(20)  NOT NULL,
+    chain_name VARCHAR(55)  NOT NULL,
     street_name VARCHAR(50) NOT NULL,
     street_number SMALLINT NOT NULL,
     city VARCHAR(20) NOT NULL,
-    province VARCHAR(20) NOT NULL,
+    province VARCHAR(60) NOT NULL,
     postal_code VARCHAR(6) NOT NULL,
     country VARCHAR(20) NOT NULL,
     num_of_hotels VARCHAR(20)  NOT NULL,
     phone_number VARCHAR(20)  NOT NULL,
-    email VARCHAR(20)  NOT NULL,
+    email VARCHAR(50)  NOT NULL,
     
 	FOREIGN KEY (street_name, street_number, postal_code) REFERENCES address_info(street_name, street_number, postal_code)
 );
@@ -72,21 +73,22 @@ CREATE TABLE IF NOT EXISTS hotel (
     street_name VARCHAR(50) NOT NULL,
     street_number SMALLINT NOT NULL,
     city VARCHAR(20) NOT NULL,
-    province VARCHAR(20) NOT NULL,
+    province VARCHAR(60) NOT NULL,
     postal_code VARCHAR(6) NOT NULL,
     country VARCHAR(20) NOT NULL,
-	manager_SSN VARCHAR(20) NOT NULL,
+	-- manager_SSN VARCHAR(20) , 
     num_of_rooms INT  NOT NULL,
     rating enum ('1','2','3','4','5')  NOT NULL,
-    email VARCHAR(20)  NOT NULL,
+    email VARCHAR(50)  NOT NULL,
     
     PRIMARY KEY(chain_id,hotel_id),
     
     FOREIGN KEY (chain_id) REFERENCES hotel_chain(chain_id),
 	FOREIGN KEY (street_name, street_number, postal_code) REFERENCES address_info(street_name, street_number, postal_code)
-    
-    -- FOREIGN KEY(manager_SSN) references employee(emp_SSN)
+
 );
+
+
 
 /*
 Hotel Phone Table
@@ -114,13 +116,13 @@ FK = chain_id, hotel_id, Address Info
 CREATE TABLE IF NOT EXISTS employee(
 	emp_SSN VARCHAR(20) NOT NULL PRIMARY KEY,
     first_name VARCHAR(20) NOT NULL,
-    middle_name VARCHAR(20) NOT NULL,
+    middle_name VARCHAR(20) ,
     last_name VARCHAR(20) NOT NULL,
     
     street_name VARCHAR(50) NOT NULL,
     street_number SMALLINT NOT NULL,
     city VARCHAR(20) NOT NULL,
-    province VARCHAR(20) NOT NULL,
+    province VARCHAR(60) NOT NULL,
     postal_code VARCHAR(6) NOT NULL,
     country VARCHAR(20) NOT NULL,
     
@@ -153,6 +155,24 @@ CREATE TABLE IF NOT EXISTS role(
 );
 
 /*
+Hotel Management Table
+PK = chain_id, hotel_id, manager_SSN
+FK = chain_id, hotel_id, manager_SSN
+
+*/
+CREATE TABLE IF NOT EXISTS hotel_management (
+	chain_id VARCHAR(20) NOT NULL,
+    hotel_id INT NOT NULL UNIQUE,
+    manager_SSN VARCHAR(20) NOT NULL UNIQUE, 
+    Foreign Key (chain_id,hotel_id) REFERENCES hotel(chain_id, hotel_id),
+    FOREIGN KEY(manager_SSN) references employee(emp_SSN),
+    
+    Primary Key (chain_id, hotel_id, manager_SSN)
+
+);
+
+
+/*
 Customer Table
 PK = customer_SSN
 FK = Address Info
@@ -160,12 +180,14 @@ FK = Address Info
 */
 CREATE TABLE IF NOT EXISTS customer(
 	customer_SSN VARCHAR(20)  NOT NULL PRIMARY KEY,
-    full_name VARCHAR(20)  NOT NULL,
-    email VARCHAR(20)  NOT NULL,
+    first_name VARCHAR(20) NOT NULL,
+    middle_name VARCHAR(20) ,
+    last_name VARCHAR(20) NOT NULL,
+    email VARCHAR(50)  NOT NULL,
     street_name VARCHAR(50) NOT NULL,
     street_number SMALLINT NOT NULL,
     city VARCHAR(20) NOT NULL,
-    province VARCHAR(20) NOT NULL,
+    province VARCHAR(60) NOT NULL,
     postal_code VARCHAR(6) NOT NULL,
     country VARCHAR(20) NOT NULL,
     joining_date DATE NOT NULL,
