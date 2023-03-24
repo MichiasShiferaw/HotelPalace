@@ -1,0 +1,74 @@
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: #25a5be;
+}
+
+.container{
+    width: 100%;
+    top: 100px;
+    background-color: #2596be;
+}
+.form{
+    
+   
+    display: flex;
+    
+    flex-direction: horizontal;
+    align-items: center;
+    justify-content: center;
+}
+
+.button{
+    display: block;
+    width: 115px;
+    height: 25px;
+    background: #2587be;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    line-height: 25px;
+
+    margin-left: 10px;
+
+    text-decoration: none;
+}
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2587be;
+    width: 100vw;
+    height: 10vh;
+
+    color: white;
+}
+
+.check-in-out{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin:20px;
+    padding:0;
+
+}
+.people{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin:20px;
+    padding:0;
+}
+
+.text{
+
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
