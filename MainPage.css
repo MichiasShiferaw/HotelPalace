@@ -68,6 +68,17 @@ body{
 
 .text{
 
+    margin-top: 10px;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.room_dropdown{
+    margin-left: 10px;
+}
+.room_text{
+    
     color: white;
     font-size: 14px;
     font-weight: bold;

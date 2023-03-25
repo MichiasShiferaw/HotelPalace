@@ -6,6 +6,7 @@ function displayAvailableRooms(property) {
     // Create and append the h2 element
     var roomDetailsHeading = document.createElement("h2");
     roomDetailsHeading.textContent = "Room "+property.roomNumber;
+   
     roomDetailsDiv.appendChild(roomDetailsHeading);
 
 
@@ -38,10 +39,13 @@ function displayAvailableRooms(property) {
 
 
 
-    roomDetailsDiv.style.backgroundColor = "white";
-    roomDetailsDiv.style.border = "1px solid black";
+    roomDetailsDiv.style.backgroundColor = "#25be8b";
+    roomDetailsDiv.style.border = "1px solid #2587be";
     roomDetailsDiv.style.padding = "10px";
     roomDetailsDiv.style.margin = "10px";
+    roomDetailsDiv.style.borderRadius = "5px";
+
+
 
     document.getElementById("available-rooms").appendChild(roomDetailsDiv);
 
