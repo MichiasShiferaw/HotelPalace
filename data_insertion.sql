@@ -348,3 +348,33 @@ VALUES (1,"single","mountain",TRUE),
 (15,"suite","sea",TRUE),
 (16,"suite","sea",FALSE)
 ;
+
+-- inserting rooms (using a while loop)
+-- while loop insertion reference: https://stackoverflow.com/questions/26981901/mysql-insert-with-while-loop
+-- variables reference: https://stackoverflow.com/questions/11754781/how-to-declare-a-variable-in-mysql
+drop procedure if exists insertRooms;
+DELIMITER //
+CREATE PROCEDURE insertRooms()
+BEGIN
+	DECLARE i INT DEFAULT 1;
+    SET @numOfHotels = (SELECT COUNT(*) FROM hotel);
+	WHILE (i <= @numOfHotels) DO -- there are 48 hotels currently
+		BEGIN
+			DECLARE j INT DEFAULT 1;
+            SELECT i;
+			SET @numRooms = (SELECT num_of_rooms FROM hotel WHERE hotel_id = i); -- get the number of rooms from each hotel
+			WHILE (j <= @numRooms) DO
+				SET @price = (SELECT RAND()*(200-1000)+1000); -- price is set randomly at the moment, but it will be changed to reflect
+                -- the amenities and rating the hotel offers
+                SET @room_category_id = (SELECT CONVERT((SELECT MOD(j, 16) + 1), CHAR)); -- each room will get a room category id from 1 to 16
+				INSERT INTO room(room_no, hotel_id, price, room_category_id, amenities, 
+				damages, last_updated)
+				VALUES (j, i, @price, @room_category_id, "smtg", "smtg", DEFAULT);
+				SET j = j + 1;
+			END WHILE;
+		SET i = i + 1;
+	END;
+END WHILE;
+END;
+
+CALL insertRooms(); -- call procedure to insert rooms
