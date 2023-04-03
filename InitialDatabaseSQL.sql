@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS hotel (
     	PRIMARY KEY(chain_id,hotel_id),
     
     	FOREIGN KEY (chain_id) REFERENCES hotel_chain(chain_id),
-		FOREIGN KEY (street_name, street_number, postal_code) REFERENCES address_info(street_name, street_number, postal_code)
+	FOREIGN KEY (street_name, street_number, postal_code) REFERENCES address_info(street_name, street_number, postal_code)
 
 );
 
@@ -134,8 +134,8 @@ CREATE TABLE IF NOT EXISTS employee(
     	password VARCHAR(20),
    	last_update DATE DEFAULT (CURRENT_DATE),
 	
-   	 Foreign Key (chain_id,hotel_id) REFERENCES hotel(chain_id, hotel_id),
-		FOREIGN KEY (street_name, street_number, postal_code) REFERENCES address_info(street_name, street_number, postal_code)
+   	FOREIGN KEY(chain_id,hotel_id) REFERENCES hotel(chain_id, hotel_id),
+	FOREIGN KEY (street_name, street_number, postal_code) REFERENCES address_info(street_name, street_number, postal_code)
     
 );
 
@@ -151,7 +151,7 @@ CREATE TABLE IF NOT EXISTS role(
     	name VARCHAR(20) NOT NULL,
     	salary DECIMAL(6,2) NOT NULL,
     
-    	Primary Key(emp_SSN, role_id),
+    	PRIMARY KEY(emp_SSN, role_id),
     
     	FOREIGN KEY(emp_SSN) REFERENCES employee(emp_SSN)
 );
@@ -169,7 +169,7 @@ CREATE TABLE IF NOT EXISTS hotel_management (
     	Foreign Key (chain_id,hotel_id) REFERENCES hotel(chain_id, hotel_id),
     	FOREIGN KEY(manager_SSN) references employee(emp_SSN),
     
-    	Primary Key (chain_id, hotel_id, manager_SSN)
+    	PRIMARY KEY (chain_id, hotel_id, manager_SSN)
 
 );
 
