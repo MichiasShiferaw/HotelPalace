@@ -43,7 +43,7 @@ VALUES ('Wilshire Boulevard', 9500, 'Beverly Hills', 'California', '90212', 'USA
 ('Saskatchewan Drive', 1919, 'Regina', 'Saskatchewan', 'S4P4H2', 'Canada'), -- Delta Hotels
 ('Boul Du Royaume', 2675, 'Jonquiere', 'Quebec', 'G7S5B8', 'Canada'), -- Delta Hotels
 ('Williston Road', 1117, 'South Burlington', 'Vermont', '05403', 'USA'), -- Delta Hotels
-('Kenmount Road', 227, 'St. John's', 'Newfoundland and Labrador', 'A1B3P9', 'Canada'), -- Sandman Hotel Group
+('Kenmount Road', 227, 'St. Johns', 'Newfoundland and Labrador', 'A1B3P9', 'Canada'), -- Sandman Hotel Group
 ('SE Frontage Road', 1051, 'McBride', 'British Columbia', 'V0J2E0', 'Canada'), -- Sandman Hotel Group
 ('Rue de Serigny', 999, 'Longueuil', 'Quebec', 'J4K2T1', 'Canada'), -- Sandman Hotel Group
 ('Gaetz Avenue', 2818, 'Red Deer', 'Alberta', 'T4R1M4', 'Canada'), -- Sandman Hotel Group
@@ -61,7 +61,7 @@ VALUES ('Wilshire Boulevard', 9500, 'Beverly Hills', 'California', '90212', 'USA
 ('Brighton Road', 15151, 'Brighton', 'Colorado', '80601', 'USA'), -- Best Western
 ('Middleton Ave.', 925, 'Brandon', 'Manitoba', 'R7C1A8', 'Canada'), -- Choice Hotels
 ('Mountain Rd.', 2495, 'Moncton', 'New Brunswick', 'E1G2W4', 'Canada'), -- Choice Hotels
-('Airport Road', 106, 'St. John's', 'Newfoundland and Labrador', 'A1A4Y3', 'Canada'), -- Choice Hotels
+('Airport Road', 106, 'St. Johns', 'Newfoundland and Labrador', 'A1A4Y3', 'Canada'), -- Choice Hotels
 ('South Albion St.', 143, 'Amherst', 'Nova Scotia', 'B4H2X2', 'Canada'), -- Choice Hotels
 ('Perkins Rd.', 72, 'Londonderry', 'New Hampshire', '03053', 'USA'), -- Choice Hotels
 ('Industrial Rd.', 1315, 'Nampa', 'Idaho', '83687', 'USA'), -- Choice Hotels
@@ -108,7 +108,7 @@ VALUES ('FSHR', 1, 'Beverly Wilshire, A Four Seasons Hotel', 'Wilshire Boulevard
 'jonquiere@deltahotels.com'),
 ('DH', 16, 'Delta Hotels by Marriott Burlington', 'Williston Road', 1117, 'South Burlington', 'Vermont', '05403', 'USA', 722, 3, 
 'southburlington@deltahotels.com'),
-('SHG', 17, 'Sandman Signature St. John's Hotel', 'Kenmount Road', 227, 'St. John's', 'Newfoundland and Labrador', 'A1B3P9', 'Canada', 611, 2, 
+('SHG', 17, 'Sandman Signature St. Johns Hotel', 'Kenmount Road', 227, 'St. Johns', 'Newfoundland and Labrador', 'A1B3P9', 'Canada', 611, 2, 
 'stjohns@sandmanhotels.com'),
 ('SHG', 18, 'Sandman Inn McBride', 'SE Frontage Road', 1051, 'McBride', 'British Columbia', 'V0J2E0', 'Canada', 889, 2, 'mcbride@sandmanhotels.com'),
 ('SHG', 19, 'Sandman Hotel Montreal-Longueuil', 'Rue de Serigny', 999, 'Longueuil', 'Quebec', 'J4K2T1', 'Canada', 674, 3, 'longeuil@sandmanhotels.com'),
@@ -139,7 +139,7 @@ VALUES ('FSHR', 1, 'Beverly Wilshire, A Four Seasons Hotel', 'Wilshire Boulevard
 'brighton@bestwestern.com'),
 ('CH', 33, 'Comfort Inn', 'Middleton Ave.', 925, 'Brandon', 'Manitoba', 'R7C1A8', 'Canada', 715, 2, 'brandon@choicehotels.com'),
 ('CH', 34, 'Comfort Inn Magnetic Hill', 'Mountain Rd.', 2495, 'Moncton', 'New Brunswick', 'E1G2W4', 'Canada', 568, 2, 'moncton@choicehotels.com'),
-('CH', 35, 'Comfort Hotel St. John's', 'Airport Road', 106, 'St. John's', 'Newfoundland and Labrador', 'A1A4Y3', 'Canada', 641, 3, 
+('CH', 35, 'Comfort Hotel St. Johns', 'Airport Road', 106, 'St. Johns', 'Newfoundland and Labrador', 'A1A4Y3', 'Canada', 641, 3, 
 'stjohns@choicehotels.com'),
 ('CH', 36, 'Comfort Inn', 'South Albion St.', 143, 'Amherst', 'Nova Scotia', 'B4H2X2', 'Canada', 844, 2, 
 'amherst@choicehotels.com'),
@@ -397,3 +397,29 @@ END WHILE;
 END;
 
 CALL insertRooms(); -- call procedure to insert rooms
+
+-- insert sample customer addresses
+INSERT INTO address_info VALUES
+('Main','2','Ottawa','Ontario', 'K5J132','Canada'),
+('Oak', '20725', 'Mont-Laurier', 'Quebec', 'J9L', 'Canada'),
+('Morning', '1', 'Columbia', 'South Carolina', '29220', 'USA'),
+('Golf View', '0', 'Greensboro', 'North Carolina', '27455', 'USA'),
+('Chive', '53', 'Taber', 'Alberta', 'T1G', 'Canada'),
+('Debs', '5811', 'Greensboro', 'North Carolina', '27455', 'USA'),
+('2nd', '7455', 'Tyler', 'Texas', '75799', 'USA'),
+('Waxwing', '4', 'Charlton', 'England', 'OX12', 'United Kingdom'),
+('Fuller', '15', 'Pinellas Park', 'Florida', '34665', 'USA'),
+('Superior', '9750', 'Baton Rouge', 'Louisana', '70894', 'USA')
+;
+
+-- insert sample customers
+INSERT INTO customer VALUES
+('420597022', 'Mychal', '', 'Skene', 'mskene0@elpais.com', 'Oak', '20725', 'Mont-Laurier', 'Quebec', 'J9L', 'Canada', '2018-07-01', '1658980194', '19W5w3QzQw7', '2021-05-12'),
+('7144471564', 'Heddi', 'S', 'Sully', 'hsully1@bloglines.com', 'Morning', '1', 'Columbia', 'South Carolina', '29220', 'USA', '2014-08-25', '8033911303', 'QsjZ2dl2Dr', '2022-05-01'),
+('6547484883', 'Richard', 'C', 'Dinning', 'rdinning2@mail.ru', 'Golf View', '0', 'Greensboro', 'North Carolina', '27455', 'USA', '2006-06-16', '3361795408', 'TnHh9cNF9uK', '2021-08-20'),
+('1940676299', 'Ailis', 'P', 'Guyonnet', 'aguyonnet3@cornell.edu', 'Chive', '53', 'Taber', 'Alberta', 'T1G', 'Canada', '2005-03-07', '3998041873', 'Pd1ejp4pGZ', '2021-11-24'),
+('6095010242', 'Mildrid', '', 'Snawdon', 'msnawdon4@noaa.gov', 'Debs', '5811', 'Greensboro', 'North Carolina', '27455', 'USA', '2017-02-26', '9101456774', 'tPrLZamfv', '2022-10-21'),
+('91025231', 'Asher', 'D', 'Comiskey', 'acomiskey5@washingtonpost.com', '2nd', '7455', 'Tyler', 'Texas', '75799', 'USA', '2009-04-14', '9036676181', 'DbYZBzJ3kTFl', '2021-08-17'),
+('7547180821', 'Olav', 'L', 'Sivil', 'osivil6@yolasite.com', 'Waxwing', '4', 'Charlton', 'England', 'OX12', 'United Kingdom', '2007-09-25', '8969046171', 'HI3A07kZz7', '2022-08-02'),
+('7376156276', 'Cordy', '0', 'Muffin', 'cmuffin7@macromedia.com', 'Fuller', '15', 'Pinellas Park', 'Florida', '34665', 'USA', '2010-06-17', '3212852635', 'OJzctEczHXX', '2022-07-26'),
+('3781140005', 'Reeta', 'S', 'Gemlbett', 'rgemlbett8@psu.edu', 'Superior', '9750', 'Baton Rouge', 'Louisana', '70894', 'USA', '2009-05-29', '2254751575', '3MijsbU7HG', '2022-09-15');
