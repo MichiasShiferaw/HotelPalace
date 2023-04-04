@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
-import AddRestaurants from "../components/AddRestaurants";
-import RestaurantList from "../components/RestaurantList";
+
 
 const Home = () => {
   return (
@@ -19,8 +18,6 @@ const Home = () => {
           <button type="button" className="btn btn-secondary">Primary</button>
         <div>
           <Header/>
-          <AddRestaurants/>
-          <RestaurantList/>
         </div>
         
         <h1>Stays near you</h1>

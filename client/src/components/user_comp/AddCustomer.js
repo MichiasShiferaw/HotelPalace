@@ -63,7 +63,7 @@ const AddCustomers = () => {
               onChange={(e) => setCustomer_SSN(e.target.value)}
               type="text"
               className="form-control"
-              placeholder="street name"
+              placeholder="Customer SSN"
             />
           </div>
           <div className="col">
@@ -72,7 +72,7 @@ const AddCustomers = () => {
               onChange={(e) => setFirst_Name(e.target.value)}
               type="text"
               className="form-control"
-              placeholder="street name"
+              placeholder="First Name"
             />
           </div>{" "}
           <div className="col">
@@ -81,7 +81,7 @@ const AddCustomers = () => {
               onChange={(e) => setMiddle_Name(e.target.value)}
               type="text"
               className="form-control"
-              placeholder="street name"
+              placeholder="Middle Name"
             />
           </div>{" "}
           <div className="col">
@@ -90,7 +90,7 @@ const AddCustomers = () => {
               onChange={(e) => setLast_Name(e.target.value)}
               type="text"
               className="form-control"
-              placeholder="street name"
+              placeholder="Last Name"
             />
           </div>
           <div className="col">
@@ -99,7 +99,7 @@ const AddCustomers = () => {
               onChange={(e) => setEmail(e.target.value)}
               type="text"
               className="form-control"
-              placeholder="street name"
+              placeholder="Email"
             />
           </div>
           <div className="col">
@@ -144,7 +144,7 @@ const AddCustomers = () => {
               onChange={(e) => setPc(e.target.value)}
               type="text"
               className="form-control"
-              placeholder="PC"
+              placeholder="Postal Code"
             />
           </div>
           <div className="col">
@@ -165,7 +165,7 @@ const AddCustomers = () => {
               onChange={(e) => setJoining_Date(e.target.value)}
               type="text"
               className="form-control"
-              placeholder="country"
+              placeholder="Joining Date"
             />
           </div>
           <div className="col">
@@ -174,7 +174,7 @@ const AddCustomers = () => {
               onChange={(e) => setPhone_Number(e.target.value)}
               type="text"
               className="form-control"
-              placeholder="country"
+              placeholder="Phone Number"
             />
           </div>
           <div className="col">
@@ -183,7 +183,7 @@ const AddCustomers = () => {
               onChange={(e) => setPassword(e.target.value)}
               type="text"
               className="form-control"
-              placeholder="country"
+              placeholder="Password"
             />
           </div>
           <div className="col">
@@ -192,7 +192,7 @@ const AddCustomers = () => {
               onChange={(e) => setLast_Updated(e.target.value)}
               type="text"
               className="form-control"
-              placeholder="country"
+              placeholder="Last Updated"
             />
           </div>
           <button

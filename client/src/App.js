@@ -10,11 +10,8 @@ import {
 import Rooms from "./pages/Rooms";
 import SingleRoom from "./pages/SingleRoom";
 import Home from "./pages/Home";
-import AddRestaurants from "./components/AddRestaurants";
-import RestaurantDetailPage from "./pages/RestaurantDetailPage";
-import { RestaurantsContextProvider } from "./context/RestaurantsContext";
 import { CustomersContextProvider } from "./context/CustomersContext";
-import UpdatePage from "./pages/UpdatePage";
+import UpdatePage from "./components/user_comp/UpdateCustomer";
 import MainHome from "./pages/MainHome";
 import Error from "./pages/Error";
 import HotelPage from "./pages/HotelPage";
@@ -26,6 +23,7 @@ import CustomerList from "./components/employees_comp/CustomerList";
 import StaffList from "./components/employees_comp/StaffList";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
+import UserDetailPage from "./components/user_comp/UserDetailPage";
 function App() {
   return (
     <CustomersContextProvider>
@@ -44,12 +42,12 @@ function App() {
 
             <Route
               exact
-              path="/restaurants/:id"
-              Component={RestaurantDetailPage}
+              path="view-customers/:id"
+              Component={UserDetailPage}
             />
             <Route
               exact
-              path="/restaurants/:id/update"
+              path="/view-customers/:id/update"
               Component={UpdatePage}
             />
 
@@ -57,7 +55,10 @@ function App() {
               <Route path="dashboard" Component={Dashboard} />
               <Route path="calendar" Component={Calendar} />
               <Route path="booking" Component={Booking} />
-              <Route path="view-customers" Component={CustomerList} />
+              <Route path="view-customers" Component={CustomerList}>
+                <Route path=":customer_ssn" Component={UserDetailPage} />
+                <Route path=":customer_ssn/update" Component={UpdatePage} />
+              </Route>
               <Route path="view-staff" Component={StaffList} />
             </Route>
 

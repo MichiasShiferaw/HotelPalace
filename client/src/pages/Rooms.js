@@ -3,7 +3,7 @@ import Header from '../components/Header';
 
 const Rooms = () => {
   return (
-    <div>Rooms Your Mom
+    <div>Rooms Page
       <Header/>
     </div>
   )

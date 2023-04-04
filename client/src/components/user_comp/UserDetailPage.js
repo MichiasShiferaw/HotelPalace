@@ -1,14 +1,12 @@
 import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { CustomerContext } from "../context/CustomerContext";
-import CustomerFinder from "../apis/CustomerFinder";
-
-import React from "react";
+import { CustomersContext } from "../../context/CustomersContext";
+import CustomerFinder from "../../apis/CustomerFinder";
 
 const UserDetailPage = () => {
   const { id } = useParams();
   const { selectedCustomer, setSelectedCustomer } =
-    useContext(CustomerContext);
+    useContext(CustomersContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,12 +24,19 @@ const UserDetailPage = () => {
   }, []);
   return (
     <div>
-      <h1>Hi</h1>
-      <h2>Yo</h2>
       {/* <h3>{selectedCustomer.street_number}</h3> */}
       {selectedCustomer && (
         <>
-          <h1 className="text-center display-1">
+          <h2 className="text-center">
+            User Customer: {selectedCustomer.customer.customer_ssn}
+          </h2>
+          <h3 className="text-center display-3">
+            {selectedCustomer.customer.first_name},{" "}
+            {selectedCustomer.customer.middle_name},{" "}
+            {selectedCustomer.customer.last_name},{" "}
+          </h3>
+          <h1 className="text-center display-4">
+            User Address:
             {selectedCustomer.customer.street_number}{" "}
             {selectedCustomer.customer.street_name}
           </h1>
@@ -41,6 +46,14 @@ const UserDetailPage = () => {
             {selectedCustomer.customer.postal_code},{" "}
             {selectedCustomer.customer.country}
           </h1>
+
+          <hr />
+
+          {/* <h4 className="text-center display-5">
+            {selectedCustomer.customer.last_updated},{" "}
+            {selectedCustomer.customer.phone_number},{" "}
+
+          </h4> */}
         </>
       )}
     </div>
