@@ -3,10 +3,11 @@ import Navbar from '../components/Navbar'
 
 const HotelPage = () => {
   return (
-    <div>HotelPage1
-        <Navbar/>
+    <div>
+      <Navbar />
+      Hotel Home Page
     </div>
-  )
+  );
 }
 
 export default HotelPage

@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { CustomersContext } from "../../context/CustomersContext";
 import CustomerFinder from "../../apis/CustomerFinder";
 import { useNavigate } from "react-router-dom";
+import AddCustomers from "../user_comp/AddCustomer";
 
 
 
@@ -41,11 +42,11 @@ const CustomerList = () => {
 
       const handleUpdate = (e, id) => {
         e.stopPropagation();
-        // history(`/restaurants/${id}/update`);
+        history(`/view-customers/${id}/update`);
       };
 
       const handleCustomerSelect = (id) => {
-        // history(`/restaurants/${id}`);
+        history(`/view-customers/${id}`);
       };
   return (
     <>
@@ -94,6 +95,16 @@ const CustomerList = () => {
                     <td>{el.last_updated}</td>
                     <td>
                       <button
+                        onClick={(e) => handleUpdate(e, el.customer_ssn)}
+                        // onClick={(e) => handleUpdate(e, el.customer_ssn)}
+                        className="btn btn-primary"
+                      >
+                        Update
+                      </button>
+                    </td>
+
+                    <td>
+                      <button
                         onClick={() => handleCustomerSelect(el.customer_ssn)}
                         // onClick={(e) => handleUpdate(e, el.customer_ssn)}
                         className="btn btn-secondary"
@@ -116,6 +127,9 @@ const CustomerList = () => {
           </tbody>
         </table>
       </div>
+      <hr/>
+      <h3>Add a Customer</h3>
+      <AddCustomers/>
     </>
   );
 };
