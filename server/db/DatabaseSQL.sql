@@ -226,7 +226,7 @@ FK = hotel_id, room_category_id
 CREATE TABLE IF NOT EXISTS room(
 	room_no VARCHAR(20) NOT NULL,
     hotel_id INT NOT NULL,
-    price DECIMAL(5,2) NOT NULL,
+    price DECIMAL(6,2) NOT NULL,
     room_category_id VARCHAR(20) NOT NULL,
     amenities VARCHAR(50)  NOT NULL,
     damages VARCHAR(50)  NOT NULL,
