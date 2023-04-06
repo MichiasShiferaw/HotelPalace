@@ -1,12 +1,12 @@
 # CSI2132 Database Project
 
-## Table of contents
+## Table of Contents
 
 - [General info](#general-info)
 - [Technologies](#technologies)
 - [Setup](#setup)
 
-## General info
+## General Info
 
 Objective is to prepare an application that will allow their customers to easily book rooms in their hotels, seeing room availability in real time.
 
