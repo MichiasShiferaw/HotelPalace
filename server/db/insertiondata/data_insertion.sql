@@ -401,7 +401,7 @@ BEGIN
 		SET @manager_SSN = (SELECT manager_SSN FROM hotel_management WHERE hotel_id = i); -- loop through all managers in hotel_management relation
             
 		SET @salary = (SELECT RAND()*(200-9999)+9999); -- randomize salary between $200 to $9999
-		INSERT INTO role(emp_SSN, role_id, name, salary) VALUES (@manager_SSN, i, 'Manager', @salary);
+		INSERT INTO role(emp_SSN, role_id, name, salary) VALUES (@manager_SSN, 1, 'Manager', @salary);
 		SET i = i + 1;
 	END WHILE;
 END;
