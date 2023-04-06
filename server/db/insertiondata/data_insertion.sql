@@ -329,17 +329,6 @@ VALUES ('FSHR', 1, 123456789),
 ('MI', 48, 986197593)
 ;
 
--- inserting roles
--- while loop insertion reference: https://stackoverflow.com/questions/26981901/mysql-insert-with-while-loop
--- variables reference: https://stackoverflow.com/questions/11754781/how-to-declare-a-variable-in-mysql
-drop procedure if exists insertRoles;
-DELIMITER //
-CREATE PROCEDURE insertRoles()
-BEGIN
-	DECLARE i INT DEFAULT 1;
-    SET @numOfEmployees = (SELECT COUNT(*) FROM employee);
-    WHILE (i <= numOfEmployees) DO
-
 -- inserting room categories
 INSERT INTO room_category(room_category_id, capacity, view, is_extendable)
 VALUES (1,'single','mountain',TRUE),
@@ -397,6 +386,36 @@ END WHILE;
 END;
 
 CALL insertRooms(); -- call procedure to insert rooms
+
+-- inserting managers into roles
+-- while loop insertion reference: https://stackoverflow.com/questions/26981901/mysql-insert-with-while-loop
+-- variables reference: https://stackoverflow.com/questions/11754781/how-to-declare-a-variable-in-mysql
+-- concatenation reference: https://www.w3schools.com/sql/func_mysql_concat.asp
+drop procedure if exists insertManagers;
+DELIMITER //
+CREATE PROCEDURE insertManagers()
+BEGIN
+	DECLARE i INT DEFAULT 1;
+    SET @numOfManagers = (SELECT COUNT(*) FROM hotel_management);
+    WHILE (i <= @numOfManagers) DO 
+		SET @manager_SSN = (SELECT manager_SSN FROM hotel_management WHERE hotel_id = i); -- loop through all managers in hotel_management relation
+        SET @first_name = (SELECT first_name FROM employee WHERE emp_SSN = @manager_SSN);
+		SET @middle_name = (SELECT middle_name FROM employee WHERE emp_SSN = @manager_SSN);
+        SET @last_name = (SELECT last_name FROM employee WHERE emp_SSN = @manager_SSN);
+            
+		SELECT CASE -- concatenate first, middle, and last name into a full name
+			WHEN @middle_name IS NULL THEN (SELECT CONCAT(@first_name, ' ', @last_name)) -- if middle name is null, set full name to concatenation of first and last name
+			ELSE (SELECT CONCAT(@first_name, ' ', @middle_name, ' ', @last_name)) -- otherwise, concatenate first, middle, and last name
+		END
+		INTO @full_name;
+            
+		SET @salary = (SELECT RAND()*(200-9999)+9999); -- randomize salary between $200 to $9999
+		INSERT INTO role(emp_SSN, role_id, name, salary) VALUES (@manager_SSN, i, @full_name, @salary);
+		SET i = i + 1;
+	END WHILE;
+END;
+
+CALL insertManagers(); -- call procedure to insert managers into role relation
 
 -- insert sample customer addresses
 INSERT INTO address_info VALUES
