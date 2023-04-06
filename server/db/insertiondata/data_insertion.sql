@@ -399,18 +399,9 @@ BEGIN
     SET @numOfManagers = (SELECT COUNT(*) FROM hotel_management);
     WHILE (i <= @numOfManagers) DO 
 		SET @manager_SSN = (SELECT manager_SSN FROM hotel_management WHERE hotel_id = i); -- loop through all managers in hotel_management relation
-        SET @first_name = (SELECT first_name FROM employee WHERE emp_SSN = @manager_SSN);
-		SET @middle_name = (SELECT middle_name FROM employee WHERE emp_SSN = @manager_SSN);
-        SET @last_name = (SELECT last_name FROM employee WHERE emp_SSN = @manager_SSN);
-            
-		SELECT CASE -- concatenate first, middle, and last name into a full name
-			WHEN @middle_name IS NULL THEN (SELECT CONCAT(@first_name, ' ', @last_name)) -- if middle name is null, set full name to concatenation of first and last name
-			ELSE (SELECT CONCAT(@first_name, ' ', @middle_name, ' ', @last_name)) -- otherwise, concatenate first, middle, and last name
-		END
-		INTO @full_name;
             
 		SET @salary = (SELECT RAND()*(200-9999)+9999); -- randomize salary between $200 to $9999
-		INSERT INTO role(emp_SSN, role_id, name, salary) VALUES (@manager_SSN, i, @full_name, @salary);
+		INSERT INTO role(emp_SSN, role_id, name, salary) VALUES (@manager_SSN, i, 'Manager', @salary);
 		SET i = i + 1;
 	END WHILE;
 END;
