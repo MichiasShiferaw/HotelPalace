@@ -12,16 +12,16 @@ VALUES ('Leslie St', 1165, 'North York', 'Ontario', 'M3C2K8', 'Canada'), -- Four
 INSERT INTO hotel_chain (chain_id, chain_name, street_name, street_number, city, province, postal_code, country, 
 num_of_hotels, phone_number, email) 
 VALUES ('FSHR', 'Four Seasons Hotel and Resorts', 'Leslie St', 1165, 'North York', 'Ontario', 'M3C2K8', 'Canada', 
-118, '(416) 449-1750', 'contact@fourseasons.com'),
-('DH', 'Delta Hotels', 'King Street W', 77, 'Toronto', 'Ontario', 'M5K1G8', 'Canada', 90, '(416) 874-2000', 
+118, '4164491750', 'contact@fourseasons.com'),
+('DH', 'Delta Hotels', 'King Street W', 77, 'Toronto', 'Ontario', 'M5K1G8', 'Canada', 90, '416742000', 
 'contact@deltahotels.com'),
 ('SHG', 'Sandman Hotel Group', 'West Broadway', 310, 'Vancouver', 'British Columbia', 'V6J4S5', 'Canada',
-45, '(604) 730-6600', 'info@sandman.ca'),
-('BW', 'Best Western', 'N. 24th Parkway', 6201, 'Phoenix', 'Arizona', '85016', 'USA', 4700, '1(800) 780-7234',
+45, '6047306600', 'info@sandman.ca'),
+('BW', 'Best Western', 'N. 24th Parkway', 6201, 'Phoenix', 'Arizona', '85016', 'USA', 4700, '8007807234',
 'contact@bestwestern.com'),
-('CH', 'Choice Hotels', 'Choice Hotels Cir', 1, 'Rockville', 'Maryland', '20850', 'USA', 7118, '1 (877) 424-6423',
+('CH', 'Choice Hotels', 'Choice Hotels Cir', 1, 'Rockville', 'Maryland', '20850', 'USA', 7118, '8774246423',
 'contact@choicehotels.com'),
-('MI', 'Marriott International', 'Wisconsin Ave', 7750, 'Bethesda', 'Maryland', '20814', 'USA', 8484, '(301) 380-3000',
+('MI', 'Marriott International', 'Wisconsin Ave', 7750, 'Bethesda', 'Maryland', '20814', 'USA', 8484, '3013803000',
 'customer.care.resolution@marriott.com')
 ;
 
@@ -330,7 +330,7 @@ VALUES ('FSHR', 1, 123456789),
 ;
 
 -- inserting room categories
-INSERT INTO room_category(room_category_id, capacity, view, is_extendable)
+INSERT INTO room_category(room_category_id, room_capacity, room_view, is_extendable)
 VALUES (1,'single','mountain',TRUE),
 (2,'single','mountain',FALSE),
 (3,'single','sea',TRUE),
@@ -365,13 +365,13 @@ BEGIN
 			WHILE (j <= @numRooms) DO
                 -- the amenities and rating the hotel offers
                 SET @room_category_id = (SELECT CONVERT((SELECT MOD(j, 16) + 1), CHAR)); -- each room will get a room category id from 1 to 16
-                -- sets the price based on the capacity of the room category
+                -- sets the price based on the room_capacity of the room category
                 -- select case reference: https://stackoverflow.com/questions/7871014/mysql-storing-a-variable-with-the-result-of-an-select-case
-                SET @capacity = (SELECT capacity FROM room_category WHERE room_category_id = @room_category_id);
+                SET @room_capacity = (SELECT room_capacity FROM room_category WHERE room_category_id = @room_category_id);
                 SELECT CASE
-                    WHEN @capacity = 'single' THEN (SELECT RAND()*(100-200)+200)
-                    WHEN @capacity = 'double' THEN (SELECT RAND()*(200-400)+400)
-                    WHEN @capacity = 'deluxe' THEN (SELECT RAND()*(500-700)+700)
+                    WHEN @room_capacity = 'single' THEN (SELECT RAND()*(100-200)+200)
+                    WHEN @room_capacity = 'double' THEN (SELECT RAND()*(200-400)+400)
+                    WHEN @room_capacity = 'deluxe' THEN (SELECT RAND()*(500-700)+700)
                     ELSE (SELECT RAND()*(800-1200)+1200)
                 END
                 INTO @price;
@@ -442,3 +442,246 @@ INSERT INTO customer VALUES
 ('7547180821', 'Olav', 'L', 'Sivil', 'osivil6@yolasite.com', 'Waxwing', '4', 'Charlton', 'England', 'OX12', 'United Kingdom', '2007-09-25', '8969046171', 'HI3A07kZz7', '2022-08-02'),
 ('7376156276', 'Cordy', '0', 'Muffin', 'cmuffin7@macromedia.com', 'Fuller', '15', 'Pinellas Park', 'Florida', '34665', 'USA', '2010-06-17', '3212852635', 'OJzctEczHXX', '2022-07-26'),
 ('3781140005', 'Reeta', 'S', 'Gemlbett', 'rgemlbett8@psu.edu', 'Superior', '9750', 'Baton Rouge', 'Louisana', '70894', 'USA', '2009-05-29', '2254751575', '3MijsbU7HG', '2022-09-15');
+
+
+
+INSERT INTO hotel_phone VALUES
+(1, '2392324395', 'Management'),
+(1, '5217329872', 'Human Resources'),
+(1, '3743431110', 'Developers'),
+(1, '8716641420', 'Caretakers'),
+
+(2, '1819338666', 'Management'),
+(2, '3818721229', 'Human Resources'),
+(2, '9171963431', 'Developers'),
+(2, '2068669315', 'Caretakers'),
+
+(3, '6809958891', 'Management'),
+(3, '6742776024', 'Human Resources'),
+(3, '9878157460', 'Developers'),
+(3, '1977374060', 'Caretakers'),
+
+(4, '3323010162', 'Management'),
+(4, '3149835593', 'Human Resources'),
+(4, '5195563718', 'Developers'),
+(4, '6609787467', 'Caretakers'),
+
+(5, '8443207515', 'Management'),
+(5, '5372683030', 'Human Resources'),
+(5, '9246459200', 'Developers'),
+(5, '2227671509', 'Caretakers'),
+
+(6, '3793025279', 'Management'),
+(6, '2865562276', 'Human Resources'),
+(6, '1749332703', 'Developers'),
+(6, '3768618673', 'Caretakers'),
+
+(7, '1911547351', 'Management'),
+(7, '5629515611', 'Human Resources'),
+(7, '3033552676', 'Developers'),
+(7, '8963718862', 'Caretakers'),
+
+(8, '2617549486', 'Management'),
+(8, '3554803226', 'Human Resources'),
+(8, '7058511619', 'Developers'),
+(8, '3197071340', 'Caretakers'),
+
+(9, '8153687056', 'Management'),
+(9, '4611394852', 'Human Resources'),
+(9, '8178317070', 'Developers'),
+(9, '6627839590', 'Caretakers'),
+
+(10, '8085382021', 'Management'),
+(10, '3595090090', 'Human Resources'),
+(10, '9841759919', 'Developers'),
+(10, '3778256851', 'Caretakers'),
+
+(11, '8554569794', 'Management'),
+(11, '6713871189', 'Human Resources'),
+(11, '3366730961', 'Developers'),
+(11, '2508004568', 'Caretakers'),
+
+(12, '5008684810', 'Management'),
+(12, '1655995169', 'Human Resources'),
+(12, '1177081051', 'Developers'),
+(12, '1404007772', 'Caretakers'),
+
+(13, '3413597133', 'Management'),
+(13, '6679684175', 'Human Resources'),
+(13, '4949671331', 'Developers'),
+(13, '2417450225', 'Caretakers'),
+
+(14, '7332162859', 'Management'),
+(14, '1532001912', 'Human Resources'),
+(14, '9776159195', 'Developers'),
+(14, '7838974588', 'Caretakers'),
+
+(15, '4243692490', 'Management'),
+(15, '2287218524', 'Human Resources'),
+(15, '1042410435', 'Developers'),
+(15, '6824951998', 'Caretakers'),
+
+(16, '8664978799', 'Management'),
+(16, '5775171766', 'Human Resources'),
+(16, '2182745091', 'Developers'),
+(16, '4156201906', 'Caretakers'),
+
+(17, '9952896549', 'Management'),
+(17, '3621763743', 'Human Resources'),
+(17, '7552602989', 'Developers'),
+(17, '4692725989', 'Caretakers'),
+
+(18, '4054128117', 'Management'),
+(18, '4141026145', 'Human Resources'),
+(18, '5707146008', 'Developers'),
+(18, '3897771334', 'Caretakers'),
+
+(19, '4521760546', 'Management'),
+(19, '6953176180', 'Human Resources'),
+(19, '1462656959', 'Developers'),
+(19, '5593451022', 'Caretakers'),
+
+(20, '5533762229', 'Management'),
+(20, '2557203983', 'Human Resources'),
+(20, '1527425737', 'Developers'),
+(20, '5884375877', 'Caretakers'),
+
+(21, '4056679359', 'Management'),
+(21, '6387335398', 'Human Resources'),
+(21, '5571823578', 'Developers'),
+(21, '3125137381', 'Caretakers'),
+
+(22, '7276632194', 'Management'),
+(22, '1731524666', 'Human Resources'),
+(22, '3818064051', 'Developers'),
+(22, '2986381908', 'Caretakers'),
+
+(23, '2205788226', 'Management'),
+(23, '8641612277', 'Human Resources'),
+(23, '4788654581', 'Developers'),
+(23, '2747306402', 'Caretakers'),
+
+(24, '7061233470', 'Management'),
+(24, '3744991041', 'Human Resources'),
+(24, '1697373427', 'Developers'),
+(24, '6416969239', 'Caretakers'),
+
+(25, '6147235427', 'Management'),
+(25, '3922460816', 'Human Resources'),
+(25, '5123189331', 'Developers'),
+(25, '1114951392', 'Caretakers'),
+
+(26, '8826113755', 'Management'),
+(26, '3625282092', 'Human Resources'),
+(26, '6849916167', 'Developers'),
+(26, '9991060881', 'Caretakers'),
+
+(27, '5554196084', 'Management'),
+(27, '5708062472', 'Human Resources'),
+(27, '8187655437', 'Developers'),
+(27, '1197931246', 'Caretakers'),
+
+(28, '4014850984', 'Management'),
+(28, '5632542099', 'Human Resources'),
+(28, '2094106370', 'Developers'),
+(28, '2602535070', 'Caretakers'),
+
+(29, '9155067059', 'Management'),
+(29, '5929693589', 'Human Resources'),
+(29, '7301971292', 'Developers'),
+(29, '1975188593', 'Caretakers'),
+
+(30, '7041616423', 'Management'),
+(30, '6817595035', 'Human Resources'),
+(30, '2195962694', 'Developers'),
+(30, '8212520545', 'Caretakers'),
+
+(31, '4533731494', 'Management'),
+(31, '7419507181', 'Human Resources'),
+(31, '6718141299', 'Developers'),
+(31, '2495757511', 'Caretakers'),
+
+(32, '5769268997', 'Management'),
+(32, '7457273342', 'Human Resources'),
+(32, '4751788564', 'Developers'),
+(32, '6481281289', 'Caretakers'),
+
+(33, '8115223868', 'Management'),
+(33, '9582911322', 'Human Resources'),
+(33, '4561548265', 'Developers'),
+(33, '5541871128', 'Caretakers'),
+
+(34, '2444017110', 'Management'),
+(34, '6696400996', 'Human Resources'),
+(34, '5254979593', 'Developers'),
+(34, '8125256813', 'Caretakers'),
+
+(35, '6405360309', 'Management'),
+(35, '1956081432', 'Human Resources'),
+(35, '8437599798', 'Developers'),
+(35, '9681398390', 'Caretakers'),
+
+(36, '4899646146', 'Management'),
+(36, '6754595488', 'Human Resources'),
+(36, '2579852015', 'Developers'),
+(36, '5131918191', 'Caretakers'),
+
+(37, '8253789096', 'Management'),
+(37, '5205830164', 'Human Resources'),
+(37, '4905691307', 'Developers'),
+(37, '1849091028', 'Caretakers'),
+
+(38, '3734351292', 'Management'),
+(38, '8616650780', 'Human Resources'),
+(38, '4551554350', 'Developers'),
+(38, '2489358624', 'Caretakers'),
+
+(39, '5101922455', 'Management'),
+(39, '2938508917', 'Human Resources'),
+(39, '7929510359', 'Developers'),
+(39, '8844872989', 'Caretakers'),
+
+(40, '8401129575', 'Management'),
+(40, '7832469414', 'Human Resources'),
+(40, '7778047205', 'Developers'),
+(40, '5633394210', 'Caretakers'),
+
+(41, '7277992079', 'Management'),
+(41, '3311779653', 'Human Resources'),
+(41, '2233401974', 'Developers'),
+(41, '3372391485', 'Caretakers'),
+
+(42, '6662014703', 'Management'),
+(42, '8809940233', 'Human Resources'),
+(42, '4142540801', 'Developers'),
+(42, '2006237892', 'Caretakers'),
+
+(43, '1891780666', 'Management'),
+(43, '6974057554', 'Human Resources'),
+(43, '5867255264', 'Developers'),
+(43, '2055147960', 'Caretakers'),
+
+(44, '8746179421', 'Management'),
+(44, '8784818667', 'Human Resources'),
+(44, '5518980763', 'Developers'),
+(44, '6597084624', 'Caretakers'),
+
+(45, '7461873395', 'Management'),
+(45, '4678621446', 'Human Resources'),
+(45, '5491591088', 'Developers'),
+(45, '7303402118', 'Caretakers'),
+
+(46, '7902202717', 'Management'),
+(46, '8733771520', 'Human Resources'),
+(46, '4446804738', 'Developers'),
+(46, '6004488555', 'Caretakers'),
+
+(47, '5305544399', 'Management'),
+(47, '2799804789', 'Human Resources'),
+(47, '3677036797', 'Developers'),
+(47, '1015675849', 'Caretakers'),
+
+(48, '5756561858', 'Management'),
+(48, '3406012271', 'Human Resources'),
+(48, '3543933005', 'Developers'),
+(48, '2811931893', 'Caretakers');
