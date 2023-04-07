@@ -330,7 +330,7 @@ VALUES ('FSHR', 1, 123456789),
 ;
 
 -- inserting room categories
-INSERT INTO room_category(room_category_id, capacity, view, is_extendable)
+INSERT INTO room_category(room_category_id, room_capacity, room_view, is_extendable)
 VALUES (1,'single','mountain',TRUE),
 (2,'single','mountain',FALSE),
 (3,'single','sea',TRUE),
@@ -349,64 +349,114 @@ VALUES (1,'single','mountain',TRUE),
 (16,'suite','sea',FALSE)
 ;
 
--- inserting rooms (using a while loop)
+-- inserting rooms using while loop (postgres version)
+-- insertion reference: https://stackoverflow.com/questions/3764001/how-to-use-a-sql-for-loop-to-insert-rows-into-database
+-- variable declaration reference: https://www.techonthenet.com/postgresql/declare_vars.php
+-- casting reference: https://stackoverflow.com/questions/23622993/postgresql-error-operator-does-not-exist-integer-character-varying
+-- case reference: https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-case/
+DO $$
+DECLARE 
+	numHotels INTEGER := (SELECT COUNT(*) FROM hotel);
+	numRooms INTEGER;
+	room_category_type INTEGER;
+	room_size TEXT;
+	price DECIMAL(6,2);
+BEGIN
+	FOR i IN 1..numHotels LOOP
+		numRooms := (SELECT num_of_rooms FROM hotel WHERE hotel_id = i);
+		FOR j in 1..numRooms LOOP
+			room_category_type := (SELECT MOD(j, 16) + 1);
+			room_size := (SELECT room_capacity FROM room_category WHERE room_category_id = room_category_type::text);
+			price := 0;
+
+			price := CASE 
+                WHEN room_size = 'single' THEN (SELECT random()*(100-200)+200)
+                WHEN room_size = 'double' THEN (SELECT random()*(200-400)+400)
+                WHEN room_size = 'deluxe' THEN (SELECT random()*(500-700)+700)
+                ELSE (SELECT random()*(800-1200)+1200)
+            END;
+
+			INSERT INTO room(room_no, hotel_id, price, room_category_id, amenities, damages, last_updated)
+			VALUES (j, i, price, room_category_type, 'smtg', 'smtg', DEFAULT);
+		END LOOP;
+	END LOOP;
+END; 
+$$
+
+-- inserting rooms (mysql version)
 -- while loop insertion reference: https://stackoverflow.com/questions/26981901/mysql-insert-with-while-loop
 -- variables reference: https://stackoverflow.com/questions/11754781/how-to-declare-a-variable-in-mysql
-drop procedure if exists insertRooms;
-DELIMITER //
-CREATE PROCEDURE insertRooms()
+-- drop procedure if exists insertRooms;
+-- DELIMITER //
+-- CREATE PROCEDURE insertRooms()
+-- BEGIN
+-- 	DECLARE i INT DEFAULT 1;
+--     SET @numOfHotels = (SELECT COUNT(*) FROM hotel);
+-- 	WHILE (i <= @numOfHotels) DO -- there are 48 hotels currently
+-- 		BEGIN
+-- 			DECLARE j INT DEFAULT 1;
+-- 			SET @numRooms = (SELECT num_of_rooms FROM hotel WHERE hotel_id = i); -- get the number of rooms from each hotel
+-- 			WHILE (j <= @numRooms) DO
+--                 -- the amenities and rating the hotel offers
+--                 SET @room_category_id = (SELECT CONVERT((SELECT MOD(j, 16) + 1), CHAR)); -- each room will get a room category id from 1 to 16
+--                 -- sets the price based on the capacity of the room category
+--                 -- select case reference: https://stackoverflow.com/questions/7871014/mysql-storing-a-variable-with-the-result-of-an-select-case
+--                 SET @capacity = (SELECT capacity FROM room_category WHERE room_category_id = @room_category_id);
+--                 SELECT CASE
+--                     WHEN @capacity = 'single' THEN (SELECT RAND()*(100-200)+200)
+--                     WHEN @capacity = 'double' THEN (SELECT RAND()*(200-400)+400)
+--                     WHEN @capacity = 'deluxe' THEN (SELECT RAND()*(500-700)+700)
+--                     ELSE (SELECT RAND()*(800-1200)+1200)
+--                 END
+--                 INTO @price;
+-- 				INSERT INTO room(room_no, hotel_id, price, room_category_id, amenities, 
+-- 				damages, last_updated)
+-- 				VALUES (j, i, @price, @room_category_id, 'smtg', 'smtg', DEFAULT);
+-- 				SET j = j + 1;
+-- 			END WHILE;
+-- 		SET i = i + 1;
+-- 	END;
+-- END WHILE;
+-- END;
+
+-- CALL insertRooms(); -- call procedure to insert rooms
+
+-- inserting managers into roles (postgresql version)
+DO $$
+DECLARE 
+	numOfManagers INTEGER := (SELECT COUNT(*) FROM hotel_management);
+	manager VARCHAR;
+	salary DECIMAL(6, 2);
 BEGIN
-	DECLARE i INT DEFAULT 1;
-    SET @numOfHotels = (SELECT COUNT(*) FROM hotel);
-	WHILE (i <= @numOfHotels) DO -- there are 48 hotels currently
-		BEGIN
-			DECLARE j INT DEFAULT 1;
-			SET @numRooms = (SELECT num_of_rooms FROM hotel WHERE hotel_id = i); -- get the number of rooms from each hotel
-			WHILE (j <= @numRooms) DO
-                -- the amenities and rating the hotel offers
-                SET @room_category_id = (SELECT CONVERT((SELECT MOD(j, 16) + 1), CHAR)); -- each room will get a room category id from 1 to 16
-                -- sets the price based on the capacity of the room category
-                -- select case reference: https://stackoverflow.com/questions/7871014/mysql-storing-a-variable-with-the-result-of-an-select-case
-                SET @capacity = (SELECT capacity FROM room_category WHERE room_category_id = @room_category_id);
-                SELECT CASE
-                    WHEN @capacity = 'single' THEN (SELECT RAND()*(100-200)+200)
-                    WHEN @capacity = 'double' THEN (SELECT RAND()*(200-400)+400)
-                    WHEN @capacity = 'deluxe' THEN (SELECT RAND()*(500-700)+700)
-                    ELSE (SELECT RAND()*(800-1200)+1200)
-                END
-                INTO @price;
-				INSERT INTO room(room_no, hotel_id, price, room_category_id, amenities, 
-				damages, last_updated)
-				VALUES (j, i, @price, @room_category_id, 'smtg', 'smtg', DEFAULT);
-				SET j = j + 1;
-			END WHILE;
-		SET i = i + 1;
-	END;
-END WHILE;
-END;
+	FOR i IN 1..numOfManagers LOOP
+		manager := (SELECT manager_SSN FROM hotel_management WHERE hotel_id = i);
+		salary := (SELECT random()*(200-9999)+9999);
+		INSERT INTO role(emp_SSN, role_id, role_name, salary) VALUES (manager, 1, 'Manager', salary);
+	END LOOP;
+END; 
+$$
 
-CALL insertRooms(); -- call procedure to insert rooms
 
--- inserting managers into roles
+-- inserting managers into roles (mysql version)
 -- while loop insertion reference: https://stackoverflow.com/questions/26981901/mysql-insert-with-while-loop
 -- variables reference: https://stackoverflow.com/questions/11754781/how-to-declare-a-variable-in-mysql
 -- concatenation reference: https://www.w3schools.com/sql/func_mysql_concat.asp
-drop procedure if exists insertManagers;
-DELIMITER //
-CREATE PROCEDURE insertManagers()
-BEGIN
-	DECLARE i INT DEFAULT 1;
-    SET @numOfManagers = (SELECT COUNT(*) FROM hotel_management);
-    WHILE (i <= @numOfManagers) DO 
-		SET @manager_SSN = (SELECT manager_SSN FROM hotel_management WHERE hotel_id = i); -- loop through all managers in hotel_management relation
+-- drop procedure if exists insertManagers;
+-- DELIMITER //
+-- CREATE PROCEDURE insertManagers()
+-- BEGIN
+-- 	DECLARE i INT DEFAULT 1;
+--     SET @numOfManagers = (SELECT COUNT(*) FROM hotel_management);
+--     WHILE (i <= @numOfManagers) DO 
+-- 		SET @manager_SSN = (SELECT manager_SSN FROM hotel_management WHERE hotel_id = i); -- loop through all managers in hotel_management relation
             
-		SET @salary = (SELECT RAND()*(200-9999)+9999); -- randomize salary between $200 to $9999
-		INSERT INTO role(emp_SSN, role_id, name, salary) VALUES (@manager_SSN, 1, 'Manager', @salary);
-		SET i = i + 1;
-	END WHILE;
-END;
+-- 		SET @salary = (SELECT RAND()*(200-9999)+9999); -- randomize salary between $200 to $9999
+-- 		INSERT INTO role(emp_SSN, role_id, name, salary) VALUES (@manager_SSN, 1, 'Manager', @salary);
+-- 		SET i = i + 1;
+-- 	END WHILE;
+-- END;
 
-CALL insertManagers(); -- call procedure to insert managers into role relation
+-- CALL insertManagers(); -- call procedure to insert managers into role relation
 
 -- insert sample customer addresses
 INSERT INTO address_info VALUES
