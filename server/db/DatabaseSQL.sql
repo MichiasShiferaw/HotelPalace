@@ -78,7 +78,6 @@ CREATE TABLE IF NOT EXISTS hotel (
     province VARCHAR(60) NOT NULL,
     postal_code VARCHAR(6) NOT NULL,
     country VARCHAR(20) NOT NULL,
-	-- manager_SSN VARCHAR(20) , 
     num_of_rooms INT  NOT NULL,
     rating INT NOT NULL check(rating >=1 and rating<=5),
     email VARCHAR(50)  NOT NULL,
@@ -207,12 +206,10 @@ PK = room_category_id
 
 */
 
-CREATE TYPE capacity AS ENUM('single', 'double', 'deluxe', 'suite');
-CREATE TYPE views AS ENUM('mountain', 'sea');
 CREATE TABLE IF NOT EXISTS room_category(
 	room_category_id VARCHAR(4)  NOT NULL PRIMARY KEY,
-    size capacity NOT NULL,
-    scenary views NOT NULL,
+    room_capacity text NOT NULL CHECK(room_capacity IN('single', 'double', 'deluxe', 'suite')) ,
+    room_view text NOT NULL CHECK(room_view IN('mountain', 'sea')),
     is_extendable BOOLEAN  NOT NULL
     
 );
@@ -244,20 +241,19 @@ PK = booking_id, hotel_id, customer_SSN, room_no, emp_SSN
 FK = emp_ssn, customer_ssn, hotel_id, room_no
 
 */
-
-CREATE TYPE booking_status AS ENUM('start', 'completed', 'cancel','archive'); 
+ 
 
 CREATE TABLE IF NOT EXISTS booking_info(
 
-	booking_id VARCHAR(20)  NOT NULL,
+	booking_id VARCHAR(20) NOT NULL,
     hotel_id INT NOT NULL,
-    customer_SSN VARCHAR(20)  NOT NULL,
-    status booking_status NOT NULL,
-    room_no VARCHAR(20)  NOT NULL,
-    emp_SSN VARCHAR(20)  NOT NULL,
-    arrival_time DATE  NOT NULL,
-    departure_time DATE  NOT NULL,
-    created_at DATE  NOT NULL,
+    customer_SSN VARCHAR(20) NOT NULL,
+    booking_status text NOT NULL CHECK(booking_status IN('start', 'completed', 'cancel','archive')),
+    room_no VARCHAR(20) NOT NULL,
+    emp_SSN VARCHAR(20) NOT NULL,
+    arrival_time DATE NOT NULL,
+    departure_time DATE NOT NULL,
+    created_at DATE NOT NULL,
     last_updated DATE DEFAULT (CURRENT_DATE),
     
     PRIMARY KEY(booking_id, hotel_id, customer_SSN, room_no, emp_SSN),
@@ -276,13 +272,13 @@ FK = emp_ssn, customer_ssn, hotel_id, room_no
 
 */
 
-CREATE TYPE renting_status AS ENUM ('renting', 'checked-out', 'archive'); 
+-- CREATE TYPE renting_status AS ENUM ('renting', 'checked-out', 'archive'); 
 
 CREATE TABLE IF NOT EXISTS renting_info(
 
 	renting_id VARCHAR(20) NOT NULL,
     hotel_id INT NOT NULL,
-    status renting_status  NOT NULL,
+    renting_status text NOT NULL CHECK(renting_status IN('renting', 'checked-out', 'archive')),
     customer_SSN VARCHAR(20)  NOT NULL,
     emp_SSN VARCHAR(20) NOT NULL,
     room_no VARCHAR(20) NOT NULL,
@@ -296,7 +292,6 @@ CREATE TABLE IF NOT EXISTS renting_info(
     PRIMARY KEY(renting_id, hotel_id, customer_SSN, emp_SSN, room_no),
 
     FOREIGN KEY(emp_SSN) REFERENCES employee(emp_SSN),
-    -- FOREIGN KEY(booking_id) REFERENCES booking_info(booking_id),
     FOREIGN KEY(customer_SSN) REFERENCES customer(customer_SSN),
     FOREIGN KEY(hotel_id,room_no) REFERENCES room(hotel_id,room_no)
 
@@ -341,3 +336,15 @@ CREATE TRIGGER hotel_addy
   ON hotel
   FOR EACH ROW
   EXECUTE PROCEDURE duplicate_addy_insert();
+
+
+
+
+
+
+
+/*
+DROP/CREATE Whole Database */
+-- DROP DATABASE IF EXISTS dbproject;
+
+-- CREATE DATABASE dbproject;
