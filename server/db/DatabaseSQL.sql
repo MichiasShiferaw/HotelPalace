@@ -147,7 +147,7 @@ FK = emp_SSN
 CREATE TABLE IF NOT EXISTS role(
 	emp_SSN VARCHAR(20) NOT NULL,
     role_id VARCHAR(20) NOT NULL,
-    name VARCHAR(20) NOT NULL,
+    role_name VARCHAR(20) NOT NULL,
     salary DECIMAL(6,2) NOT NULL,
     
     Primary Key(emp_SSN, role_id),
