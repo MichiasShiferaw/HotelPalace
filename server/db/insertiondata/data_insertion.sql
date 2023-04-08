@@ -960,7 +960,6 @@ $$
 -- 		SET i = i + 1;
 -- 	END WHILE;
 -- END;
-
 -- CALL insertManagers(); -- call procedure to insert managers into role relation
 
 -- inserting different roles into role table (postgres version)
