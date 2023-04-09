@@ -7,9 +7,7 @@ const HCBanner = () => {
         <div className="row justify-content-center">
           <h2 className="fs-2 col-lg-8">Our Great Hotel Chains</h2>
           <div className="col-lg-8 mt-25 mb-55 fs-4 medium op-7 text-adaptive">
-            <div>
-{"{Sample Lines}"}
-            </div>
+            
           </div>
         </div>
         <div className="row justify-content-center">

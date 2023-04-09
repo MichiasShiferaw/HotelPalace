@@ -4,11 +4,47 @@ import LocationFilter from '../components/Filter/LocationFilter';
 import HCBanner from '../components/HCBanner';
 import Overview from '../components/AllHotelDetails/Overview1';
 import { Searchbar } from '../components/Filter/Searchbar';
+import MainHomeFooter from '../components/MainHomeFooter';
+import { Navbar, Nav, Container } from 'react-bootstrap';
+
 
 const MainHome = () => {
   return (
     <>
-      <h1>MainHome</h1>
+      
+      <Navbar bg="dark" variant = "dark" expand="lg" className = "justify-content-center">
+     
+        <Container>
+          <Navbar.Brand href="/hotel/:id" >Main Home</Navbar.Brand>
+          <Navbar.Toggle aria-controls="navbar-nav" />
+          <Nav className="me-auto">
+            <Nav.Link href="/emp/dashboard">Employee Dashboard</Nav.Link>
+            
+          </Nav>
+        </Container>
+
+      </Navbar>
+
+
+      <br></br>
+      <LocationFilter />
+
+      <HCBanner />
+
+      
+      <Searchbar />
+      <MainHomeFooter />
+    </>
+  );
+}
+
+export default MainHome
+
+
+/*
+<Overview />
+
+<h1>MainHome</h1>
       <div>
         <h2>Other Links</h2>
         <Link to="/hotel/:id/home" className="btn-secondary mx-4">
@@ -28,14 +64,6 @@ const MainHome = () => {
         </Link>
       </div>
 
-      <LocationFilter />
 
-      <HCBanner />
 
-      <Overview />
-      <Searchbar />
-    </>
-  );
-}
-
-export default MainHome
+*/

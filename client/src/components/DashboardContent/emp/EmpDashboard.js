@@ -27,7 +27,7 @@ const Dashboard = () => {
           </button>
           <a
             className="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold"
-            href="#"
+            href="/"
           >
             Hotel Dashboard
           </a>
