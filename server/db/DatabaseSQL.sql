@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS hotel_chain (
     province VARCHAR(60) NOT NULL,
     postal_code VARCHAR(6) NOT NULL,
     country VARCHAR(20) NOT NULL,
-    num_of_hotels INT  NOT NULL DEFAULT 0,
+    num_of_hotels INT DEFAULT 0,
     phone_number VARCHAR(20)  NOT NULL,
     email VARCHAR(50)  NOT NULL,
     check (num_of_hotels >= 0), -- num of hotels must be non-negative
@@ -313,6 +313,16 @@ CREATE TABLE IF NOT EXISTS renting_info(
 );
 
 
+DROP TRIGGER IF EXISTS default_num_of_hotel_trig ON hotel_chain;
+DROP TRIGGER IF EXISTS remove_num_of_hotel_trig ON hotel;
+DROP TRIGGER IF EXISTS employee_addy ON employee;
+DROP TRIGGER IF EXISTS customer_addy ON customer;
+DROP TRIGGER IF EXISTS hotel_chain_addy ON hotel_chain;
+DROP TRIGGER IF EXISTS add_num_of_hotel_trig ON hotel;
+
+
+
+-- trigger 1
 -- idempotent
 CREATE OR REPLACE FUNCTION duplicate_addy_insert() 
 	RETURNS TRIGGER AS
@@ -347,11 +357,79 @@ CREATE TRIGGER hotel_chain_addy
   FOR EACH ROW
   EXECUTE PROCEDURE duplicate_addy_insert();
 
+DROP TRIGGER IF EXISTS hotel_addy ON hotel;
 CREATE TRIGGER hotel_addy
   BEFORE INSERT or UPDATE
   ON hotel
   FOR EACH ROW
   EXECUTE PROCEDURE duplicate_addy_insert();
+
+
+
+-- trigger 2
+-- idempotent
+CREATE OR REPLACE FUNCTION add_num_of_hotel() 
+	RETURNS TRIGGER AS
+  	$BODY$
+  	BEGIN
+        UPDATE hotel_chain
+        SET num_of_hotels=num_of_hotels+1
+        WHERE (new.chain_id = hotel_chain.chain_id);
+        RETURN new;
+  	END;
+  	$BODY$
+  	LANGUAGE plpgsql;
+
+CREATE TRIGGER add_num_of_hotel_trig
+  AFTER INSERT
+  ON hotel
+  FOR EACH ROW
+  EXECUTE PROCEDURE add_num_of_hotel();
+
+
+
+
+
+
+-- trigger 3
+CREATE OR REPLACE FUNCTION remove_num_of_hotel() 
+	RETURNS TRIGGER AS
+  	$BODY$
+  	BEGIN
+        UPDATE hotel_chain
+        SET num_of_hotels=num_of_hotels-1
+        WHERE (hotel_chain.chain_id = old.chain_id);
+        RETURN new;
+  	END;
+  	$BODY$
+  	LANGUAGE plpgsql;
+
+
+CREATE TRIGGER remove_num_of_hotel_trig
+  AFTER DELETE
+  ON hotel
+  FOR EACH ROW
+  EXECUTE PROCEDURE remove_num_of_hotel();
+
+
+
+-- trigger 4
+CREATE OR REPLACE FUNCTION default_num_of_hotel() 
+    RETURNS trigger as 
+    $BODY$
+    BEGIN
+		NEW.num_of_hotels := 0;
+		RETURN NEW;
+	END;
+    $BODY$ 
+    LANGUAGE plpgsql;
+
+CREATE TRIGGER default_num_of_hotel_trig 
+    BEFORE insert 
+    ON hotel_chain 
+    FOR EACH ROW
+    EXECUTE FUNCTION default_num_of_hotel();
+
 
 -- DROP/CREATE Whole Database
 -- DROP DATABASE IF EXISTS dbproject;

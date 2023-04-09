@@ -1,0 +1,179 @@
+{
+    "emp": {
+    
+    "Booking":
+    {
+        " Booking":{
+            "Path": "",
+            "Name": "",
+            " Icon":""
+
+        },
+                "Edit Booking":{
+            "Path": "",
+            "Name": "",
+            " Icon":""
+
+        }  ,
+                "Add Booking":{
+            "Path": "",
+            "Name": "",
+            " Icon":""
+
+        }
+          
+    },
+    "Customer":
+    {
+        "All":{
+            "Path": "",
+            "Name": "",
+            " Icon":""
+
+        },
+        "Edit Customer":{
+            "Path": "",
+            "Name": "",
+            " Icon":""
+
+        }  ,
+        "Add Customer":{
+            "Path": "",
+            "Name": "",
+            " Icon":""
+
+        }
+          
+    },
+    "Room":
+    {
+        "All Rooms":{
+            "Path": "",
+            "Name": "",
+            " Icon":""
+
+        },
+                "Available Rooms":{
+            "Path": "",
+            "Name": "",
+            " Icon":""
+
+        }  ,
+                "Add Booking":{
+            "Path": "",
+            "Name": "",
+            " Icon":""
+
+        }
+          
+    },
+        "Staff":
+    {
+        "All Staff":{
+            "Path": "",
+            "Name": "",
+            " Icon":""
+
+        },
+                "Edit Staff":{
+            "Path": "",
+            "Name": "",
+            " Icon":""
+
+        }  ,
+                "Add Staff":{
+            "Path": "",
+            "Name": "",
+            " Icon":""
+
+        }
+          
+    }
+},
+"cust":{
+    "Bookings":
+    {
+        "All Booking":{
+            "Path": "",
+            "Name": "",
+            " Icon":""
+
+        },
+                "Past Bookings":{
+            "Path": "",
+            "Name": "",
+            " Icon":""
+
+        }
+          
+    },
+    "Customer":
+    {
+        "All":{
+            "Path": "",
+            "Name": "",
+            " Icon":""
+
+        },
+        "Edit Customer":{
+            "Path": "",
+            "Name": "",
+            " Icon":""
+
+        }  ,
+        "Add Customer":{
+            "Path": "",
+            "Name": "",
+            " Icon":""
+
+        }
+          
+    },
+    "Room":
+    {
+        "All Rooms":{
+            "Path": "",
+            "Name": "",
+            " Icon":""
+
+        },
+                "Available Rooms":{
+            "Path": "",
+            "Name": "",
+            " Icon":""
+
+        }  ,
+                "Add Booking":{
+            "Path": "",
+            "Name": "",
+            " Icon":""
+
+        }
+          
+    },
+        "Staff":
+    {
+        "All Staff":{
+            "Path": "",
+            "Name": "",
+            " Icon":""
+
+        },
+                "Edit Staff":{
+            "Path": "",
+            "Name": "",
+            " Icon":""
+
+        }  ,
+                "Add Staff":{
+            "Path": "",
+            "Name": "",
+            " Icon":""
+
+        }
+          
+    }
+
+}
+
+}
