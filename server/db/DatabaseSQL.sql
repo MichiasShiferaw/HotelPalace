@@ -1,9 +1,12 @@
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 use Test;
 
 >>>>>>> 123441c (updated data insertions and database structure)
+=======
+>>>>>>> 38e60d5 (updated database (by michias))
 -- Drop table commands
 drop table if exists renting_info cascade;
 drop table if exists booking_info cascade;
@@ -105,12 +108,18 @@ CREATE TABLE IF NOT EXISTS hotel_phone(
     CONSTRAINT pk_hotel_contact PRIMARY KEY(hotel_id,phone_number),
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     FOREIGN KEY(hotel_id) 
         REFERENCES hotel(hotel_id)
             ON UPDATE CASCADE ON DELETE CASCADE
 =======
     FOREIGN KEY(hotel_id) REFERENCES hotel(hotel_id)
 >>>>>>> 123441c (updated data insertions and database structure)
+=======
+    FOREIGN KEY(hotel_id) 
+        REFERENCES hotel(hotel_id)
+            ON UPDATE CASCADE ON DELETE CASCADE
+>>>>>>> 38e60d5 (updated database (by michias))
 );
 
 -- Employee Table
@@ -138,16 +147,22 @@ CREATE TABLE IF NOT EXISTS employee(
     -- must be a date after the start date
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 38e60d5 (updated database (by michias))
     Foreign Key (hotel_id) 
         REFERENCES hotel(hotel_id)
             ON UPDATE CASCADE ON DELETE CASCADE,
 	FOREIGN KEY (street_name, street_number, postal_code) 
         REFERENCES address_info(street_name, street_number, postal_code)
             ON UPDATE CASCADE ON DELETE CASCADE
+<<<<<<< HEAD
 =======
     Foreign Key (chain_id,hotel_id) REFERENCES hotel(chain_id, hotel_id),
 	FOREIGN KEY (street_name, street_number, postal_code) REFERENCES address_info(street_name, street_number, postal_code)
 >>>>>>> 123441c (updated data insertions and database structure)
+=======
+>>>>>>> 38e60d5 (updated database (by michias))
 );
 
 -- Role Table
@@ -185,10 +200,14 @@ CREATE TABLE IF NOT EXISTS hotel_management (
             ON UPDATE CASCADE ON DELETE CASCADE,
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     Primary Key (hotel_id, manager_SSN)
 =======
     Primary Key (chain_id, hotel_id, manager_SSN)
 >>>>>>> 123441c (updated data insertions and database structure)
+=======
+    Primary Key (hotel_id, manager_SSN)
+>>>>>>> 38e60d5 (updated database (by michias))
 );
 
 -- Customer Table
@@ -217,12 +236,18 @@ CREATE TABLE IF NOT EXISTS customer(
     -- and last_updated must be a date equal to or after the joining date
     
 <<<<<<< HEAD
+<<<<<<< HEAD
 	FOREIGN KEY (street_name, street_number, postal_code) 
         REFERENCES address_info(street_name, street_number, postal_code)
             ON UPDATE CASCADE ON DELETE CASCADE
 =======
 	FOREIGN KEY (street_name, street_number, postal_code) REFERENCES address_info(street_name, street_number, postal_code)
 >>>>>>> 123441c (updated data insertions and database structure)
+=======
+	FOREIGN KEY (street_name, street_number, postal_code) 
+        REFERENCES address_info(street_name, street_number, postal_code)
+            ON UPDATE CASCADE ON DELETE CASCADE
+>>>>>>> 38e60d5 (updated database (by michias))
 );
 
 -- Room Category Table
@@ -285,7 +310,6 @@ CREATE TABLE IF NOT EXISTS booking_info(
     
     PRIMARY KEY(booking_id, hotel_id, customer_SSN, room_no, emp_SSN),
     
-<<<<<<< HEAD
     FOREIGN KEY(customer_SSN) 
         REFERENCES customer(customer_SSN)
             ON UPDATE CASCADE ON DELETE CASCADE,
@@ -295,11 +319,6 @@ CREATE TABLE IF NOT EXISTS booking_info(
     FOREIGN KEY(hotel_id,room_no) 
         REFERENCES room(hotel_id,room_no)
             ON UPDATE CASCADE ON DELETE CASCADE
-=======
-    FOREIGN KEY(customer_SSN) REFERENCES customer(customer_SSN),
-    FOREIGN KEY(emp_SSN) REFERENCES employee(emp_SSN),
-    FOREIGN KEY(hotel_id,room_no) REFERENCES room(hotel_id,room_no)
->>>>>>> 123441c (updated data insertions and database structure)
 );
 
 -- Renting Info Table
@@ -330,6 +349,9 @@ CREATE TABLE IF NOT EXISTS renting_info(
     PRIMARY KEY(renting_id, hotel_id, customer_SSN, emp_SSN, room_no),
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 38e60d5 (updated database (by michias))
     FOREIGN KEY(emp_SSN) 
         REFERENCES employee(emp_SSN)
             ON UPDATE CASCADE ON DELETE CASCADE,
@@ -339,16 +361,22 @@ CREATE TABLE IF NOT EXISTS renting_info(
     FOREIGN KEY(hotel_id,room_no) 
         REFERENCES room(hotel_id,room_no)
             ON UPDATE CASCADE ON DELETE CASCADE
+<<<<<<< HEAD
 =======
     FOREIGN KEY(emp_SSN) REFERENCES employee(emp_SSN),
     FOREIGN KEY(customer_SSN) REFERENCES customer(customer_SSN),
     FOREIGN KEY(hotel_id,room_no) REFERENCES room(hotel_id,room_no)
 >>>>>>> 123441c (updated data insertions and database structure)
+=======
+>>>>>>> 38e60d5 (updated database (by michias))
 );
 
 
 -- idempotent
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 38e60d5 (updated database (by michias))
 CREATE OR REPLACE FUNCTION duplicate_addy_insert() 
 	RETURNS TRIGGER AS
   	$BODY$
@@ -361,6 +389,7 @@ CREATE OR REPLACE FUNCTION duplicate_addy_insert()
   	END;
   	$BODY$
   	LANGUAGE plpgsql VOLATILE
+<<<<<<< HEAD
 =======
 CREATE OR REPLACE FUNCTION duplicate_addy_insert() RETURNS TRIGGER AS
   $BODY$
@@ -374,6 +403,8 @@ CREATE OR REPLACE FUNCTION duplicate_addy_insert() RETURNS TRIGGER AS
   $BODY$
   LANGUAGE plpgsql VOLATILE
 >>>>>>> 123441c (updated data insertions and database structure)
+=======
+>>>>>>> 38e60d5 (updated database (by michias))
   COST 100;
 
 
