@@ -1,4 +1,5 @@
 import React, { useState,Fragment } from "react";
+import Button from 'react-bootstrap/Button'
 // import "./Searchbar.css";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
@@ -88,7 +89,7 @@ const LocationFilter = () => {
             </button>
           </div>
 
-          <button className="btn btn-success">Submit</button>
+          <Button className="btn btn-success" href = "/hotel/:id/checkout">Submit</Button>
         </form>
       </div>
       <table className="table my-5">

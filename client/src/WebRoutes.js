@@ -21,6 +21,8 @@ import Home from "./pages/Home";
 import { CustomersContextProvider } from "./Contexts/CustomersContext";
 import UpdatePage from "./components/customer_exclus_comp/UpdateCustomer";
 import MainHome from "./pages/MainHome";
+import Checkout from "./components/Forms/Checkout";
+import CheckoutSuccess from "./components/Forms/CheckoutSuccess";
 import Error from "./pages/Error";
 import HotelPage from "./pages/HotelLandingPage";
 import Dashboard from "./components/DashboardContent/emp/EmpDashboard";
@@ -52,6 +54,8 @@ const WebRoutes = () => {
             {/* <Route exact path="/" Component={Home}/> */}
             <Route exact path="/" Component={MainHome} />
             <Route path="/hotel/:id" Component={HotelPage} >
+            <Route path="/hotel/:id/checkout" Component={Checkout}/>
+            <Route path = "/hotel/:id/checkout-success" Component={CheckoutSuccess}/>
               <Route path="home" Component={Hero}/>
             <Route path="book" Component={BookingForm} />
             <Route path="rooms" Component={Rooms} />
