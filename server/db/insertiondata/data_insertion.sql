@@ -780,7 +780,6 @@ INSERT INTO employee (emp_SSN, first_name, middle_name, last_name, street_name, 
 	('457863806','Berthe','Horst','Poley','Johnson','4','Long Beach','California','90805','USA','20','2010-11-12','E8NqQGRZ7','2022-10-29'),
 	('045406579','Giacobo','Suki','Shackel','Colorado','7','Baltimore','Maryland','21290','USA','19','2000-12-29','SPWxoXlcZZNW','2022-09-02');
 
-
 -- insert managers for each hotel
 INSERT INTO hotel_management(hotel_id, manager_SSN)
 VALUES (1, 123456789),
@@ -976,7 +975,7 @@ BEGIN
 	LOOP
 		employee := j.emp_SSN;
 		salary := (SELECT random()*(100-5000)+5000);
-
+    
 		if hotel = j.hotel_id then k := (SELECT MOD(k + 1, 6));
 		else hotel := j.hotel_id;
 			k := 0;
