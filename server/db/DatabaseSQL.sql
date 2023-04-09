@@ -1,6 +1,4 @@
 
-use Test;
-
 -- Drop table commands
 drop table if exists renting_info cascade;
 drop table if exists booking_info cascade;
@@ -32,7 +30,7 @@ CREATE TABLE IF NOT EXISTS address_info(
     country VARCHAR(20) NOT NULL,
     check (street_number > 0), -- street number must be non-negative and greater than 0
 
-    PRIMARY KEY (street_name, street_number, postal_code)
+    CONSTRAINT pk_addy PRIMARY KEY (street_name, street_number, postal_code)
 );
 
 -- Hotel Chain Table
@@ -53,7 +51,7 @@ CREATE TABLE IF NOT EXISTS hotel_chain (
     email VARCHAR(50)  NOT NULL,
     check (num_of_hotels >= 0), -- num of hotels must be non-negative
     
-	FOREIGN KEY (street_name, street_number, postal_code) REFERENCES address_info(street_name, street_number, postal_code)
+	FOREIGN KEY (street_name, street_number, postal_code) REFERENCES address_info(street_name, street_number, postal_code) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 -- Hotel Table
@@ -78,10 +76,14 @@ CREATE TABLE IF NOT EXISTS hotel (
     check (email like '%@%'), -- email must contain @
     check (num_of_rooms >= 0), -- num of rooms must be non-negative
     
-    PRIMARY KEY(chain_id,hotel_id),
+    PRIMARY KEY(hotel_id),
     
-    FOREIGN KEY (chain_id) REFERENCES hotel_chain(chain_id),
-	FOREIGN KEY (street_name, street_number, postal_code) REFERENCES address_info(street_name, street_number, postal_code)
+    FOREIGN KEY (chain_id) 
+        REFERENCES hotel_chain(chain_id)
+            ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY (street_name, street_number, postal_code) 
+        REFERENCES address_info(street_name, street_number, postal_code) 
+            ON UPDATE CASCADE ON DELETE CASCADE
 
 );
 
@@ -95,9 +97,11 @@ CREATE TABLE IF NOT EXISTS hotel_phone(
     department VARCHAR(20)  NOT NULL,
     check (department in ('Management', 'Human Resources', 'Developers', 'Caretakers')), -- department must be a department that exists
     
-    PRIMARY KEY(hotel_id,phone_number),
+    CONSTRAINT pk_hotel_contact PRIMARY KEY(hotel_id,phone_number),
     
-    FOREIGN KEY(hotel_id) REFERENCES hotel(hotel_id)
+    FOREIGN KEY(hotel_id) 
+        REFERENCES hotel(hotel_id)
+            ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 -- Employee Table
@@ -116,8 +120,6 @@ CREATE TABLE IF NOT EXISTS employee(
     province VARCHAR(60) NOT NULL,
     postal_code VARCHAR(6) NOT NULL,
     country VARCHAR(20) NOT NULL,
-    
-	chain_id VARCHAR(20)  NOT NULL,
     hotel_id INT NOT NULL,
     start_date DATE NOT NULL,
     password VARCHAR(20),
@@ -126,8 +128,12 @@ CREATE TABLE IF NOT EXISTS employee(
     check (last_update >= start_date and last_update <= CURRENT_DATE), -- last_update must be a date today or in the past and
     -- must be a date after the start date
 	
-    Foreign Key (chain_id,hotel_id) REFERENCES hotel(chain_id, hotel_id),
-	FOREIGN KEY (street_name, street_number, postal_code) REFERENCES address_info(street_name, street_number, postal_code)
+    Foreign Key (hotel_id) 
+        REFERENCES hotel(hotel_id)
+            ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY (street_name, street_number, postal_code) 
+        REFERENCES address_info(street_name, street_number, postal_code)
+            ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 -- Role Table
@@ -143,9 +149,11 @@ CREATE TABLE IF NOT EXISTS role(
     'Janitor')), -- role_name must be an existing role
     check (salary >= 0), -- salary must be non-negative
     
-    Primary Key(emp_SSN, role_id),
+    CONSTRAINT pk_emp_role Primary Key(emp_SSN, role_id),
     
-    FOREIGN KEY(emp_SSN) REFERENCES employee(emp_SSN)
+    FOREIGN KEY(emp_SSN) 
+        REFERENCES employee(emp_SSN)
+            ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 -- Hotel Management Table
@@ -153,13 +161,16 @@ CREATE TABLE IF NOT EXISTS role(
 -- FK = chain_id, hotel_id, manager_SSN
 
 CREATE TABLE IF NOT EXISTS hotel_management (
-	chain_id VARCHAR(20) NOT NULL,
     hotel_id INT NOT NULL UNIQUE,
     manager_SSN VARCHAR(20) NOT NULL UNIQUE, 
-    Foreign Key (chain_id,hotel_id) REFERENCES hotel(chain_id, hotel_id),
-    FOREIGN KEY(manager_SSN) references employee(emp_SSN),
+    Foreign Key (hotel_id) 
+        REFERENCES hotel(hotel_id)
+            ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(manager_SSN) 
+        REFERENCES employee(emp_SSN)
+            ON UPDATE CASCADE ON DELETE CASCADE,
     
-    Primary Key (chain_id, hotel_id, manager_SSN)
+    Primary Key (hotel_id, manager_SSN)
 );
 
 -- Customer Table
@@ -187,7 +198,9 @@ CREATE TABLE IF NOT EXISTS customer(
     check (last_updated >= joining_date and last_updated <= CURRENT_DATE), -- last_updated must be a date today or in the past
     -- and last_updated must be a date equal to or after the joining date
     
-	FOREIGN KEY (street_name, street_number, postal_code) REFERENCES address_info(street_name, street_number, postal_code)
+	FOREIGN KEY (street_name, street_number, postal_code) 
+        REFERENCES address_info(street_name, street_number, postal_code)
+            ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 -- Room Category Table
@@ -218,8 +231,12 @@ CREATE TABLE IF NOT EXISTS room(
     
     PRIMARY KEY(hotel_id,room_no),
     
-    FOREIGN KEY(hotel_id) REFERENCES hotel(hotel_id),
-    FOREIGN KEY(room_category_id) REFERENCES room_category(room_category_id)
+    FOREIGN KEY(hotel_id) 
+        REFERENCES hotel(hotel_id)
+            ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(room_category_id) 
+        REFERENCES room_category(room_category_id)
+            ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 -- Booking Info Table
@@ -246,9 +263,15 @@ CREATE TABLE IF NOT EXISTS booking_info(
     
     PRIMARY KEY(booking_id, hotel_id, customer_SSN, room_no, emp_SSN),
     
-    FOREIGN KEY(customer_SSN) REFERENCES customer(customer_SSN),
-    FOREIGN KEY(emp_SSN) REFERENCES employee(emp_SSN),
-    FOREIGN KEY(hotel_id,room_no) REFERENCES room(hotel_id,room_no)
+    FOREIGN KEY(customer_SSN) 
+        REFERENCES customer(customer_SSN)
+            ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(emp_SSN) 
+        REFERENCES employee(emp_SSN)
+            ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(hotel_id,room_no) 
+        REFERENCES room(hotel_id,room_no)
+            ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 -- Renting Info Table
@@ -278,47 +301,54 @@ CREATE TABLE IF NOT EXISTS renting_info(
     
     PRIMARY KEY(renting_id, hotel_id, customer_SSN, emp_SSN, room_no),
 
-    FOREIGN KEY(emp_SSN) REFERENCES employee(emp_SSN),
-    FOREIGN KEY(customer_SSN) REFERENCES customer(customer_SSN),
-    FOREIGN KEY(hotel_id,room_no) REFERENCES room(hotel_id,room_no)
+    FOREIGN KEY(emp_SSN) 
+        REFERENCES employee(emp_SSN)
+            ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(customer_SSN) 
+        REFERENCES customer(customer_SSN)
+            ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(hotel_id,room_no) 
+        REFERENCES room(hotel_id,room_no)
+            ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 
 -- idempotent
-CREATE OR REPLACE FUNCTION duplicate_addy_insert() RETURNS TRIGGER AS
-  $BODY$
-  BEGIN
-    IF NOT EXISTS(SELECT 1 FROM address_info WHERE street_name = new.street_name AND street_number = new.street_number AND postal_code = new.postal_code) THEN
-        INSERT INTO address_info(street_number, street_name, city, province, postal_code, country) --this is not in the right order!!!
-        VALUES (new.street_number, new.street_name, new.postal_code, new.city, new.province_state, new.country);
-    END IF;
-    RETURN new;
-  END;
-  $BODY$
-  LANGUAGE plpgsql VOLATILE
+CREATE OR REPLACE FUNCTION duplicate_addy_insert() 
+	RETURNS TRIGGER AS
+  	$BODY$
+  	BEGIN
+    	IF NOT EXISTS(SELECT 1 FROM address_info WHERE street_name = new.street_name AND street_number = new.street_number AND postal_code = new.postal_code) THEN
+        	INSERT INTO address_info(street_name, street_number, city, province, postal_code, country)
+        	VALUES (new.street_name, new.street_number, new.city, new.province, new.postal_code,  new.country);
+    	END IF;
+    	RETURN new;
+  	END;
+  	$BODY$
+  	LANGUAGE plpgsql VOLATILE
   COST 100;
 
 
 CREATE TRIGGER employee_addy
-  BEFORE UPDATE
+  BEFORE INSERT or UPDATE
   ON employee
   FOR EACH ROW
   EXECUTE PROCEDURE duplicate_addy_insert();
 
 CREATE TRIGGER customer_addy
-  BEFORE UPDATE
+  BEFORE INSERT or UPDATE
   ON customer
   FOR EACH ROW
   EXECUTE PROCEDURE duplicate_addy_insert();
 
 CREATE TRIGGER hotel_chain_addy
-  BEFORE UPDATE
+  BEFORE INSERT or UPDATE
   ON hotel_chain
   FOR EACH ROW
   EXECUTE PROCEDURE duplicate_addy_insert();
 
 CREATE TRIGGER hotel_addy
-  BEFORE UPDATE
+  BEFORE INSERT or UPDATE
   ON hotel
   FOR EACH ROW
   EXECUTE PROCEDURE duplicate_addy_insert();
