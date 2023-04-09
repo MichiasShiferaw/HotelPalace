@@ -1480,9 +1480,10 @@ BEGIN
 	LOOP
 		employee := j.emp_SSN;
 		salary := (SELECT random()*(100-5000)+5000);
-
-		if k = j.hotel_id then k := (SELECT MOD(k + 1, 6));
-		else k = 0;
+    
+		if hotel = j.hotel_id then k := (SELECT MOD(k + 1, 6));
+		else hotel := j.hotel_id;
+			k := 0;
 		end if;
 
 		INSERT INTO role(emp_SSN, role_id, role_name, salary) VALUES (employee, k + 2, role[k + 1], salary);
