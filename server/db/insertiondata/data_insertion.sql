@@ -913,10 +913,10 @@ BEGIN
 		END LOOP;
 	END LOOP;
 END; 
-$$
+$$;
 
-select * from room;
-delete from room;
+-- select * from room;
+-- delete from room;
 
 -- inserting managers into roles (postgresql version)
 DO $$
@@ -931,7 +931,7 @@ BEGIN
 		INSERT INTO role(emp_SSN, role_id, role_name, salary) VALUES (manager, 1, 'Manager', salary);
 	END LOOP;
 END; 
-$$
+$$;
 
 -- inserting different roles into role table (postgres version)
 -- array reference: https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-array/
@@ -958,7 +958,7 @@ BEGIN
 		INSERT INTO role(emp_SSN, role_id, role_name, salary) VALUES (employee, k + 2, role[k + 1], salary);
 	END LOOP;
 END; 
-$$
+$$;
 
 -- insert sample customer addresses
 INSERT INTO address_info VALUES

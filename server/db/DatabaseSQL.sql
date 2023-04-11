@@ -288,7 +288,7 @@ CREATE TABLE IF NOT EXISTS renting_info(
     emp_SSN VARCHAR(20) NOT NULL,
     room_no VARCHAR(20) NOT NULL,
     booking_id VARCHAR(20),
-    has_booked VARCHAR(20) NOT NULL,
+    has_booked BOOLEAN,
     arrival_time DATE NOT NULL,
     departure_time DATE NOT NULL,
     created_at DATE NOT NULL,
