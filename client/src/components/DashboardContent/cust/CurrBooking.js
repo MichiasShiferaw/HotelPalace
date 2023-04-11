@@ -24,7 +24,6 @@ const CurrBooking = () => {
     const fetchData = async () => {
       try {
         const response = await api.get(`/booking/my-all/curr/${id}`);
-        console.log(response);
         setBookings(response.data.data.booking);
         console.log("guess");
       } catch (err) {

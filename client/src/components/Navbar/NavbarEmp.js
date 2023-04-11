@@ -52,7 +52,6 @@ const NavbarEmp = () => {
         </button>
         <div className="collapse navbar-collapse" id="topNavBar">
           <div className="d-flex ms-auto my-3 my-lg-0">
-
             {auth.isAuth && auth.emp ? (
               <>
                 <NavLink
@@ -62,18 +61,17 @@ const NavbarEmp = () => {
                   Employed Under Hotel #{auth.hotel}
                 </NavLink>
                 <NavLink
-                  to={`/c/${auth.ssn}/dashboard/booking/add`}
-                  className="ms-4  btn btn-warning"
-                >
-                  Rent Now
+                  to={`/emp/${auth.ssn}/b-r/renting/add`}
+                  
+                  className="ms-4 btn btn-warning" > Rent Now
                 </NavLink>
 
-                  <button
-                    onClick={() => logout()}
-                    className="btn btn-primary ms-4  "
-                  >
-                    Logout
-                  </button>
+                <button
+                  onClick={() => logout()}
+                  className="btn btn-primary ms-4  "
+                >
+                  Logout
+                </button>
               </>
             ) : (
               <>

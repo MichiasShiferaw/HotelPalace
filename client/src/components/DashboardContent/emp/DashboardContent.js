@@ -15,7 +15,6 @@ const DashboardContent = () => {
       try {
         const response = await api.get(`/booking/all`);
         console.log(response.data.data.booking);
-        // console.log(id);
         setBookings(response.data.data.booking);
         console.log("guess");
       } catch (err) {
@@ -47,7 +46,7 @@ const DashboardContent = () => {
           <h4>Dashboard</h4>
         </div>
       </div>
-      <div className="row">
+      <div className="row mb-5">
         <div className="col-md-3 mb-3">
           <div className="card bg-primary text-white h-100">
             <div className="card-body py-5">Single Room Count Available</div>
@@ -70,7 +69,7 @@ const DashboardContent = () => {
             </div>
           </div>
         </div>
-        <div className="col-md-3 mb-3">
+        <div className="col-md-3 mb-3 ">
           <div className="card bg-success text-white h-100">
             <div className="card-body py-5">Deluxe Room Count Available</div>
             <div className="card-footer d-flex">
@@ -93,34 +92,7 @@ const DashboardContent = () => {
           </div>
         </div>
       </div>
-      <div className="row">
-        <div className="col-md-6 mb-3">
-          <div className="card h-100">
-            <div className="card-header">
-              <span className="me-2">
-                <i className="bi bi-bar-chart-fill" />
-              </span>
-              Available Rooms
-            </div>
-            <div className="card-body">
-              <canvas className="chart" width={400} height={200} />
-            </div>
-          </div>
-        </div>
-        <div className="col-md-6 mb-3">
-          <div className="card h-100">
-            <div className="card-header">
-              <span className="me-2">
-                <i className="bi bi-bar-chart-fill" />
-              </span>
-              Available Rooms by Capacity
-            </div>
-            <div className="card-body">
-              <canvas className="chart" width={400} height={200} />
-            </div>
-          </div>
-        </div>
-      </div>
+
       <div className="row">
         <div className="col-md-12 mb-3">
           <div className="card">

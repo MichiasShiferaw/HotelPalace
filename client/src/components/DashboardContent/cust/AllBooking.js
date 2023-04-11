@@ -26,7 +26,6 @@ const AllBooking = () => {
       try {
         const response = await api.get(`/booking/my-all/${id}`);
         console.log(response.data.data.booking);
-        // console.log(id);
         setBookings(response.data.data.booking);
         console.log("guess");
       } catch (err) {
