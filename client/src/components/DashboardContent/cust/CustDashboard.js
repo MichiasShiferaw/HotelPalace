@@ -1,85 +1,49 @@
-import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink, Outlet, useParams } from "react-router-dom";
 import DashboardData from "../../../data/EmpDashboardData.json"
+import Layout from "../../Layout/Layout";
+import { useDispatch } from "react-redux";
+import api from "../../../apis/apiIndex";
+import { unauthenticateUser } from "../../../redux/authSlice";
 
 const CustDashboard = () => {
+    const { id } = useParams();
   const hi = DashboardData["Booking"];
   console.log(DashboardData["Booking"]);
   {
     Object.keys(hi).map((section) => console.log(section));
   }
 
+
+  const dispatch = useDispatch();
+  const [loading, setLoading]=useState(true)
+  const [protectData, setProtectedData]=useState(null)
+
+  const logout = async () => {
+    try {
+      const {data} = await api.get("/log/logout");
+
+      dispatch(unauthenticateUser());
+      localStorage.removeItem("isAuth");
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  // const protectedInfo = async () => {
+  //   try {
+  //     const { data } = await fetchProtectedInfo();
+
+  //     setProtectedData(data.info);
+
+  //     setLoading(false);
+  //   } catch (error) {
+  //     logout();
+  //   }
+  // };
+
   return (
-    <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-info bg-gradient fixed-top">
-        <div className="container-fluid">
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#sidebar"
-            aria-controls="offcanvasExample"
-          >
-            <span className="navbar-toggler-icon" data-bs-target="#sidebar" />
-          </button>
-          <a
-            className="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold"
-            href="#"
-          >
-            User Dashboard
-          </a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#topNavBar"
-            aria-controls="topNavBar"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
-          <div className="collapse navbar-collapse" id="topNavBar">
-            <div className="d-flex ms-auto my-3 my-lg-0">
-              <button className="btn btn-secondary">Time</button>
-              <div className="b-example-divider b-example-vr"></div>
-              <button className="btn btn-danger">Book Now</button>
-            </div>
-            <ul className="navbar-nav">
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle ms-2"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <i className="bi bi-person-fill" />
-                </a>
-                <ul className="dropdown-menu dropdown-menu-end">
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Action
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Another action
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Something else here
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-      {/* top navigation bar */}
-      {/* offcanvas */}
+    <Layout>
       <div
         className="offcanvas offcanvas-start sidebar-nav bg-dark"
         tabIndex={-1}
@@ -89,12 +53,17 @@ const CustDashboard = () => {
           <nav className="navbar-dark">
             <ul className="navbar-nav">
               <li>
-                <div className="text-muted small fw-bold text-uppercase px-3">
+                <div className="text-muted fs-3 small fw-bold text-uppercase px-3">
                   CORE
                 </div>
               </li>
+              <hr className="text-light" />
+
               <li>
-                <NavLink to={"/c/:id/dashboard"} className="nav-link px-3">
+                <NavLink
+                  to={`/c/${id}/dashboard/home`}
+                  className="nav-link px-3 fs-5"
+                >
                   <span className="me-2">
                     <i className="bi bi-speedometer2" />
                   </span>
@@ -102,17 +71,30 @@ const CustDashboard = () => {
                 </NavLink>
               </li>
 
+              <li>
+                <NavLink to={`/cust/home`} className="nav-link px-3 fs-5">
+                  <span className="me-2">
+                    <i className="bi bi-speedometer2" />
+                  </span>
+                  <span>Customer Landing Page</span>
+                </NavLink>
+              </li>
+
               <li className="my-4">
                 <hr className="dropdown-divider bg-light" />
               </li>
               <li>
-                <div className="text-muted small fw-bold text-uppercase px-3 mb-3">
+                <div className="text-muted small fs-3 fw-bold text-uppercase px-3 mb-2">
                   Main
                 </div>
               </li>
+              <hr className="text-light" />
 
               <li>
-                <NavLink to={"/c/:id/profile"} className="nav-link px-3">
+                <NavLink
+                  to={`/c/${id}/dashboard/profile`}
+                  className="nav-link px-3 fs-5"
+                >
                   <span className="me-2">
                     <i className="bi bi-speedometer2" />
                   </span>
@@ -121,7 +103,7 @@ const CustDashboard = () => {
               </li>
               <li>
                 <a
-                  className="nav-link px-3 sidebar-link"
+                  className="nav-link px-3 sidebar-link fs-5"
                   data-bs-toggle="collapse"
                   href="#layouts"
                 >
@@ -138,7 +120,10 @@ const CustDashboard = () => {
                 <div className="collapse" id="layouts">
                   <ul className="navbar-nav ps-3">
                     <li>
-                      <NavLink to="booking/curr" className="nav-link px-3">
+                      <NavLink
+                        to={`/c/${id}/dashboard/booking/curr`}
+                        className="nav-link px-3"
+                      >
                         <span className="me-2">
                           <i className="bi bi-speedometer2" />
                         </span>
@@ -146,7 +131,10 @@ const CustDashboard = () => {
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink to="booking/all" className="nav-link px-3">
+                      <NavLink
+                        to={`/c/${id}/dashboard/booking/all`}
+                        className="nav-link px-3"
+                      >
                         <span className="me-2">
                           <i className="bi bi-speedometer2" />
                         </span>
@@ -155,15 +143,23 @@ const CustDashboard = () => {
                     </li>
 
                     <li>
-                      <a href="#" className="nav-link px-3">
+                      <NavLink
+                        to={`/c/${id}/dashboard/booking/add`}
+                        className="nav-link px-3"
+                      >
                         <span className="me-2">
                           <i className="bi bi-speedometer2" />
                         </span>
-                        <span>Adding Booking</span>
-                      </a>
+                        <span>Add Booking</span>
+                      </NavLink>
                     </li>
                   </ul>
                 </div>
+              </li>
+              <li>
+                <button onClick={() => logout()} className="btn btn-primary nav-link px-3 fs-5">
+                  Logout
+                </button>
               </li>
             </ul>
           </nav>
@@ -173,7 +169,7 @@ const CustDashboard = () => {
       <main className=" dashboard-main mt-5 pt-3">
         <Outlet />
       </main>
-    </>
+    </Layout>
   );
 };
 

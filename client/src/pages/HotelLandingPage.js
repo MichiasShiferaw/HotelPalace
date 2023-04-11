@@ -2,8 +2,10 @@ import React from 'react'
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import RoomOptions from '../components/AllHotelDetails/RoomOptions';
 import Booking from '../components/AllHotelDetails/Booking';
+import { useSelector } from 'react-redux';
 
 const HotelPage = () => {
+  const auth = useSelector((state) => state.auth);
   return (
     <>
       <div className="container-fluid bg-dark px-0">
@@ -65,7 +67,7 @@ const HotelPage = () => {
                 id="navbarCollapse"
               >
                 <div className="navbar-nav mr-auto py-0">
-                  <NavLink to="/hotel/:id/home" className="nav-item nav-link active">
+                  <NavLink to={`/hotel/${auth.ssn}/home`} className="nav-item nav-link active">
                     Home
                   </NavLink>
                   <a href="#" className="nav-item nav-link">
