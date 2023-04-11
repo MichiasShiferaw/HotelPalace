@@ -22,9 +22,7 @@ const MainLandingPage = () => {
                 height="100"
               ></svg>
               <h1 className="text-body-emphasis">Welcome to Hotel Palace</h1>
-              <p className="col-lg-10 mx-auto fs-5">
-                Change Text Later
-              </p>
+             
               <div className="d-inline-flex gap-2 mb-5">
                 <Link to="/c/420597022/dashboard/home">
                 <button

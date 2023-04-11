@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import { useState } from 'react';
 import api from '../../apis/apiIndex';
 import { CustomersContext } from '../../Contexts/CustomersContext';
+import LocationFilter from '../Filter/LocationFilter';
 
 const BookingForm = () => {
     let joiningDate = new Date();
@@ -48,8 +49,11 @@ const BookingForm = () => {
   };
 
   return (
+    
     <div className="container-xxl py-5">
       <div className="container">
+        
+      
         <div
           className="text-center wow fadeInUp"
           style={{
@@ -65,6 +69,7 @@ const BookingForm = () => {
             Book A <span className="text-primary text-uppercase">Luxury Room</span>
           </h1>
         </div>
+        
         <div className="row g-5">
           <div className="col-lg-6">
             <div className="row g-3">
@@ -123,7 +128,7 @@ const BookingForm = () => {
                 <div className="row g-3">
                   <div className="col-md">
                     <label htmlFor="customer_ssn" className="form-label">
-                      Customer SSN
+                      Customemer SSN
                     </label>
                     <input
                       onChange={(e) => onChange(e)}

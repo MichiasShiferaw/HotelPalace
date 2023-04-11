@@ -28,7 +28,7 @@ app.use("/log", require("./routes/auth"));
 
 app.use("/emp", require("./routes/employee"));
 
-const port = process.env.PORT || 3006;
+const port = process.env.PORT || 3005;
 
 app.listen(port, () => {
   console.log(`Server is up! Listening to ${port}`);

@@ -94,7 +94,7 @@ const WebRoutes = () => {
             <Route exact path="/login" element={<Login2 />} />
             <Route exact path="/register" element={<Register2 />} />
             {/* </Route> */}
-            <Route exact path="cust/home" Component={CustomerLandingPage} />
+            <Route exact path="/cust/home" Component={CustomerLandingPage} />
 
             <Route
               path="c/:id/dashboard"

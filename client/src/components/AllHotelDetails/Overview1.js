@@ -1,9 +1,21 @@
 import React from 'react';
 import StarRating from '../StarRating';
+import { useSelector } from "react-redux";
+import { NavLink, Outlet, useParams } from "react-router-dom";
+import BookingForm from '../Forms/BookingForm';
+import {useState} from 'react';
+
 
 const Overview1 = ({ details,rooms }) => {
   console.log(details)
   // const yo = hid;
+  const  auth  = useSelector((state) => state.auth);
+  const [isVisible, setIsVisible] = useState(false);
+  const handleClick = ()=>{
+    setIsVisible(!isVisible);
+  };
+
+
   return (
     <>
 
@@ -15,22 +27,7 @@ const Overview1 = ({ details,rooms }) => {
               <div className="col">
                 <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                   <div className="col-auto d-none d-lg-block">
-                    <svg
-                      className="bd-placeholder-img"
-                      width="350"
-                      height="250"
-                      xmlns="http://www.w3.org/2000/svg"
-                      role="img"
-                      aria-label="Placeholder: Thumbnail"
-                      preserveAspectRatio="xMidYMid slice"
-                      focusable="false"
-                    >
-                      <title>Placeholder</title>
-                      <rect width="100%" height="100%" fill="#55595c"></rect>
-                      <text x="50%" y="50%" fill="#eceeef" dy=".3em">
-                        Thumbnail
-                      </text>
-                    </svg>
+                    
                   </div>
                   <div className="col p-4 d-flex flex-column position-static">
                     <h3 className="mb-0">{details.hotel_name}</h3>
@@ -39,22 +36,35 @@ const Overview1 = ({ details,rooms }) => {
                     </strong>
                     <div className="mb-1 text-body-secondary">{details.country}</div>
                     <p className="mb-auto">{details.hotel_chain}</p>
-                    <a href="#" className="stretched-link">
-                      Explore
-                    </a>
+                    
                   </div>
 
                   <div className="col-md-3">
                     <div className="card mt-3">
                       <div className="card-body vstack gap-3">
                         <h5 className="card-title">Chain</h5>
-                        <div className="card-text">Cheapest at $ $3242</div>
+                        
+                       
+                        {/*
+                        <NavLink
+                          href="#PageBooking"
+                          className="ms-4  btn btn-warning"
+                          oneClick={handleClick}
+                        >
+                          Book Now
+                        </NavLink>
+                        */}
+                        
+                        <button 
+                            onClick={handleClick}
+                            className="ms-4  btn btn-warning"
+                            >
+                          {isVisible ? 'Hide' : 'Book Now'}
+                        </button>
 
-                        <a href="#" className="btn btn-primary">
-                          CheckOut Deals
-                        </a>
+
                         <hr className="m-0" />
-                        <div>Company</div>
+                        
                       </div>
                     </div>
                   </div>
@@ -62,6 +72,8 @@ const Overview1 = ({ details,rooms }) => {
               </div>
             </div>
 
+
+            {/*
             <ul
               className="nav nav-tabs card-header-tabs d-flex justify-content-around"
               data-bs-tabs="tabs"
@@ -83,21 +95,35 @@ const Overview1 = ({ details,rooms }) => {
               </li>
               <li className="nav-item">
                 <a className="nav-link" data-bs-toggle="tab" href="#michias">
-                  Michias
+                  Prices
                 </a>
               </li>
             </ul>
+
+            */}
+            
+          
+            <div style ={{ display: isVisible ? 'block' : 'none' }} id="booking" >
+              
+              <p>Hotel Id: {details.hotel_id}</p>
+              <p>Rooms Available: {details.num_of_rooms}</p>
+              <BookingForm />
+            </div>
+            {/*
             <form className="card-body tab-content">
+              
               <div className="tab-pane active" id="Details">
-                <p className="card-text">Ameneties.</p>
+                
               </div>
               <div className="tab-pane" id="static">
-                <p className=" card-text">Availablities Per Rooms.</p>
+                <p className=" card-text">Rooms Available: {details.num_of_rooms}</p>
+                
               </div>
               <div className="tab-pane" id="michias">
                 <p className=" card-text">Price Points.</p>
               </div>
             </form>
+          */}
           </div>
         </div>
       </div>
@@ -106,3 +132,5 @@ const Overview1 = ({ details,rooms }) => {
 };
 
 export default Overview1
+
+

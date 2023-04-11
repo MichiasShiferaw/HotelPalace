@@ -1226,3 +1226,16 @@ INSERT INTO hotel_phone VALUES
 (48, '3406012271', 'Human Resources'),
 (48, '3543933005', 'Developers'),
 (48, '2811931893', 'Caretakers');
+
+
+
+
+
+
+
+
+
+
+
+
+

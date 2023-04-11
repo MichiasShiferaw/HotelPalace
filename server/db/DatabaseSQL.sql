@@ -528,3 +528,5 @@ CREATE TRIGGER default_num_of_room_trig
 -- DROP DATABASE IF EXISTS dbproject;
 
 -- CREATE DATABASE dbproject;
+
+SELECT * FROM customer;

@@ -22,9 +22,7 @@ const CustomerLandingPage = () => {
             <div className="container">
               <div className="row site-hero-inner justify-content-center align-items-center">
                 <div className="col-md-10 pt-5 text-center">
-                  <span className="custom-caption text-uppercase text-white d-block  mb-3">
-                    CSI 2132 Project
-                  </span>
+                  
                   <h1 className="heading pt-5">
                     {" "}
                     Welcome To The <span className="text-primary">
@@ -91,9 +89,8 @@ const CustomerLandingPage = () => {
           <LocationFilter />
           {/* 
       <Overview /> */}
-          <Recommended />
+        
 
-          <HCBanner />
           <Footer /> 
         </Layout>
       </div>
