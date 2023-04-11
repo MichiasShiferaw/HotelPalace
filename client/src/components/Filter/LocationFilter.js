@@ -88,8 +88,8 @@ const LocationFilter = () => {
               +
             </button>
           </div>
-
-          <Button className="btn btn-success" href = "/hotel/:id/checkout">Submit</Button>
+          <Button className="btn btn-success" href = "/hotel/:id/checkout">Payment Page</Button>
+          <Button className="btn btn-success" >Submit</Button>
         </form>
       </div>
       <table className="table my-5">

@@ -32,7 +32,7 @@ const MainHome = () => {
       <HCBanner />
 
       
-      <Searchbar />
+      
       <MainHomeFooter />
     </>
   );
@@ -63,7 +63,7 @@ export default MainHome
           Customer Dashboard
         </Link>
       </div>
-
+<Searchbar />
 
 
 */
