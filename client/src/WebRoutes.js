@@ -65,19 +65,14 @@ import CheckInMain from "./components/DashboardContent/emp/Booking-Renting/Check
 const PrivateRoutes = () => {
   const auth = useSelector((state) => state.auth);
 
-  console.log(auth);
-  // navigate(`c/${auth.ssn}/dashboard`)
-  console.log(auth.emp);
+  console.log(auth.emp)
   return auth.isAuth && auth.emp;
 };
 
 const RestrictedRoutes = () => {
-  // let navigate = useNavigate();
+
   const auth = useSelector((state) => state.auth);
 
-  // console.log(`c/${authSsn}/dashboard`);
-  // navigate(`c/${auth.ssn}/dashboard`)
-  console.log(auth.isAuth);
   return auth.isAuth;
 };
 
@@ -122,7 +117,6 @@ const WebRoutes = () => {
               <Route path="dashboard" Component={EmpDashboardContent} />
               <Route path="profile" Component={EmpDetailPage} />
               <Route path="profile/update" Component={UpdatePage} />
-              {/* <Route path="transfer-booking" Component={TransferR}/> */}
               <Route path="b-r">
                 <Route path="booking/all" Component={AllBooking2} />
                 <Route path="renting/add" Component={RentingForm} />

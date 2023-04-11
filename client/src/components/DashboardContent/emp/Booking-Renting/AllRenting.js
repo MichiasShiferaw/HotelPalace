@@ -24,11 +24,11 @@ const AllRenting = () => {
 
   const { bookings, setBookings } = useContext(CustomersContext);
 
-  const handleArchive = async (id) => {
-    console.log(id);
+  const handleArchive = async (id1) => {
+    console.log(id1);
 
     try {
-      const response = await api.put(`emp/set-renting/${id}`, {
+      const response = await api.put(`emp/set-renting/${id1}`, {
         renting_status: "archive",
         last_updated: updated,
       });

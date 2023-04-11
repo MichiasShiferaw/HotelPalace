@@ -248,7 +248,7 @@ CREATE TABLE IF NOT EXISTS booking_info(
 	booking_id serial ,
     hotel_id INT NOT NULL,
     customer_SSN VARCHAR(20) NOT NULL,
-    booking_status text NOT NULL CHECK(booking_status IN('start', 'completed', 'cancel','archive')),
+    booking_status text NOT NULL CHECK(booking_status IN('booked', 'start', 'completed', 'cancel','archive')),
     room_no VARCHAR(20) NOT NULL,
     emp_SSN VARCHAR(20) NOT NULL,
     arrival_time DATE NOT NULL,
@@ -288,7 +288,7 @@ CREATE TABLE IF NOT EXISTS renting_info(
     emp_SSN VARCHAR(20) NOT NULL,
     room_no VARCHAR(20) NOT NULL,
     booking_id VARCHAR(20),
-    has_booked VARCHAR(20) NOT NULL,
+    has_booked BOOLEAN,
     arrival_time DATE NOT NULL,
     departure_time DATE NOT NULL,
     created_at DATE NOT NULL,
@@ -493,26 +493,26 @@ CREATE TRIGGER remove_num_of_room_trig
   AFTER DELETE
   ON room
   FOR EACH ROW
-  EXECUTE PROCEDURE remove_num_of_room());
+  EXECUTE PROCEDURE remove_num_of_room();
 
 
 
 -- trigger 4
-CREATE OR REPLACE FUNCTION default_num_of_hotel() 
+CREATE OR REPLACE FUNCTION default_num_of_room() 
     RETURNS trigger as 
     $BODY$
     BEGIN
-		NEW.num_of_hotels := 0;
+		NEW.num_of_rooms := 0;
 		RETURN NEW;
 	END;
     $BODY$ 
     LANGUAGE plpgsql;
 
-CREATE TRIGGER default_num_of_hotel_trig 
+CREATE TRIGGER default_num_of_room_trig 
     BEFORE insert 
-    ON hotel_chain 
+    ON hotel 
     FOR EACH ROW
-    EXECUTE FUNCTION default_num_of_hotel();
+    EXECUTE FUNCTION default_num_of_room();
 
 
 

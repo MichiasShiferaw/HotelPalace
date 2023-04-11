@@ -277,7 +277,7 @@ exports.getBooking = async (req, res) => {
     res.status(200).json({
       status: "success",
       data: {
-        booking: response.rows,
+        booking: response.rows[0],
       },
     });
     console.log(response.rows);
@@ -311,7 +311,7 @@ exports.addRenting = async (req, res) => {
     res.status(201).json({
       status: "success",
       data: {
-        booking: results.rows[0],
+        renting: results.rows[0],
       },
     });
   } catch (err) {

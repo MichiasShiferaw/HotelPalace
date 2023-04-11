@@ -35,11 +35,11 @@ const Login2 = () => {
   return (
     <>
     <Layout>
-      <div className=" container-xxl  sign-in__backdrop text-center bg-secondary p-5 my-3">
+      <div className=" container-xxl  sign-in__backdrop text-center bg-info p-5 my-3">
         <div className="container">
           <div className=" row g-3">
           <form onSubmit={(e) => onSubmit(e)}>
-            <h1>Login</h1>
+            <h1>Customer Login</h1>
 
             <div className="mb-3">
               <label htmlFor="customer_ssn" className="form-label">

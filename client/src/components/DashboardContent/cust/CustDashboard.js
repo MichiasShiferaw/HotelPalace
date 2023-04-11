@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { NavLink, Outlet, useParams } from "react-router-dom";
-import DashboardData from "../../../data/EmpDashboardData.json"
 import Layout from "../../Layout/Layout";
 import { useDispatch } from "react-redux";
 import api from "../../../apis/apiIndex";
@@ -8,12 +7,6 @@ import { unauthenticateUser } from "../../../redux/authSlice";
 
 const CustDashboard = () => {
     const { id } = useParams();
-  const hi = DashboardData["Booking"];
-  console.log(DashboardData["Booking"]);
-  {
-    Object.keys(hi).map((section) => console.log(section));
-  }
-
 
   const dispatch = useDispatch();
   const [loading, setLoading]=useState(true)
@@ -30,17 +23,6 @@ const CustDashboard = () => {
     }
   };
 
-  // const protectedInfo = async () => {
-  //   try {
-  //     const { data } = await fetchProtectedInfo();
-
-  //     setProtectedData(data.info);
-
-  //     setLoading(false);
-  //   } catch (error) {
-  //     logout();
-  //   }
-  // };
 
   return (
     <Layout>
