@@ -780,57 +780,56 @@ INSERT INTO employee (emp_SSN, first_name, middle_name, last_name, street_name, 
 	('457863806','Berthe','Horst','Poley','Johnson','4','Long Beach','California','90805','USA','20','2010-11-12','E8NqQGRZ7','2022-10-29'),
 	('045406579','Giacobo','Suki','Shackel','Colorado','7','Baltimore','Maryland','21290','USA','19','2000-12-29','SPWxoXlcZZNW','2022-09-02');
 
-
 -- insert managers for each hotel
 INSERT INTO hotel_management(hotel_id, manager_SSN)
-VALUES ( 1, 123456789),
-( 2, 728214430),
-( 3, 622965894),
-( 4, 834108028),
-( 5, 810199334),
-( 6, 925601006),
-( 7, 648177403),
-( 8, 678690981),
-( 9, 798729664),
-( 10, 785968425),
-( 11, 822929536),
-( 12, 766684759),
-( 13, 970079122),
-( 14, 625475296),
-( 15, 963540482),
-( 16, 875989858),
-( 17, 667303866),
-( 18, 730327966),
-( 19, 942536557),
-( 20, 933864249),
-( 21, 731738360),
-( 22, 992667860),
-( 23, 946447029),
-( 24, 682038425),
-( 25, 681389828),
-( 26, 957340718),
-( 27, 992370650),
-( 28, 795012405),
-( 29, 684457349),
-( 30, 701582462),
-( 31, 735160338),
-( 32, 717229150),
-( 33, 870046861),
-( 34, 911684544),
-( 35, 897250271),
-( 36, 983351156),
-( 37, 701560380),
-( 38, 841422520),
-( 39, 765323601),
-( 40, 969309591),
-( 41, 705121441),
-( 42, 710149051),
-( 43, 741815294),
-( 44, 905807783),
-( 45, 913546887),
-( 46, 931268357),
-( 47, 861074101),
-( 48, 986197593)
+VALUES (1, 123456789),
+(2, 728214430),
+(3, 622965894),
+(4, 834108028),
+(5, 810199334),
+(6, 925601006),
+(7, 648177403),
+(8, 678690981),
+(9, 798729664),
+(10, 785968425),
+(11, 822929536),
+(12, 766684759),
+(13, 970079122),
+(14, 625475296),
+(15, 963540482),
+(16, 875989858),
+(17, 667303866),
+(18, 730327966),
+(19, 942536557),
+(20, 933864249),
+(21, 731738360),
+(22, 992667860),
+(23, 946447029),
+(24, 682038425),
+(25, 681389828),
+(26, 957340718),
+(27, 992370650),
+(28, 795012405),
+(29, 684457349),
+(30, 701582462),
+(31, 735160338),
+(32, 717229150),
+(33, 870046861),
+(34, 911684544),
+(35, 897250271),
+(36, 983351156),
+(37, 701560380),
+(38, 841422520),
+(39, 765323601),
+(40, 969309591),
+(41, 705121441),
+(42, 710149051),
+(43, 741815294),
+(44, 905807783),
+(45, 913546887),
+(46, 931268357),
+(47, 861074101),
+(48, 986197593)
 ;
 
 -- inserting room categories
@@ -858,6 +857,7 @@ VALUES (1,'single','mountain',TRUE),
 -- variable declaration reference: https://www.techonthenet.com/postgresql/declare_vars.php
 -- casting reference: https://stackoverflow.com/questions/23622993/postgresql-error-operator-does-not-exist-integer-character-varying
 -- case reference: https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-case/
+-- concat reference: https://www.postgresqltutorial.com/postgresql-string-functions/postgresql-concat-function/
 DO $$
 DECLARE 
 	numHotels INTEGER := (SELECT COUNT(*) FROM hotel);
@@ -865,6 +865,12 @@ DECLARE
 	room_category_type INTEGER;
 	room_size TEXT;
 	price DECIMAL(6,2);
+	amenities text[] := ARRAY['Wi-Fi', 'Fridge', 'Toiletries', 'Wine', 'Coffee', 'Breakfast', 'Gym'];
+	damages text[] := ARRAY['Broken Tap', 'Broken Shower', 'No Hot Water', 'Clogged Toilet', 'Broken TV', 'Broken A/C'];
+	all_amenities text;
+	all_damages text;
+	k INTEGER;
+	m INTEGER;
 BEGIN
 	FOR i IN 1..numHotels LOOP
 		numRooms := (SELECT num_of_rooms FROM hotel WHERE hotel_id = i);
@@ -880,50 +886,37 @@ BEGIN
                 ELSE (SELECT random()*(800-1200)+1200)
             END;
 
+			k := (SELECT random()*(1-7)+7);
+
+			all_amenities := CASE 
+                WHEN room_size = 'single' THEN (SELECT CONCAT('TV, ', 'A/C, ', amenities[k]))
+                WHEN room_size = 'double' THEN (SELECT CONCAT('TV, ', 'A/C, ', amenities[k], ', ', amenities[(SELECT MOD(k + 1, 7)) + 1]))
+                WHEN room_size = 'deluxe' THEN (SELECT CONCAT('TV, ', 'A/C, ', amenities[k], ', ', amenities[(SELECT MOD(k + 1, 7)) + 1], ', ',
+				amenities[(SELECT MOD(k + 2, 7)) + 1]))
+                ELSE (SELECT CONCAT('TV, ', 'A/C, ', amenities[k], ', ', amenities[(SELECT MOD(k + 1, 7)) + 1], ', ',
+				amenities[(SELECT MOD(k + 2, 7)) + 1], ', ', amenities[(SELECT MOD(k + 3, 7)) + 1]))
+            END;
+
+			k := (SELECT random()*(1-6)+6);
+			m := (SELECT random()*(0-3)+3);
+
+			all_damages := CASE 
+                WHEN m = 1 THEN damages[k]
+                WHEN m = 2 THEN (SELECT CONCAT(damages[k], ', ', damages[(SELECT MOD(k + 1, 6)) + 1]))
+                WHEN m = 3 THEN (SELECT CONCAT(damages[k], ', ', damages[(SELECT MOD(k + 1, 6)) + 1], ', ',
+				damages[(SELECT MOD(k + 2, 6)) + 1]))
+				ELSE 'None'
+            END;
+
 			INSERT INTO room(room_no, hotel_id, price, room_category_id, amenities, damages, last_updated)
-			VALUES (j, i, price, room_category_type, 'smtg', 'smtg', DEFAULT);
+			VALUES (j, i, price, room_category_type, all_amenities, all_damages, DEFAULT);
 		END LOOP;
 	END LOOP;
 END; 
 $$
 
--- inserting rooms (mysql version)
--- while loop insertion reference: https://stackoverflow.com/questions/26981901/mysql-insert-with-while-loop
--- variables reference: https://stackoverflow.com/questions/11754781/how-to-declare-a-variable-in-mysql
--- drop procedure if exists insertRooms;
--- DELIMITER //
--- CREATE PROCEDURE insertRooms()
--- BEGIN
--- 	DECLARE i INT DEFAULT 1;
---     SET @numOfHotels = (SELECT COUNT(*) FROM hotel);
--- 	WHILE (i <= @numOfHotels) DO -- there are 48 hotels currently
--- 		BEGIN
--- 			DECLARE j INT DEFAULT 1;
--- 			SET @numRooms = (SELECT num_of_rooms FROM hotel WHERE hotel_id = i); -- get the number of rooms from each hotel
--- 			WHILE (j <= @numRooms) DO
---                 -- the amenities and rating the hotel offers
---                 SET @room_category_id = (SELECT CONVERT((SELECT MOD(j, 16) + 1), CHAR)); -- each room will get a room category id from 1 to 16
---                 -- sets the price based on the capacity of the room category
---                 -- select case reference: https://stackoverflow.com/questions/7871014/mysql-storing-a-variable-with-the-result-of-an-select-case
---                 SET @capacity = (SELECT capacity FROM room_category WHERE room_category_id = @room_category_id);
---                 SELECT CASE
---                     WHEN @capacity = 'single' THEN (SELECT RAND()*(100-200)+200)
---                     WHEN @capacity = 'double' THEN (SELECT RAND()*(200-400)+400)
---                     WHEN @capacity = 'deluxe' THEN (SELECT RAND()*(500-700)+700)
---                     ELSE (SELECT RAND()*(800-1200)+1200)
---                 END
---                 INTO @price;
--- 				INSERT INTO room(room_no, hotel_id, price, room_category_id, amenities, 
--- 				damages, last_updated)
--- 				VALUES (j, i, @price, @room_category_id, 'smtg', 'smtg', DEFAULT);
--- 				SET j = j + 1;
--- 			END WHILE;
--- 		SET i = i + 1;
--- 	END;
--- END WHILE;
--- END;
-
--- CALL insertRooms(); -- call procedure to insert rooms
+select * from room;
+delete from room;
 
 -- inserting managers into roles (postgresql version)
 DO $$
@@ -940,26 +933,6 @@ BEGIN
 END; 
 $$
 
--- inserting managers into roles (mysql version)
--- while loop insertion reference: https://stackoverflow.com/questions/26981901/mysql-insert-with-while-loop
--- variables reference: https://stackoverflow.com/questions/11754781/how-to-declare-a-variable-in-mysql
--- concatenation reference: https://www.w3schools.com/sql/func_mysql_concat.asp
--- drop procedure if exists insertManagers;
--- DELIMITER //
--- CREATE PROCEDURE insertManagers()
--- BEGIN
--- 	DECLARE i INT DEFAULT 1;
---     SET @numOfManagers = (SELECT COUNT(*) FROM hotel_management);
---     WHILE (i <= @numOfManagers) DO 
--- 		SET @manager_SSN = (SELECT manager_SSN FROM hotel_management WHERE hotel_id = i); -- loop through all managers in hotel_management relation
-            
--- 		SET @salary = (SELECT RAND()*(200-9999)+9999); -- randomize salary between $200 to $9999
--- 		INSERT INTO role(emp_SSN, role_id, name, salary) VALUES (@manager_SSN, 1, 'Manager', @salary);
--- 		SET i = i + 1;
--- 	END WHILE;
--- END;
--- CALL insertManagers(); -- call procedure to insert managers into role relation
-
 -- inserting different roles into role table (postgres version)
 -- array reference: https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-array/
 -- if reference: https://www.postgresqltutorial.com/postgresql-plpgsql/plpgsql-if-else-statements/
@@ -969,15 +942,17 @@ DECLARE
 	role text[] := ARRAY['Supervisor', 'Head HR', 'Assistiant HR', 'Senior Developer', 'Junior Developer', 'Janitor'];
 	salary DECIMAL(6, 2);
 	k INTEGER := 0;
+	hotel INT := 0;
 	j record;
 BEGIN
 	FOR j IN (select * from employee where not exists (select manager_SSN from hotel_management where employee.emp_SSN = hotel_management.manager_SSN) order by hotel_id)
 	LOOP
 		employee := j.emp_SSN;
 		salary := (SELECT random()*(100-5000)+5000);
-
-		if k = j.hotel_id then k := (SELECT MOD(k + 1, 6));
-		else k = 0;
+    
+		if hotel = j.hotel_id then k := (SELECT MOD(k + 1, 6));
+		else hotel := j.hotel_id;
+			k := 0;
 		end if;
 
 		INSERT INTO role(emp_SSN, role_id, role_name, salary) VALUES (employee, k + 2, role[k + 1], salary);
