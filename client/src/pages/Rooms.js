@@ -4,17 +4,17 @@ import React from 'react';
 const Rooms = () => {
   return (
     <>
-      <main class="container mt-5">
-        <div class="row mb-4 rounded">
-          <div class="col-md-8 p-4 p-md-5 text-bg-dark">
-            <h1 class="display-4 fst-italic">Room Image</h1>
+      <main className="container mt-5">
+        <div className="row mb-4 rounded">
+          <div className="col-md-8 p-4 p-md-5 text-bg-dark">
+            <h1 className="display-4 fst-italic">Room Image</h1>
           </div>
-          <div class="col sidebar p-4 p-md-5 border">
-            <div class="sidebar-box bg-light rounded"></div>
-            <div class="sidebar-box">
+          <div className="col sidebar p-4 p-md-5 border">
+            <div className="sidebar-box bg-light rounded"></div>
+            <div className="sidebar-box">
               <h3>Amentities</h3>
-              <div class="d-md-flex">
-                <ul class="categories me-md-4">
+              <div className="d-md-flex">
+                <ul className="categories me-md-4">
                   <li>
                     <a href="#">Free Wifi</a>
                   </li>
@@ -28,7 +28,7 @@ const Rooms = () => {
                     <a href="#">Swimming Pool</a>
                   </li>
                 </ul>
-                <ul class="categories ms-md-4">
+                <ul className="categories ms-md-4">
                   <li>
                     <a href="#">Beauty &amp; Health</a>
                   </li>
@@ -44,7 +44,7 @@ const Rooms = () => {
                 </ul>
               </div>
             </div>
-            <div class="sidebar-box mt-3">
+            <div className="sidebar-box mt-3">
               <h3>Damages</h3>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -55,8 +55,8 @@ const Rooms = () => {
             </div>
           </div>
         </div>
-        <div class="row mb-4 rounded pb-5">
-          <div class="col-md-9  border">
+        <div className="row mb-4 rounded pb-5">
+          <div className="col-md-9  border">
             <h2>Room Name</h2>
             <p>
               When she reached the first hills of the Italic Mountains, she had
@@ -66,8 +66,8 @@ const Rooms = () => {
               then she continued her way.
             </p>
 
-            <div class="d-md-flex mt-5 mb-5">
-              <ul class="list">
+            <div className="d-md-flex mt-5 mb-5">
+              <ul className="list">
                 <li>
                   <span>Max:</span> 3 Persons
                 </li>
@@ -75,7 +75,7 @@ const Rooms = () => {
                   <span>Size:</span> 45 m2
                 </li>
               </ul>
-              <ul class="list ms-md-5">
+              <ul className="list ms-md-5">
                 <li>
                   <span>View:</span> Sea View
                 </li>

@@ -11,6 +11,59 @@
 }
 
 
+.booking_status{
+  font-weight: bolder !important;
+}
+.booking_status.start{
+  color:green !important;
+  
+}
+
+
+.booking_status.completed {
+  color: purple !important;
+
+}
+
+.booking_status.cancel {
+  color: red !important;
+
+}
+
+.booking_status.archive {
+  color: blue !important;
+
+}
+
+
+
+.cust .active {
+  background: yellow;
+  color: #000;
+}
+
+.cover{
+  height: 100vh;
+}
+
+.cust .nav-link.active-cust,
+.cust .nav-link:hover {
+  color: var(--secondary-color);
+}
+
+.cust-navbar .cust .nav-link {
+  border-radius: var(--border-radius-large);
+  border-radius: 1px;
+  margin: 10px;
+  padding: 10px 20px;
+}
+
+
+.cover-container{
+  max-width: 42em;
+}
+
+
 .carousel-caption{
   bottom: 10rem !important;
 }
@@ -26,6 +79,12 @@
 :root {
   --offcanvas-width: 270px;
   --topNavbarHeight: 56px;
+}
+
+
+.sign-in__backdrop {
+  top: var(--topNavbarHeight) !important;
+  position: relative;
 }
 
 .sidebar-nav {
@@ -93,10 +152,37 @@
 }
 
 .mw-270{
-  max-width: 270px;
-  height:160px;
+  /* max-width: 270px;
+  height:160px; */
   border: 2px solid rgba(255, 255, 255, 0.15);
+  background-color: #282c34;
 
+}
+
+
+.react-datepicker__input-container> input {
+    width: 100%;
+    padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+    -moz-padding-start: calc(0.75rem - 3px);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    appearance: none;
+}
+
+
+.site-hero{
+  background-image: url("../public/assets/images/logo/Main.jpg");
+  background-size: cover;
+  height: 80vh;
+  min-height: 700px;
+  width: 100%;
+  position: relative;
 }
 .banner{
   display: inline-block;
@@ -125,9 +211,9 @@
 }
 
 .sign-in__backdrop {
-  position: absolute;
-  /* inset: 0; */
-  /* background-color: rgba(0, 0, 0, 0.3); */
+  /* position: absolute;
+  inset: 0; 
+  background-color: rgba(0, 0, 0, 0.3); */
 }
 .link {
   display: flex;

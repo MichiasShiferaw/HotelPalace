@@ -161,7 +161,7 @@ const AddCustomers = () => {
         </div>
         {/*  */}
         <div className="col-md-3">
-          <label for="lastUpdated" className="form-label">
+          <label htmlFor="lastUpdated" className="form-label">
             Last Updated
           </label>
           <input
@@ -173,7 +173,7 @@ const AddCustomers = () => {
           />
         </div>
         <div className="col">
-          <label for="lastUpdated" className="form-label">
+          <label htmlFor="lastUpdated" className="form-label">
             Last Updated
           </label>
           <input
@@ -185,7 +185,7 @@ const AddCustomers = () => {
           />
         </div>
         <div className="col">
-          <label for="lastUpdated" className="form-label">
+          <label htmlFor="lastUpdated" className="form-label">
             Last Updated
           </label>
           <input
@@ -199,7 +199,7 @@ const AddCustomers = () => {
           />
         </div>
         <div className="col">
-          <label for="lastUpdated" className="form-label">
+          <label htmlFor="lastUpdated" className="form-label">
             Last Updated
           </label>
           <input
