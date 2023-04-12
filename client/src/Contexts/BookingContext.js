@@ -44,7 +44,7 @@ export default class RoomProvider extends Component {
       //
       let maxPrice = Math.max(...rooms.map((item) => item.price));
       let minRating = Math.min(...rooms.map((item) => item.rating));
-      let min_numz_of_rooms = Math.min(...rooms.map((item) => item.num_of_rooms));
+      let max_nums_of_rooms = Math.max(...rooms.map((item) => item.num_of_rooms));
       this.setState({
         rooms,
         sortedRooms: rooms,
@@ -53,7 +53,7 @@ export default class RoomProvider extends Component {
 
         rating: minRating,
 
-        num_of_rooms: min_numz_of_rooms,
+        num_of_rooms: max_nums_of_rooms,
 
         price: maxPrice,
         maxPrice,
@@ -120,6 +120,7 @@ export default class RoomProvider extends Component {
 
 
     if (chain_name !== "all") {
+      console.log("chain check-check");
       console.log(chain_name)
       tempRooms = tempRooms.filter((room) => room.chain_name === chain_name);
       console.log("chain check")
@@ -135,15 +136,19 @@ export default class RoomProvider extends Component {
 
       tempRooms = tempRooms.filter((room) => room.rating >= rating);
             console.log("Room View Check2");
+            console.log(tempRooms);
 
 
       tempRooms = tempRooms.filter(
-        (room) => room.num_of_rooms <= num_of_rooms
+        (room) => room.num_of_rooms >= num_of_rooms
       );
-
+      console.log(num_of_rooms);
+ console.log("Room View Check3112");
+ console.log(tempRooms);
 
       tempRooms = tempRooms.filter((room) => room.price <= price);
             console.log("Room View Check3");
+            console.log(tempRooms);
 
 
     if (room_view !== "all") {
@@ -161,9 +166,6 @@ export default class RoomProvider extends Component {
       console.log(tempRooms);
     }
 
-    // tempRooms.map((tempRooms))
-    // console.log(tempRooms[0]);
-    // console.log("Goodbye")
     console.log("Birdman1");
 console.log(tempRooms);
     console.log("Birdman2")

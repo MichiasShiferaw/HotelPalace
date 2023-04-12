@@ -161,13 +161,13 @@ const RoomsFilter = ({ rooms }) => {
           </div>
 
           <div className="col-md-6 mb-2 mb-lg-0 col-lg-3">
-            <label htmlFor="num_of_rooms">num_of_rooms</label>
+            <label htmlFor="num_of_rooms">Number of Rooms</label>
             <select
               name="num_of_rooms"
               id="num_of_rooms"
               onChange={handleChange}
               className="form-control"
-              value={rating}
+              value={num_of_rooms}
             >
               {val_num_of_rooms}
             </select>
