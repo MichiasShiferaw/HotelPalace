@@ -13,11 +13,11 @@ create index renting_room
 on renting_info(hotel_id, room_no);
 
 --index 3
--- index to allow for faster searching of an employee
+-- index to allow for faster searching of an employee (for logging in)
 create index index_employee
 on employee(emp_SSN);
 
 -- index 4
--- index to allow for faster searching of a customer
+-- index to allow for faster searching of a customer (for logging in)
 create index index_customer
 on customer(customer_SSN);
