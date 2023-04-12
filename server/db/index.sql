@@ -15,9 +15,9 @@ on renting_info(hotel_id, room_no);
 --index 3
 -- index to allow for faster searching of an employee
 create index index_employee
-on employee(hotel_id);
+on employee(emp_SSN);
 
-drop index index_employee;
-
-explain select * from employee where hotel_id = 1;
-select * from employee;
+-- index 4
+-- index to allow for faster searching of a customer
+create index index_customer
+on customer(customer_SSN);
