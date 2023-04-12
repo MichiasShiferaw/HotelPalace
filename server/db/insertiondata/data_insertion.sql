@@ -861,7 +861,7 @@ VALUES (1,'single','mountain',TRUE),
 DO $$
 DECLARE 
 	numHotels INTEGER := (SELECT COUNT(*) FROM hotel);
-	numRooms INTEGER:= 25;
+	numRooms INTEGER:= 12;
 	room_category_type INTEGER;
 	room_size TEXT;
 	price DECIMAL(6,2);
