@@ -59,9 +59,6 @@ const emploginFieldsCheck = check("emp_SSN").custom(async (value, { req }) => {
     value,
   ]);
 
-  console.log(value);
-  console.log("Michias")
-  console.log(value);
 
   if (!user.rows.length) {
     throw new Error("The ssn provided does not exists.");

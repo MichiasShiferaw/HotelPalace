@@ -231,7 +231,7 @@ const RentingForm = () => {
                 <img
                   className="img-fluid rounded w-85 wow zoomIn"
                   data-wow-delay="0.1s"
-                  src="/assets/images/room-12.jpeg"
+                  src="/assets/images/defaultBcg.jpeg"
                   style={{
                     marginTop: "25%",
                     visibility: "visible",
@@ -242,7 +242,7 @@ const RentingForm = () => {
                 <img
                   className="img-fluid rounded w-85 wow zoomIn"
                   data-wow-delay="0.3s"
-                  src="/assets/images/details-4.jpeg"
+                  src="/assets/images/room-8.jpeg"
                   style={{
                     visibility: "visible",
                   }}
@@ -252,7 +252,7 @@ const RentingForm = () => {
                 <img
                   className="img-fluid rounded w-85 wow zoomIn"
                   data-wow-delay="0.5s"
-                  src="/assets/images/room-9.jpeg"
+                  src="/assets/images/room-7.jpeg"
                   style={{
                     visibility: "visible",
                   }}
@@ -262,7 +262,7 @@ const RentingForm = () => {
                 <img
                   className="img-fluid rounded w-85 wow zoomIn"
                   data-wow-delay="0.7s"
-                  src="/assets/images/room-8.jpeg"
+                  src="/assets/images/room-10.jpeg"
                   style={{
                     visibility: "visible",
                   }}

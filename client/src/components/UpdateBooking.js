@@ -24,9 +24,7 @@ const UpdateBooking = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await api.get(`/emp/get-booking/${id}`);
-      // console.log(response.data.data);
-      // console.log("Michias");
-      // console.log(response.data.data.booking.city);
+
       setBooking_id(response.data.data.booking.booking_id);
       setHotel_id(response.data.data.booking.hotel_id);
       setBooking_status(response.data.data.booking.booking_status);

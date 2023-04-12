@@ -55,9 +55,6 @@ const CustomerList = () => {
         const onSubmitForm = async (e) => {
           e.preventDefault();
           try {
-            // const response = await api.get(`/location/?location=${location}`);
-            // console.log(response.data.data.location);
-            // setHotels(response.data.data.location);
           } catch (err) {
             console.log(err);
           }

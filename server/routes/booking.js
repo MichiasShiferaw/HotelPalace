@@ -138,7 +138,7 @@ router.delete("/delete/:booking_id", async (req, res) => {
 router.get("/my-all/curr/:id", async (req, res) => {
   try {
     const results = await db.query(
-      "select * from booking_info where customer_ssn = $1 and booking_status='start' ",
+      "select * from booking_info where customer_ssn = $1 AND booking_status='start' ",
       [req.params.id]
     );
     res.status(200).json({
@@ -151,5 +151,23 @@ router.get("/my-all/curr/:id", async (req, res) => {
     console.log(err);
   }
 });
+
+router.get("/my-all/pass/:id", async (req, res) => {
+  try {
+    const results = await db.query(
+      "select * from booking_info where customer_ssn = $1 AND booking_status!='start' ",
+      [req.params.id]
+    );
+    res.status(200).json({
+      status: "success",
+      data: {
+        booking: results.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 
 module.exports = router;
