@@ -70,12 +70,6 @@ const HotelPage = () => {
                   <NavLink to={`/hotel/${auth.ssn}/home`} className="nav-item nav-link active">
                     Home
                   </NavLink>
-                  <a href="#" className="nav-item nav-link">
-                    Services
-                  </a>
-                  <a href="#rooms" className="nav-item nav-link">
-                    Rooms
-                  </a>
                 </div>
                 <a href ="/hotel/:id/book"
                   className="btn btn-primary rounded-0 py-2 px-md-5 d-none d-lg-block"

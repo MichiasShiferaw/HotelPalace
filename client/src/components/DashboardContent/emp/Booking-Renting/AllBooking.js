@@ -5,7 +5,7 @@ import { CustomersContext } from "../../../../Contexts/CustomersContext";
 import { useSelector } from "react-redux";
 
 const AllBooking = () => {
-  let updated = new Date();
+  let updated = Date.now();
   const offset = updated.getTimezoneOffset();
   updated = new Date(updated.getTime() - offset * 60 * 1000);
   updated = updated.toISOString().split("T")[0];
@@ -35,7 +35,7 @@ const AllBooking = () => {
 
     try {
       const response = await api.put(`emp/set-booking/${id}`, {
-        booking_status: "archive",
+        booking_status: "archived",
         last_updated: updated,
       });
 

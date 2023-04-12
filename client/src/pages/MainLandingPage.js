@@ -1,7 +1,5 @@
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
-import LocationFilter from '../components/Filter/LocationFilter';
-import HCBanner from '../components/HCBanner';
+import { Link, NavLink } from 'react-router-dom';
 
 const MainLandingPage = () => {
   return (

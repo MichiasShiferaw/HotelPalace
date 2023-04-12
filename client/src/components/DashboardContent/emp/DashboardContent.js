@@ -46,53 +46,6 @@ const DashboardContent = () => {
           <h4>Dashboard</h4>
         </div>
       </div>
-      <div className="row mb-5">
-        <div className="col-md-3 mb-3">
-          <div className="card bg-primary text-white h-100">
-            <div className="card-body py-5">Single Room Count Available</div>
-            <div className="card-footer d-flex">
-              As Of {Date.now()}
-              <span className="ms-auto">
-                <i className="bi bi-chevron-right" />
-              </span>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-3 mb-3">
-          <div className="card bg-warning text-dark h-100">
-            <div className="card-body py-5">Double Room Count Available</div>
-            <div className="card-footer d-flex">
-              As Of {Date.now()}
-              <span className="ms-auto">
-                <i className="bi bi-chevron-right" />
-              </span>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-3 mb-3 ">
-          <div className="card bg-success text-white h-100">
-            <div className="card-body py-5">Deluxe Room Count Available</div>
-            <div className="card-footer d-flex">
-              As Of {Date.now()}
-              <span className="ms-auto">
-                <i className="bi bi-chevron-right" />
-              </span>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-3 mb-3">
-          <div className="card bg-danger text-white h-100">
-            <div className="card-body py-5">Suite Room Count Available</div>
-            <div className="card-footer d-flex">
-              As Of {Date.now()}
-              <span className="ms-auto">
-                <i className="bi bi-chevron-right" />
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div className="row">
         <div className="col-md-12 mb-3">
           <div className="card">

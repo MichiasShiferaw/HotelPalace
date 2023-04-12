@@ -35,17 +35,9 @@ const NavbarCust = () => {
         </button>
         <div className="collapse navbar-collapse" id="topNavBar">
           <div className="d-flex mx-auto my-3 my-lg-0 align-items-lg-center">
-            <button className="btn btn-secondary">Home</button>
+            <button className="btn btn-outline-secondary fs-4">Home</button>
             <div className="b-example-divider b-example-vr mx-4"></div>
-            <button className="btn btn-secondary ">Popular</button>
-            <div className="b-example-divider b-example-vr mx-4"></div>
-            <button className="btn btn-secondary">Brands</button>
-            <div className="b-example-divider b-example-vr mx-4"></div>
-            <NavLink to={`/cust/home/#recommended-section`}>
-              <button className="btn btn-secondary">Recommended</button>
-            </NavLink>
-            {/* <button className="btn btn-secondary">Recommended</button> */}
-            <div className="b-example-divider b-example-vr mx-4"></div>
+
           </div>
           {auth.isAuth ? (
             <>
@@ -56,7 +48,7 @@ const NavbarCust = () => {
                 Profile
               </NavLink>
               <NavLink
-                to={`/c/${auth.ssn}/dashboard/booking/add`}
+                to={`/cust/home`}
                 className="ms-4  btn btn-warning"
               >
                 Book Now
@@ -72,19 +64,6 @@ const NavbarCust = () => {
               </NavLink>
             </>
           )}
-          <ul className="navbar-nav">
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle ms-2"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <i className="bi bi-person-fill" />
-              </a>
-            </li>
-          </ul>
         </div>
       </div>
     </nav>

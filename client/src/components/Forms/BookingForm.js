@@ -1,51 +1,90 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
-import { useState } from 'react';
-import api from '../../apis/apiIndex';
-import { CustomersContext } from '../../Contexts/CustomersContext';
+import { useState } from "react";
+import api from "../../apis/apiIndex";
+import { CustomersContext } from "../../Contexts/CustomersContext";
+import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
-const BookingForm = () => {
-    let joiningDate = new Date();
-    const offset = joiningDate.getTimezoneOffset();
-    joiningDate = new Date(joiningDate.getTime() - offset * 60 * 1000);
+export default function BookingForm(props) {
+  const auth = useSelector((state) => state.auth);
+  const { infos, setInfos } = useContext(CustomersContext);
+
+
+  const details = useLocation().state.detail;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+
+        const room_category = details.room_category_id;
+        const response = await api.get(
+          `/booking/room/${details.hotel_id}/room_cate/${details.room_category_id}`
+        );
+
+        setInfos(response.data.data.room);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  let joiningDate = new Date();
+  const offset = joiningDate.getTimezoneOffset();
+  joiningDate = new Date(joiningDate.getTime() - offset * 60 * 1000);
   const { addBookings } = useContext(CustomersContext);
   const [checkInDate, setCheckInDate] = useState(
     new Date(Date.now() + 172800000)
   );
-  console.log(checkInDate);
   const [checkOutDate, setCheckOutDate] = useState(
     new Date(Date.now() + 345600000)
   );
 
   const [values, setValues] = useState({
-    hotel_id: "",
-    customer_ssn: "",
+    hotel_id: details.hotel_id,
+    customer_ssn: auth.ssn,
     booking_status: "booked",
     room_no: "",
-    emp_SSN: "",
+    emp_SSN: "123456789",
     arrival_time: checkInDate,
     departure_time: checkOutDate,
     created_at: joiningDate,
     last_updated: joiningDate,
   });
 
-  // console.log(values.joining_date)
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
+    console.log(e.target.value)
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const {response} = await api.post("/booking/create", values);
-      console.log(response)
+      const { response } = await api.post("/booking/create", values);
+      console.log(response);
+      console.log("hi")
+      console.log(values.room_no);
       // addBookings(response.data.data.customer);
     } catch (err) {
       console.log(err);
     }
   };
+
+  const getUnique = (items, value) => {
+    return [...new Set(items.map((item) => item[value]))];
+  };
+
+  let room_nums = getUnique(infos, "room_no");
+  room_nums = ["pick a room", ...room_nums];
+  room_nums = room_nums.map((item, index) => (
+  <option key={index} value={item}>
+    {item}
+  </option>
+));
 
   return (
     <div className="container-xxl py-5">
@@ -62,7 +101,8 @@ const BookingForm = () => {
             Room Booking
           </h6>
           <h1 className="mb-5">
-            Book A <span className="text-primary text-uppercase">Luxury Room</span>
+            Book A{" "}
+            <span className="text-primary text-uppercase">Luxury Room</span>
           </h1>
         </div>
         <div className="row g-5">
@@ -134,6 +174,7 @@ const BookingForm = () => {
                       value={values.customer_ssn}
                       placeholder="123123"
                       required
+                      disabled
                     />
                   </div>
 
@@ -141,18 +182,17 @@ const BookingForm = () => {
                     <label htmlFor="room_no" className="form-label">
                       Room Number
                     </label>
-                    <input
-                      onChange={(e) => onChange(e)}
-                      type="number"
-                      className="form-control"
-                      id="room_no"
+                    <select
                       name="room_no"
+                      id="room_no"
+                      onChange={(e) => onChange(e)}
+                      className="form-control"
                       value={values.room_no}
-                      placeholder="123"
                       required
-                    />
+                    >
+                      {room_nums}
+                    </select>
                   </div>
-
                   <div className="col-md-4">
                     <label htmlFor="emp_SSN" className="form-label">
                       Emp SSN
@@ -166,6 +206,7 @@ const BookingForm = () => {
                       value={values.emp_SSN}
                       placeholder="test@gmail.com"
                       required
+                      readOnly
                     />
                   </div>
 
@@ -199,7 +240,7 @@ const BookingForm = () => {
                     </div>
                     <DatePicker
                       selected={checkOutDate}
-                       onChange={(date) => setCheckOutDate(date)}
+                      onChange={(date) => setCheckOutDate(date)}
                       dateFormat="MM/dd/yyyy"
                       minDate={new Date(Date.now() + 259200000)}
                       maxDate={new Date(Date.now() + 1.5552e10)}
@@ -219,9 +260,11 @@ const BookingForm = () => {
                       className="form-control"
                       id="hotel_id"
                       name="hotel_id"
-                      value={values.hotel_id}
+                      value={details.hotel_name}
                       placeholder="13"
                       required
+                      disabled
+                      readOnly
                     />
                   </div>
                   <div className="col-12">
@@ -254,4 +297,4 @@ const BookingForm = () => {
   );
 }
 
-export default BookingForm
+// export default BookingForm

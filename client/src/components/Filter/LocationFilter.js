@@ -30,7 +30,7 @@ const LocationFilter = () => {
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.get(`/location/?location=${location}`,values);
+      const response = await api.get(`/filter/?location=${location}`,values);
       console.log(response.data.data.location);
       setHotels(response.data.data.location);
     } catch (err) {
@@ -41,7 +41,7 @@ const LocationFilter = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.get(`/location/?location=${values.location}`);
+      const response = await api.get(`/filter/?location=${values.location}`);
       console.log(response.data.data.location);
       setHotels(response.data.data.location);
     } catch (err) {
@@ -211,16 +211,8 @@ const LocationFilter = () => {
         </form>
       </div>
 
-      {/* <table className="table my-5">
-        <thead>
-          <tr>
-            <th>Hotel Name</th>
-            <th>Hotel Location</th>
-            <th>Rating</th>
-          </tr>
-        </thead>
-        <tbody> */}
-      {hotels.map((hotel) => (
+
+      {/* {hotels.map((hotel) => (
         <Overview
           key={hotel.hotel_id}
           details={hotel}
@@ -230,7 +222,7 @@ const LocationFilter = () => {
           // hstars={hotel.rating}
           // h_chain={hotel.chain_id}
         />
-      ))}
+      ))} */}
       {/* </tbody>
       </table> */}
       {hotels.length === 0 && <p>No Results Found</p>}

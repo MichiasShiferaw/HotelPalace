@@ -54,16 +54,18 @@ const NavbarEmp = () => {
           <div className="d-flex ms-auto my-3 my-lg-0">
             {auth.isAuth && auth.emp ? (
               <>
-                <NavLink
-                  to={`/c/${auth.ssn}/dashboard/profile`}
-                  className="btn btn-secondary"
-                >
+                <button className="btn btn-info ">
+                  Employee: {auth.ssn}
+                </button>
+                <button className="ms-4 btn btn-secondary">
                   Employed Under Hotel #{auth.hotel}
-                </NavLink>
+                </button>
                 <NavLink
                   to={`/emp/${auth.ssn}/b-r/renting/add`}
-                  
-                  className="ms-4 btn btn-warning" > Rent Now
+                  className="ms-4 btn btn-warning"
+                >
+                  {" "}
+                  Rent Now
                 </NavLink>
 
                 <button

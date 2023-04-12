@@ -4,8 +4,11 @@ import Layout from "../Layout/Layout";
 import { useDispatch } from "react-redux";
 import { authenticateUser } from "../../redux/authSlice";
 import Footer from "../Footer/Footer";
+import { useNavigate } from "react-router-dom";
+
 
 const Login2 = () => {
+    let history = useNavigate();
   const [values, setValues] = useState({
     customer_ssn: '',
     password: '',
@@ -26,6 +29,7 @@ const Login2 = () => {
 
       localStorage.setItem('isAuth', 'true')
       localStorage.setItem('ssn',`${values.customer_ssn}`)
+            history(`/c/${values.customer_ssn}/dashboard/home`);
     } catch (error) {
       console.log(error.response.data.errors[0].msg)
       setError(error.response.data.errors[0].msg)
