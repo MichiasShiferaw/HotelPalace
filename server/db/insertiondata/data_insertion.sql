@@ -933,7 +933,7 @@ BEGIN
 		INSERT INTO role(emp_SSN, role_id, role_name, salary) VALUES (manager, 1, 'Manager', salary);
 	END LOOP;
 END; 
-$$
+$$;
 
 -- inserting different roles into role table (postgres version)
 -- array reference: https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-array/
