@@ -1,10 +1,10 @@
 -- view 1
-create or replace view num_rooms_per_area as -- i have no idea (grouping by hotel chains & hotels are not possible)
+create or replace view num_rooms_per_area as
 select hotel.province, chain_name, hotel_name, rating, num_of_rooms 
 from hotel join hotel_chain on hotel.chain_id = hotel_chain.chain_id;
 
 -- view 2
-create or replace view num_room_from_hotel as -- i also have no idea
+create or replace view num_room_from_hotel as
 select hotel_id, room_no, room_capacity from (room join room_category on room.room_category_id = room_category.room_category_id);
 
 --Views task 7
@@ -27,7 +27,7 @@ CREATE OR REPLACE VIEW available_room_per_area as
 					OR (renting_info.departure_time>= NOW() AND room.room_no = renting_info.room_no))
 				
 		GROUP BY hotel.city;
-		
+
 -- View 2
 CREATE OR REPLACE VIEW hotel_room_capacity as
 	SELECT hotel.hotel_id, room_capacity, COUNT(room_category.room_capacity)
@@ -35,3 +35,7 @@ CREATE OR REPLACE VIEW hotel_room_capacity as
 		WHERE hotel.hotel_id = room.hotel_id and room_category.room_category_id= room.room_category_id
 	GROUP BY hotel.hotel_id, room_category.room_capacity
 	ORDER BY hotel.hotel_id;
+
+  -- View 3 (extra view to see all bookings and rentings)
+create or replace view all_bookings_rentings as
+(select hotel_id, room_no, arrival_time, departure_time from booking_info) union (select hotel_id, room_no, arrival_time, departure_time from renting_info);

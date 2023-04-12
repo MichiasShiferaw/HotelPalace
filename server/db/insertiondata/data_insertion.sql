@@ -915,9 +915,6 @@ BEGIN
 END; 
 $$
 
-select * from room;
-delete from room;
-
 -- inserting managers into roles (postgresql version)
 DO $$
 DECLARE 

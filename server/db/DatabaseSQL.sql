@@ -248,15 +248,16 @@ CREATE TABLE IF NOT EXISTS booking_info(
 	booking_id VARCHAR(20) NOT NULL,
     hotel_id INT NOT NULL,
     customer_SSN VARCHAR(20) NOT NULL,
-    booking_status text NOT NULL CHECK(booking_status IN('start', 'completed', 'cancel','archive')),
+    booking_status text NOT NULL CHECK(booking_status IN('start', 'completed', 'cancel', 'archived')),
     room_no VARCHAR(20) NOT NULL,
     emp_SSN VARCHAR(20) NOT NULL,
     arrival_time DATE NOT NULL,
     departure_time DATE NOT NULL,
-    created_at DATE NOT NULL,
+    created_at DATE NOT NULL DEFAULT CURRENT_DATE,
     last_updated DATE DEFAULT (CURRENT_DATE),
-    check (arrival_time <= CURRENT_DATE), -- arrival_time must be a date today or in the past
-    check (departure_time >= CURRENT_DATE), -- departure_time must be a date today or in the future
+    check (arrival_time >= CURRENT_DATE), -- arrival_time must be a date today or in the future
+    check (departure_time > CURRENT_DATE and departure_time > arrival_time), -- departure_time must be a date in the future and must be a date after
+    -- arrival time
     check (created_at <= CURRENT_DATE), -- created_at must be a date today or in the past
     check (last_updated >= created_at and last_updated <= CURRENT_DATE), -- last_updated must be the same date or after the date it was created
     -- and it must be updated at a date before or equal to today
@@ -283,7 +284,7 @@ CREATE TABLE IF NOT EXISTS booking_info(
 CREATE TABLE IF NOT EXISTS renting_info(
 	renting_id VARCHAR(20) NOT NULL,
     hotel_id INT NOT NULL,
-    renting_status text NOT NULL CHECK(renting_status IN('renting', 'checked-out', 'archive')),
+    renting_status text NOT NULL CHECK(renting_status IN('renting', 'checked-out', 'archived')),
     customer_SSN VARCHAR(20)  NOT NULL,
     emp_SSN VARCHAR(20) NOT NULL,
     room_no VARCHAR(20) NOT NULL,
@@ -291,10 +292,11 @@ CREATE TABLE IF NOT EXISTS renting_info(
     has_booked VARCHAR(20) NOT NULL,
     arrival_time DATE NOT NULL,
     departure_time DATE NOT NULL,
-    created_at DATE NOT NULL,
+    created_at DATE NOT NULL DEFAULT CURRENT_DATE,
     last_updated DATE DEFAULT (CURRENT_DATE),
-    check (arrival_time <= CURRENT_DATE), -- arrival_time must be a date today or in the past
-    check (departure_time >= CURRENT_DATE), -- departure_time must be a date today or in the future
+    check (arrival_time >= CURRENT_DATE), -- arrival_time must be a date today or in the future
+    check (departure_time > CURRENT_DATE and departure_time > arrival_time), -- departure_time must be a date in the future and must be a date after
+    -- arrival time
     check (created_at <= CURRENT_DATE), -- created_at must be a date today or in the past
     check (last_updated >= created_at and last_updated <= CURRENT_DATE), -- last_updated must be the same date or after the date it was created
     -- and it must be updated at a date before or equal to today
@@ -319,8 +321,6 @@ DROP TRIGGER IF EXISTS employee_addy ON employee;
 DROP TRIGGER IF EXISTS customer_addy ON customer;
 DROP TRIGGER IF EXISTS hotel_chain_addy ON hotel_chain;
 DROP TRIGGER IF EXISTS add_num_of_hotel_trig ON hotel;
-
-
 
 -- trigger 1
 -- idempotent
@@ -364,11 +364,9 @@ CREATE TRIGGER hotel_addy
   FOR EACH ROW
   EXECUTE PROCEDURE duplicate_addy_insert();
 
-
-
 -- trigger 2
 -- idempotent
-CREATE OR REPLACE FUNCTION add_num_of_hotel() 
+CREATE OR REPLACE FUNCTION add_num_of_hotel() -- increments the number of hotels of a hotel chain upon insert of a hotel
 	RETURNS TRIGGER AS
   	$BODY$
   	BEGIN
@@ -387,12 +385,8 @@ CREATE TRIGGER add_num_of_hotel_trig
   EXECUTE PROCEDURE add_num_of_hotel();
 
 
-
-
-
-
 -- trigger 3
-CREATE OR REPLACE FUNCTION remove_num_of_hotel() 
+CREATE OR REPLACE FUNCTION remove_num_of_hotel() -- decrements number of hotels of a chain upon deletion
 	RETURNS TRIGGER AS
   	$BODY$
   	BEGIN
@@ -414,7 +408,7 @@ CREATE TRIGGER remove_num_of_hotel_trig
 
 
 -- trigger 4
-CREATE OR REPLACE FUNCTION default_num_of_hotel() 
+CREATE OR REPLACE FUNCTION default_num_of_hotel() -- sets the num of hotels of each chain to 0 upon insert
     RETURNS trigger as 
     $BODY$
     BEGIN
@@ -430,6 +424,44 @@ CREATE TRIGGER default_num_of_hotel_trig
     FOR EACH ROW
     EXECUTE FUNCTION default_num_of_hotel();
 
+-- trigger 5
+-- between reference: https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-between/
+CREATE OR REPLACE FUNCTION check_available_room()
+    RETURNS trigger as
+    $BODY$
+    BEGIN
+        -- if the room number is not marked as start in bookings or renting in rentings and the arrival and departure date do not overlap, then it is available
+        if new.room_no not in ((select room_no from booking_info where booking_status in ('start') and booking_info.hotel_id = new.hotel_id and
+        ((new.arrival_time between booking_info.arrival_time and booking_info.departure_time) or
+        (new.departure_time between booking_info.arrival_time and booking_info.departure_time) or
+        (booking_info.arrival_time between new.arrival_time and new.departure_time) or 
+        (booking_info.departure_time between new.arrival_time and new.departure_time))
+        ) union 
+        (select room_no from renting_info where renting_status in ('renting') and renting_info.hotel_id = new.hotel_id and 
+        ((new.arrival_time between renting_info.arrival_time and renting_info.departure_time) or
+        (new.departure_time between renting_info.arrival_time and renting_info.departure_time) or
+        (renting_info.arrival_time between new.arrival_time and new.departure_time) or 
+        (renting_info.departure_time between new.arrival_time and new.departure_time))
+        ))
+        then
+            return new;
+        else raise exception 'room already booked';
+        END IF;
+    END;
+    $BODY$
+    LANGUAGE plpgsql;
+
+CREATE TRIGGER check_available_booking
+    before insert 
+    on booking_info
+    for each row
+    execute function check_available_room();
+
+CREATE TRIGGER check_available_renting
+    before insert 
+    on renting_info
+    for each row
+    execute function check_available_room();
 
 -- DROP/CREATE Whole Database
 -- DROP DATABASE IF EXISTS dbproject;
