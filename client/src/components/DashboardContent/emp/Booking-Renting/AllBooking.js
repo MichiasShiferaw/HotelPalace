@@ -5,7 +5,7 @@ import { CustomersContext } from "../../../../Contexts/CustomersContext";
 import { useSelector } from "react-redux";
 
 const AllBooking = () => {
-  let updated = Date.now();
+  let updated = new Date();
   const offset = updated.getTimezoneOffset();
   updated = new Date(updated.getTime() - offset * 60 * 1000);
   updated = updated.toISOString().split("T")[0];
@@ -122,7 +122,7 @@ const AllBooking = () => {
                       onClick={(e) => handleCheckIn(e, booking.booking_id)}
                       className="btn btn-info"
                     >
-                      CheckIn
+                      Check In
                     </button>
                     <td>{booking.booking_id}</td>
                     <td>{booking.customer_ssn}</td>
