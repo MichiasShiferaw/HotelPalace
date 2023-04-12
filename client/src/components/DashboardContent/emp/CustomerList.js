@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CustomersContext } from "../../../Contexts/CustomersContext";
 import api from "../../../apis/apiIndex";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AddCustomers from "../../customer_exclus_comp/AddCustomer";
+import { useSelector } from "react-redux";
 
 
 const CustomerList = () => {
+  const auth = useSelector((state) => state.auth);
     const [searchText, setsearchText] = useState("");
 
 
@@ -45,12 +47,12 @@ const CustomerList = () => {
 
       const handleUpdate = (e, id) => {
         e.stopPropagation();
-        history(`/view-customers/${id}/update`);
+        history(`/emp/${auth.ssn}/customers/${id}/update`);
       };
 
-      const handleCustomerSelect = (id) => {
-        history(`/view-customers/${id}`);
-      };
+      // const handleCustomerSelect = (id) => {
+      //   history(`/emp/${auth.ssn}/customers/${id}`);
+      // };
 
         const onSubmitForm = async (e) => {
           e.preventDefault();
@@ -59,6 +61,18 @@ const CustomerList = () => {
             console.log(err);
           }
         };
+
+          const handleCheck = async () => {
+            try {
+              const response = await api.get(
+                `/search/api/v1/search-customer/?info=${searchText}`
+              );
+              console.log(response);
+              setCustomers(response.data.data.customer);
+            } catch (err) {
+              console.log(err);
+            }
+          };
   return (
     <div className="container">
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -83,7 +97,12 @@ const CustomerList = () => {
           onChange={(e) => setsearchText(e.target.value)}
         />
 
-        <button className="btn btn-success">Submit</button>
+        <button
+          className="btn btn-success"
+          onClick={() => handleCheck()}
+        >
+          Check
+        </button>
       </form>
       <div className="table-responsive">
         <table className="table table-striped table-sm">
@@ -104,7 +123,7 @@ const CustomerList = () => {
               customers.map((el) => {
                 return (
                   <tr
-                    onClick={() => handleCustomerSelect(el.customer_ssn)}
+                    // onClick={() => handleCustomerSelect(el.customer_ssn)}
                     key={el.customer_ssn}
                   >
                     <td>{el.customer_ssn}</td>
@@ -119,24 +138,23 @@ const CustomerList = () => {
                     <td>{el.phone_number}</td>
                     <td>{el.last_updated}</td>
                     <td>
-                      <button
-                        onClick={(e) => handleUpdate(e, el.customer_ssn)}
-                        // onClick={(e) => handleUpdate(e, el.customer_ssn)}
-                        className="btn btn-primary"
-                      >
-                        Update
-                      </button>
-                    </td>
+                      {/* <Link to={`/c/${auth.ssn}/dashboard/booking/add`} state={ detail: {el.customer_ssn} } className="btn btn-primary">
+                        Hi
+                      </Link> */}
+                      {/* 
+                      <Link to={`/c/${auth.ssn}/dashboard/booking/add`} className="btn btn-primary" state={ detail: {el.customer_ssn} }>
+                          Update
 
-                    <td>
-                      <button
-                        onClick={() => handleCustomerSelect(el.customer_ssn)}
-                        // onClick={(e) => handleUpdate(e, el.customer_ssn)}
+                      </Link> */}
+                      <Link
+                        to={`/emp/${auth.ssn}/customers/${el.customer_ssn}/update`}
+                        state={{ detail: el.customer_ssn }}
                         className="btn btn-secondary"
                       >
-                        Detail
-                      </button>
+                        Details
+                      </Link>
                     </td>
+
                     <td>
                       <button
                         onClick={() => handleDelete(el.customer_ssn)}

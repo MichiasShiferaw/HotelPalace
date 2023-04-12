@@ -4,7 +4,10 @@ import { Link, NavLink } from 'react-router-dom';
 const MainLandingPage = () => {
   return (
     <>
-      <div className="container-fluid cover d-flex text-center text-bg-dark">
+      <div
+        className="container-fluid cover d-flex text-center "
+        style={{ background: "linear-gradient(120deg,#ff2506 0%,#ff705f 60%,#ff705f 60%,#ffcb66 60%,#ffae11)" }}
+      >
         <div className="cover-container d-flex w-100 h-100 p-3 py-4 mx-auto flex-column">
           <header className="mb-auto">
             <div>
@@ -19,8 +22,7 @@ const MainLandingPage = () => {
                 width="100"
                 height="100"
               ></svg>
-              <h1 className="text-body-emphasis">Welcome to Hotel Palace</h1>
-              <p className="col-lg-10 mx-auto fs-5">Change Text Later</p>
+              <h1 className="text-body-emphasis pb-4">Welcome to Hotel Palace</h1>
               <div className="d-inline-flex gap-2 mb-5">
                 <Link to="/cust/home">
                   <button
