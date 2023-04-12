@@ -64,4 +64,26 @@ npm start
 cd client; 
 npm install (only for the first time)
 npm start
+
+Install postgres extension
+Select postgres server
+
+Highlight all in DatabasesSQL.sql
+right click
+run query
+
+insertion data
+
+highlight all
+run query 
+
+
+go into views
+highlight 
+run query
+
+npm start on server
+npm start on client
+
+
 ```

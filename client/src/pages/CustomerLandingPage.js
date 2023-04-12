@@ -37,11 +37,6 @@ const CustomerLandingPage = () => {
             </div>
           </section>
           <RoomsContainer/>
-          {/* 
-      <Overview /> */}
-          <Recommended />
-
-          <HCBanner />
           <Footer /> 
         </Layout>
       </div>
