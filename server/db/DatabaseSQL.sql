@@ -431,7 +431,7 @@ CREATE OR REPLACE FUNCTION check_available_room()
     $BODY$
     BEGIN
         -- if the room number is not marked as start in bookings or renting in rentings and the arrival and departure date do not overlap, then it is available
-        if new.room_no not in ((select room_no from booking_info where booking_status in ('start') and booking_info.hotel_id = new.hotel_id and
+        if new.room_no not in ((select room_no from booking_info where booking_status in ('booked', 'start') and booking_info.hotel_id = new.hotel_id and
         ((new.arrival_time between booking_info.arrival_time and booking_info.departure_time) or
         (new.departure_time between booking_info.arrival_time and booking_info.departure_time) or
         (booking_info.arrival_time between new.arrival_time and new.departure_time) or 
