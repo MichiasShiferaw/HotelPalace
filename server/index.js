@@ -24,6 +24,8 @@ app.use("/booking", require("./routes/booking"));
 
 app.use("/filter", require("./routes/location_search"));
 
+app.use("/search", require("./routes/searchCustomer"));
+
 app.use("/log", require("./routes/auth"));
 
 app.use("/emp", require("./routes/employee"));

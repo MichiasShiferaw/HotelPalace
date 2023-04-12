@@ -29,7 +29,7 @@ router.get("/api/v1/view-customer/:customer_ssn", async (req, res) => {
 
   try {
     const results = await db.query(
-      "select * from customer where customer_ssn = $1",
+      "select * from customer where customer_SSN = $1",
       [req.params.customer_ssn]
     );
     res.status(200).json({

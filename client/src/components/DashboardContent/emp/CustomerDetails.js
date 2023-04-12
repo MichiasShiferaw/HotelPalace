@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { CustomersContext } from "../Contexts/CustomersContext";
-import api from "../apis/apiIndex";
-import { useSelector } from "react-redux";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { CustomersContext } from "../../../Contexts/CustomersContext";
+import api from  "../../../apis/apiIndex";
+const CustomerDetails = () => {
 
-const UpdateCustomer = () => {
-    const auth = useSelector((state) => state.auth);
+      const details = useLocation().state.detail;
+      console.log(details);
   const { id } = useParams();
-  console.log(`id: ${id}`)
+  console.log(`id: ${id}`);
   let history = useNavigate();
 
   const { customers } = useContext(CustomersContext);
@@ -29,7 +29,7 @@ const UpdateCustomer = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await api.get(`/cust/api/v1/view-customer/${id}`);
+      const response = await api.get(`/cust/api/v1/view-customer/${details}`);
 
       console.log(response.data.data);
       setCustomer_SSN(response.data.data.customer.customer_ssn);
@@ -37,7 +37,6 @@ const UpdateCustomer = () => {
       setMiddle_Name(response.data.data.customer.middle_name);
       setLast_Name(response.data.data.customer.last_name);
       setEmail(response.data.data.customer.email);
-      
 
       setStreet_Name(response.data.data.customer.street_name);
       setStreet_Number(response.data.data.customer.street_number);
@@ -50,10 +49,6 @@ const UpdateCustomer = () => {
       setPhone_Number(response.data.data.customer.phone_number);
       setPassword(response.data.data.customer.password);
       setLast_Updated(response.data.data.customer.last_updated);
-
-
-
-
     };
 
     fetchData();
@@ -78,7 +73,7 @@ const UpdateCustomer = () => {
       password,
       last_updated,
     });
-    history(`/emp/${auth.ssn}/dashboard`);
+    history("/view-customers");
   };
 
   return (
@@ -106,6 +101,8 @@ const UpdateCustomer = () => {
               id="first_name"
               className="form-control"
               type="number"
+              readOnly
+              disabled
             />
           </div>
           <div className="form-group">
@@ -116,6 +113,8 @@ const UpdateCustomer = () => {
               id="middle_name"
               className="form-control"
               type="text"
+              readOnly
+              disabled
             />
           </div>
           <div className="form-group">
@@ -126,6 +125,8 @@ const UpdateCustomer = () => {
               id="last_name"
               className="form-control"
               type="text"
+              readOnly
+              disabled
             />
           </div>
         </section>
@@ -138,6 +139,8 @@ const UpdateCustomer = () => {
             id="email"
             className="form-control"
             type="text"
+            readOnly
+            disabled
           />
         </div>
 
@@ -149,6 +152,8 @@ const UpdateCustomer = () => {
             id="street_name"
             className="form-control"
             type="text"
+            readOnly
+            disabled
           />
         </div>
 
@@ -160,6 +165,8 @@ const UpdateCustomer = () => {
             id="street_number"
             className="form-control"
             type="number"
+            readOnly
+            disabled
           />
         </div>
         <div className="form-group">
@@ -170,6 +177,8 @@ const UpdateCustomer = () => {
             id="city"
             className="form-control"
             type="text"
+            readOnly
+            disabled
           />
         </div>
         <div className="form-group">
@@ -180,6 +189,8 @@ const UpdateCustomer = () => {
             id="province"
             className="form-control"
             type="text"
+            readOnly
+            disabled
           />
         </div>
         <div className="form-group">
@@ -190,6 +201,8 @@ const UpdateCustomer = () => {
             id="postal_code"
             className="form-control"
             type="text"
+            readOnly
+            disabled
           />
         </div>
         <div className="form-group">
@@ -200,6 +213,8 @@ const UpdateCustomer = () => {
             id="country"
             className="form-control"
             type="text"
+            readOnly
+            disabled
           />
         </div>
 
@@ -211,6 +226,8 @@ const UpdateCustomer = () => {
             id="joining_date"
             className="form-control"
             type="text"
+            readOnly
+            disabled
           />
         </div>
 
@@ -222,6 +239,8 @@ const UpdateCustomer = () => {
             id="phone_number"
             className="form-control"
             type="number"
+            readOnly
+            disabled
           />
         </div>
         <div className="form-group">
@@ -231,7 +250,9 @@ const UpdateCustomer = () => {
             onChange={(e) => setPassword(e.target.value)}
             id="password"
             className="form-control"
-            type="text"
+            type="hidden"
+            readOnly
+            disabled
           />
         </div>
         <div className="form-group">
@@ -242,19 +263,13 @@ const UpdateCustomer = () => {
             id="last_updated"
             className="form-control"
             type="text"
+            readOnly
+            disabled
           />
         </div>
-
-        <button
-          type="submit"
-          onClick={handleSubmit}
-          className="btn btn-primary"
-        >
-          Submit
-        </button>
       </form>
     </div>
   );
 };
 
-export default UpdateCustomer;
+export default CustomerDetails;

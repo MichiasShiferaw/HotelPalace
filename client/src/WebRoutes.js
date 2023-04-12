@@ -60,6 +60,7 @@ import AllRenting from "./components/DashboardContent/emp/Booking-Renting/AllRen
 import RentingForm from "./components/Forms/RentingForm";
 import CheckIn from "./components/DashboardContent/emp/Booking-Renting/CheckIn";
 import CheckInMain from "./components/DashboardContent/emp/Booking-Renting/CheckInMain";
+import CustomerDetails from "./components/DashboardContent/emp/CustomerDetails";
 
 const PrivateRoutes = () => {
   const auth = useSelector((state) => state.auth);
@@ -115,7 +116,7 @@ const WebRoutes = () => {
             >
               <Route path="dashboard" Component={EmpDashboardContent} />
               <Route path="profile" Component={EmpDetailPage} />
-              <Route path="profile/update" Component={UpdatePage} />
+              <Route path="profile/update" Component={CustomerDetails} />
               <Route path="b-r">
                 <Route path="booking/all" Component={AllBooking2} />
                 <Route path="renting/add" Component={RentingForm} />
@@ -129,8 +130,8 @@ const WebRoutes = () => {
               <Route path="customers">
                 <Route path="all" Component={CustomerList} />
                 <Route path="add" Component={AddCustomers} />
-                <Route path=":customer_ssn" Component={UserDetailPage} />
-                <Route path=":customer_ssn/update" Component={UpdatePage} />
+                <Route path="user/:customer_ssn" Component={UserDetailPage} />
+                <Route path=":id/update" Component={UpdatePage} />
               </Route>
               <Route path="staff">
                 <Route path="all" Component={AllStaff} />

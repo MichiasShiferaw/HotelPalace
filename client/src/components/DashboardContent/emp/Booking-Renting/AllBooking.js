@@ -35,7 +35,7 @@ const AllBooking = () => {
 
     try {
       const response = await api.put(`emp/set-booking/${id}`, {
-        booking_status: "archived",
+        booking_status: "archive",
         last_updated: updated,
       });
 
@@ -64,6 +64,21 @@ const AllBooking = () => {
     };
     fetchData();
   }, []);
+
+  const handleCompleted = async (id) => {
+    console.log(id);
+
+    try {
+      const response = await api.put(`emp/set-booking/${id}`, {
+        booking_status: "completed",
+        last_updated: updated,
+      });
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
 
   const handleCancel = async (id) => {
     console.log(id);
@@ -153,6 +168,12 @@ const AllBooking = () => {
                           className="btn btn-warning"
                         >
                           Cancel
+                        </button>
+                        <button
+                          onClick={() => handleCompleted(booking.booking_id)}
+                          className="btn btn-primary"
+                        >
+                          Completed
                         </button>
                       </div>
                     </td>

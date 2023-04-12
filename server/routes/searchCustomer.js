@@ -16,7 +16,7 @@ router.get("/api/v1/search-customer", async (req, res) => {
     res.status(200).json({
       status: "success",
       data: {
-        customer: results.rows[0],
+        customer: results.rows,
       },
     });
   } catch (err) {

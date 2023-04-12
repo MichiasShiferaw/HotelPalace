@@ -127,7 +127,7 @@ const Dashboard = () => {
                         <span>All Customers</span>
                       </NavLink>
                     </li>
-                    <li>
+                    {/* <li>
                       <NavLink
                         to={`/emp/${auth.ssn}/customers/add`}
                         className="nav-link px-3"
@@ -137,7 +137,7 @@ const Dashboard = () => {
                         </span>
                         <span>Add Customer</span>
                       </NavLink>
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </li>

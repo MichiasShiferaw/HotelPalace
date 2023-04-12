@@ -29,9 +29,11 @@ const AllRenting = () => {
 
     try {
       const response = await api.put(`emp/set-renting/${id1}`, {
-        renting_status: "archive",
+        renting_status: "archived",
         last_updated: updated,
       });
+
+      
 
       setBookings(
         bookings.filter((booking) => {
@@ -43,6 +45,27 @@ const AllRenting = () => {
       console.log(err);
     }
   };
+
+
+    const handleCheckOut = async (id1) => {
+      console.log(id1);
+
+      try {
+        const response = await api.put(`emp/set-renting/${id1}`, {
+          renting_status: "checked-out",
+          last_updated: updated,
+        });
+
+        setBookings(
+          bookings.filter((booking) => {
+            return booking;
+          })
+        );
+        console.log(response);
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -77,6 +100,7 @@ const AllRenting = () => {
         <table className="table table-striped table-bordered">
           <thead>
             <tr>
+              <th scope="col">Checked Out?</th>
               <th scope="col">renting id</th>
               <th scope="col">customer_SSN</th>
               <th scope="col">status</th>
@@ -94,6 +118,15 @@ const AllRenting = () => {
               bookings.map((booking) => {
                 return (
                   <tr key={booking.renting_id}>
+                    <td>
+                      <button
+                        type="button"
+                        onClick={() => handleCheckOut(booking.renting_id)}
+                        className="btn btn-info"
+                      >
+                        Y
+                      </button>
+                    </td>
                     <td>{booking.renting_id}</td>
                     <td>{booking.customer_ssn}</td>
                     <td className={"booking_status " + booking.renting_status}>

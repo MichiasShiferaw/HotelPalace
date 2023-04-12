@@ -9,7 +9,10 @@ const DashboardContent = () => {
   };
 
   const { bookings, setBookings } = useContext(CustomersContext);
-
+    let updated = new Date();
+    const offset = updated.getTimezoneOffset();
+    updated = new Date(Date.now() - offset * 60 * 1000);
+    updated = updated.toISOString().split("T")[0];
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -24,21 +27,49 @@ const DashboardContent = () => {
     fetchData();
   }, []);
 
-  const handleDelete = async (id) => {
+  const handleCompleted = async (id) => {
     console.log(id);
 
     try {
-      const response = await api.delete(`/booking/delete/${id}`);
-      setBookings(
-        bookings.filter((booking) => {
-          return booking.booking_id !== id;
-        })
-      );
+      const response = await api.put(`emp/set-booking/${id}`, {
+        booking_status: "completed",
+        last_updated: updated,
+      });
       console.log(response);
     } catch (err) {
       console.log(err);
     }
   };
+
+    const handleCancel = async (id) => {
+      console.log(id);
+
+      try {
+        const response = await api.put(`emp/set-booking/${id}`, {
+          booking_status: "cancel",
+          last_updated: updated,
+        });
+        console.log(response);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    const handleDelete = async (id) => {
+      console.log(id);
+
+      try {
+        const response = await api.delete(`/booking/delete/${id}`);
+        setBookings(
+          bookings.filter((booking) => {
+            return booking.booking_id !== id;
+          })
+        );
+        console.log(response);
+      } catch (err) {
+        console.log(err);
+      }
+    };
   return (
     <div className="container-fluid">
       <div className="row">
@@ -109,18 +140,21 @@ const DashboardContent = () => {
                                   Update
                                 </button>
                                 <button
-                                  type="button"
+                                  onClick={() =>
+                                    handleCancel(booking.booking_id)
+                                  }
+
                                   className="btn btn-secondary"
                                 >
-                                  Details
+                                  Cancel
                                 </button>
                                 <button
                                   onClick={() =>
-                                    handleDelete(booking.booking_id)
+                                    handleCompleted(booking.booking_id)
                                   }
-                                  className="btn btn-danger"
+                                  className="btn btn-primary"
                                 >
-                                  Delete
+                                  Completed
                                 </button>
                               </div>
                             </td>

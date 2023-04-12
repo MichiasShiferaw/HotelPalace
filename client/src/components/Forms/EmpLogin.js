@@ -50,7 +50,7 @@ const EmpLogin = () => {
   return (
     <>
       <Layout>
-        <div className=" container-xxl  sign-in__backdrop text-center bg-primary p-5 my-3">
+        <div className=" container-xxl  sign-in__backdrop text-center bg-secondary p-5 my-3">
           <div className="container">
             <div className=" row g-3">
               <form onSubmit={(e) => onSubmit(e)}>
@@ -88,9 +88,9 @@ const EmpLogin = () => {
                   />
                 </div>
 
-                <div style={{ color: "red", margin: "10px 0" }}>{error}</div>
+                <div className="text-danger" style={{ color: "red", margin: "10px 0" }}><h3>{error}</h3></div>
 
-                <button type="submit" className="btn btn-secondary">
+                <button type="submit" className="btn btn-primary">
                   Submit
                 </button>
               </form>
