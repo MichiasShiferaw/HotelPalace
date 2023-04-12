@@ -913,10 +913,7 @@ BEGIN
 		END LOOP;
 	END LOOP;
 END; 
-$$;
-
--- select * from room;
--- delete from room;
+$$
 
 -- inserting managers into roles (postgresql version)
 DO $$
@@ -931,7 +928,7 @@ BEGIN
 		INSERT INTO role(emp_SSN, role_id, role_name, salary) VALUES (manager, 1, 'Manager', salary);
 	END LOOP;
 END; 
-$$;
+$$
 
 -- inserting different roles into role table (postgres version)
 -- array reference: https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-array/
