@@ -20,24 +20,23 @@ const MainLandingPage = () => {
                 height="100"
               ></svg>
               <h1 className="text-body-emphasis">Welcome to Hotel Palace</h1>
-              <p className="col-lg-10 mx-auto fs-5">
-                Change Text Later
-              </p>
+              <p className="col-lg-10 mx-auto fs-5">Change Text Later</p>
               <div className="d-inline-flex gap-2 mb-5">
-                <Link to="/c/420597022/dashboard/home">
-                <button
-                  className="d-inline-flex align-items-center fw-bold border-secondary btn btn-primary btn-lg px-4"
-                  type="button"
-                >
-                  View Customer Experience
-                </button>
+                <Link to="/cust/home">
+                  <button
+                    className="d-inline-flex align-items-center fw-bold border-secondary btn btn-primary btn-lg px-4"
+                    type="button"
+                  >
+                    View Customer Experience
+                  </button>
                 </Link>
                 <Link to="/emp/dashboard">
-                <button className="btn btn-light fw-bold border-white bg-secondary btn-lg px-4"
-                  type="button"
-                >
-                  View Employee Experience
-                </button>
+                  <button
+                    className="btn btn-light fw-bold border-white bg-secondary btn-lg px-4"
+                    type="button"
+                  >
+                    View Employee Experience
+                  </button>
                 </Link>
               </div>
             </div>
@@ -52,7 +51,6 @@ const MainLandingPage = () => {
                 PERN
               </a>{" "}
               stack{" "}
-              
             </p>
           </footer>
         </div>

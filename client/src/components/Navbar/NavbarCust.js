@@ -18,7 +18,7 @@ const NavbarCust = () => {
         </button>
         <a
           className="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold"
-          href="#"
+          href="/"
         >
           Hotel Palace
         </a>
@@ -37,7 +37,6 @@ const NavbarCust = () => {
           <div className="d-flex mx-auto my-3 my-lg-0 align-items-lg-center">
             <button className="btn btn-outline-secondary fs-4">Home</button>
             <div className="b-example-divider b-example-vr mx-4"></div>
-
           </div>
           {auth.isAuth ? (
             <>
@@ -47,10 +46,7 @@ const NavbarCust = () => {
               >
                 Profile
               </NavLink>
-              <NavLink
-                to={`/cust/home`}
-                className="ms-4  btn btn-warning"
-              >
+              <NavLink to={`/cust/home`} className="ms-4  btn btn-warning">
                 Book Now
               </NavLink>
             </>
