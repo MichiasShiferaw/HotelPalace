@@ -1,6 +1,45 @@
-import React from 'react'
+import React, { useContext, useEffect } from "react";
+import api from "../../../apis/apiIndex";
+import { CustomersContext } from "../../../Contexts/CustomersContext";
 
 const DashboardContent = () => {
+  const dateformat = (olddate) => {
+    var oldie = new Date(olddate);
+    return oldie.toISOString().split("T")[0];
+  };
+
+  const { bookings, setBookings } = useContext(CustomersContext);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get(`/booking/all`);
+        console.log(response.data.data.booking);
+        // console.log(id);
+        setBookings(response.data.data.booking);
+        console.log("guess");
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleDelete = async (id) => {
+    console.log(id);
+
+    try {
+      const response = await api.delete(`/booking/delete/${id}`);
+      setBookings(
+        bookings.filter((booking) => {
+          return booking.booking_id !== id;
+        })
+      );
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div className="container-fluid">
       <div className="row">
@@ -11,9 +50,9 @@ const DashboardContent = () => {
       <div className="row">
         <div className="col-md-3 mb-3">
           <div className="card bg-primary text-white h-100">
-            <div className="card-body py-5">Bookings Card</div>
+            <div className="card-body py-5">Single Room Count Available</div>
             <div className="card-footer d-flex">
-              View Details
+              As Of {Date.now()}
               <span className="ms-auto">
                 <i className="bi bi-chevron-right" />
               </span>
@@ -22,9 +61,9 @@ const DashboardContent = () => {
         </div>
         <div className="col-md-3 mb-3">
           <div className="card bg-warning text-dark h-100">
-            <div className="card-body py-5">Warning Card</div>
+            <div className="card-body py-5">Double Room Count Available</div>
             <div className="card-footer d-flex">
-              View Details
+              As Of {Date.now()}
               <span className="ms-auto">
                 <i className="bi bi-chevron-right" />
               </span>
@@ -33,9 +72,9 @@ const DashboardContent = () => {
         </div>
         <div className="col-md-3 mb-3">
           <div className="card bg-success text-white h-100">
-            <div className="card-body py-5">Success Card</div>
+            <div className="card-body py-5">Deluxe Room Count Available</div>
             <div className="card-footer d-flex">
-              View Details
+              As Of {Date.now()}
               <span className="ms-auto">
                 <i className="bi bi-chevron-right" />
               </span>
@@ -44,9 +83,9 @@ const DashboardContent = () => {
         </div>
         <div className="col-md-3 mb-3">
           <div className="card bg-danger text-white h-100">
-            <div className="card-body py-5">Danger Card</div>
+            <div className="card-body py-5">Suite Room Count Available</div>
             <div className="card-footer d-flex">
-              View Details
+              As Of {Date.now()}
               <span className="ms-auto">
                 <i className="bi bi-chevron-right" />
               </span>
@@ -61,7 +100,7 @@ const DashboardContent = () => {
               <span className="me-2">
                 <i className="bi bi-bar-chart-fill" />
               </span>
-              Area Chart Example
+              Available Rooms
             </div>
             <div className="card-body">
               <canvas className="chart" width={400} height={200} />
@@ -74,7 +113,7 @@ const DashboardContent = () => {
               <span className="me-2">
                 <i className="bi bi-bar-chart-fill" />
               </span>
-              Area Chart Example
+              Available Rooms by Capacity
             </div>
             <div className="card-body">
               <canvas className="chart" width={400} height={200} />
@@ -100,90 +139,70 @@ const DashboardContent = () => {
                 >
                   <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
+                      <th scope="col">booking id</th>
+                      <th scope="col">hotel_id</th>
+                      <th scope="col">status</th>
+                      <th scope="col">room_no</th>
+                      <th scope="col">emp SSN</th>
+                      <th scope="col">arrival date</th>
+                      <th scope="col">depature time</th>
+                      <th scope="col">created_at</th>
+                      <th scope="col">last_updated</th>
+                      <th scope="col">filter</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                      <td>Edinburgh</td>
-                      <td>61</td>
-                      <td>2011/04/25</td>
-                      <td>$320,800</td>
-                    </tr>
-                    <tr>
-                      <td>Cara Stevens</td>
-                      <td>Sales Assistant</td>
-                      <td>New York</td>
-                      <td>46</td>
-                      <td>2011/12/06</td>
-                      <td>$145,600</td>
-                    </tr>
-                    <tr>
-                      <td>Hermione Butler</td>
-                      <td>Regional Director</td>
-                      <td>London</td>
-                      <td>47</td>
-                      <td>2011/03/21</td>
-                      <td>$356,250</td>
-                    </tr>
-                    <tr>
-                      <td>Lael Greer</td>
-                      <td>Systems Administrator</td>
-                      <td>London</td>
-                      <td>21</td>
-                      <td>2009/02/27</td>
-                      <td>$103,500</td>
-                    </tr>
-                    <tr>
-                      <td>Jonas Alexander</td>
-                      <td>Developer</td>
-                      <td>San Francisco</td>
-                      <td>30</td>
-                      <td>2010/07/14</td>
-                      <td>$86,500</td>
-                    </tr>
-                    <tr>
-                      <td>Shad Decker</td>
-                      <td>Regional Director</td>
-                      <td>Edinburgh</td>
-                      <td>51</td>
-                      <td>2008/11/13</td>
-                      <td>$183,000</td>
-                    </tr>
-                    <tr>
-                      <td>Michael Bruce</td>
-                      <td>Javascript Developer</td>
-                      <td>Singapore</td>
-                      <td>29</td>
-                      <td>2011/06/27</td>
-                      <td>$183,000</td>
-                    </tr>
-                    <tr>
-                      <td>Donna Snider</td>
-                      <td>Customer Support</td>
-                      <td>New York</td>
-                      <td>27</td>
-                      <td>2011/01/25</td>
-                      <td>$112,000</td>
-                    </tr>
+                    {bookings &&
+                      bookings.map((booking) => {
+                        return (
+                          <tr key={booking.booking_id}>
+                            <td>{booking.booking_id}</td>
+                            <td>{booking.hotel_id}</td>
+                            <td
+                              className={
+                                "booking_status " + booking.booking_status
+                              }
+                            >
+                              {booking.booking_status}{" "}
+                            </td>
+                            <td>{booking.room_no} </td>
+                            <td> {booking.emp_ssn}</td>
+                            <td> {dateformat(booking.arrival_time)}</td>
+                            <td> {dateformat(booking.departure_time)}</td>
+                            <td> {dateformat(booking.created_at)}</td>
+                            <td> {dateformat(booking.last_updated)}</td>
+                            <td>
+                              <div
+                                className="btn-group"
+                                role="group"
+                                aria-label="Basic example"
+                              >
+                                <button
+                                  type="button"
+                                  className="btn btn-warning"
+                                >
+                                  Update
+                                </button>
+                                <button
+                                  type="button"
+                                  className="btn btn-secondary"
+                                >
+                                  Details
+                                </button>
+                                <button
+                                  onClick={() =>
+                                    handleDelete(booking.booking_id)
+                                  }
+                                  className="btn btn-danger"
+                                >
+                                  Delete
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
                   </tbody>
-                  <tfoot>
-                    <tr>
-                      <th>Name</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
-                    </tr>
-                  </tfoot>
                 </table>
               </div>
             </div>
@@ -192,6 +211,6 @@ const DashboardContent = () => {
       </div>
     </div>
   );
-}
+};
 
-export default DashboardContent
+export default DashboardContent;

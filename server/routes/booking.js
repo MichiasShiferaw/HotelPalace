@@ -5,8 +5,30 @@ const router = express.Router();
 const db = require("../db/index");
 
 
+
+// Get a Customer by name or customer_ssn
+router.get("/my-all/:id", async (req, res) => {
+  try {
+    const { info } = req.query;
+    console.log(info);
+    const results = await db.query(
+      "select * from booking_info where customer_ssn = $1",
+      [req.params.id]
+    );
+    res.status(200).json({
+      status: "success",
+      results:results.rows.length,
+      data: {
+        booking: results.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 // Get all Booking
-router.get("/api/v1/booking", async (req, res) => {
+router.get("/all", async (req, res) => {
   try {
     const results = await db.query("select * from booking_info");
     // console.log(results);
@@ -41,15 +63,15 @@ router.get("/api/v1/booking/:booking_id", async (req, res) => {
 });
 
 // Create a Booking
-router.post("/api/v1/booking", async (req, res) => {
+router.post("/create", async (req, res) => {
+
   try {
     const results = await db.query(
-      "INSERT INTO booking_info (booking_id, hotel_id, customer_SSN, status, room_no, emp_SSN, arrival_time, departure_time, created_at, last_updated) values ($1,$2, $3,$4,$5,$6,$7,$8,$9,$10) returning *",
+      "INSERT INTO booking_info (hotel_id, customer_ssn, booking_status, room_no, emp_SSN, arrival_time, departure_time, created_at, last_updated) values ($1,$2, $3,$4,$5,$6,$7,$8,$9) returning *",
       [
-        req.body.booking_id,
         req.body.hotel_id,
-        req.body.customer_SSN,
-        req.body.status,
+        req.body.customer_ssn,
+        "start",
         req.body.room_no,
         req.body.emp_SSN,
         req.body.arrival_time,
@@ -97,9 +119,7 @@ router.put("/api/v1/booking/:booking_id", async (req, res) => {
 });
 
 // Delete a Booking
-router.delete("/api/v1/booking/:booking_id", async (req, res) => {
-  // console.log(req.params.id);
-  // console.log(req.body);
+router.delete("/delete/:booking_id", async (req, res) => {
   try {
     const results = await db.query(
       "DELETE FROM booking_info where booking_id = $1",
@@ -107,6 +127,25 @@ router.delete("/api/v1/booking/:booking_id", async (req, res) => {
     );
     res.status(204).json({
       status: "success",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+
+// Current Bookings
+router.get("/my-all/curr/:id", async (req, res) => {
+  try {
+    const results = await db.query(
+      "select * from booking_info where customer_ssn = $1 and booking_status='start' ",
+      [req.params.id]
+    );
+    res.status(200).json({
+      status: "success",
+      data: {
+        booking: results.rows,
+      },
     });
   } catch (err) {
     console.log(err);

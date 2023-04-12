@@ -1,17 +1,17 @@
-import React from 'react'
+import React from 'react';
+import StarRating from '../StarRating';
 
-const Overview1 = () => {
+const Overview1 = ({ details,rooms }) => {
+  console.log(details)
+  // const yo = hid;
   return (
     <>
-      {/* <div className="container shadow min-vh-100 py-2"> */}
-        <div className="container shadow py-2">
+
+      <div className="container shadow py-2">
         <div className="container network_wrapper col-sm p-2 ">
           <div className="card">
-            {/* <div className="card-header">
-              <h5 className="card-title">Network Settings</h5>
-            </div> */}
+
             <div className="container mb-2">
-              {/* <div className="col-md-10"> */}
               <div className="col">
                 <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                   <div className="col-auto d-none d-lg-block">
@@ -33,17 +33,14 @@ const Overview1 = () => {
                     </svg>
                   </div>
                   <div className="col p-4 d-flex flex-column position-static">
-                    <h3 className="mb-0">Hotel Name</h3>
+                    <h3 className="mb-0">{details.hotel_name}</h3>
                     <strong className="d-inline-block mb-2 text-success">
-                      Stars Rating
+                      <StarRating rating={details.rating} />
                     </strong>
-                    <div className="mb-1 text-body-secondary">Country</div>
-                    <p className="mb-auto">
-                      This is a wider card with supporting text below as a
-                      natural lead-in to additional content.
-                    </p>
+                    <div className="mb-1 text-body-secondary">{details.country}</div>
+                    <p className="mb-auto">{details.hotel_chain}</p>
                     <a href="#" className="stretched-link">
-                      Continue reading
+                      Explore
                     </a>
                   </div>
 
@@ -93,7 +90,6 @@ const Overview1 = () => {
             <form className="card-body tab-content">
               <div className="tab-pane active" id="Details">
                 <p className="card-text">Ameneties.</p>
-
               </div>
               <div className="tab-pane" id="static">
                 <p className=" card-text">Availablities Per Rooms.</p>
@@ -107,6 +103,6 @@ const Overview1 = () => {
       </div>
     </>
   );
-}
+};
 
 export default Overview1

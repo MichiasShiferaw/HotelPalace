@@ -7,14 +7,22 @@ const EmpDetailPage = () => {
   const { id } = useParams();
   const { selectedCustomer, setSelectedCustomer } =
     useContext(CustomersContext);
+  // const {role,setRole}= useContext{[]};
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get(`/cust/api/v1/view-customer/${id}`);
-        console.log(response);
+        const empinfo = await api.get(`/emp/get-emp/${id}`);
+        console.log(empinfo);
+        const empRole = await api.get(`/emp/get-emp/role/${id}`);
 
-        setSelectedCustomer(response.data.data);
+        // setSelectedCustomer(empinfo.data.data);
+
+      
+        console.log("Advice")
+        console.log(empRole.data.data)
+        // setRole(empRole.data.data)
+        
       } catch (err) {
         console.log(err);
       }
@@ -33,9 +41,9 @@ const EmpDetailPage = () => {
                 alt="avatar"
                 className="rounded-circle img-fluid"
               />
-              <h5 className="my-3">SSN</h5>
+              <h5 className="my-3">{selectedCustomer.emp_SSN}</h5>
               <p className="text-muted mb-1">Roles</p>
-              <p className="text-muted mb-4">Bay Area, San Francisco, CA</p>
+              <p className="text-muted mb-4">{selectedCustomer.country}</p>
             </div>
           </div>
         </div>
@@ -47,7 +55,10 @@ const EmpDetailPage = () => {
                   <p className="mb-0">Full Name</p>
                 </div>
                 <div className="col-sm-9">
-                  <p className="text-muted mb-0">Johnatan Smith</p>
+                  <p className="text-muted mb-0">
+                    {selectedCustomer.first_name} {selectedCustomer.middle_name}{" "}
+                    {selectedCustomer.last_name}
+                  </p>
                 </div>
               </div>
               <hr />
@@ -56,7 +67,7 @@ const EmpDetailPage = () => {
                   <p className="mb-0">Email</p>
                 </div>
                 <div className="col-sm-9">
-                  <p className="text-muted mb-0">example@example.com</p>
+                  <p className="text-muted mb-0">{selectedCustomer.email}</p>
                 </div>
               </div>
               <hr />
@@ -65,16 +76,9 @@ const EmpDetailPage = () => {
                   <p className="mb-0">Phone</p>
                 </div>
                 <div className="col-sm-9">
-                  <p className="text-muted mb-0">(097) 234-5678</p>
-                </div>
-              </div>
-              <hr />
-              <div className="row">
-                <div className="col-sm-3">
-                  <p className="mb-0">Mobile</p>
-                </div>
-                <div className="col-sm-9">
-                  <p className="text-muted mb-0">(098) 765-4321</p>
+                  <p className="text-muted mb-0">
+                    {selectedCustomer.phone_number}
+                  </p>
                 </div>
               </div>
               <hr />
@@ -83,53 +87,20 @@ const EmpDetailPage = () => {
                   <p className="mb-0">Address</p>
                 </div>
                 <div className="col-sm-9">
-                  <p className="text-muted mb-0">Bay Area, San Francisco, CA</p>
+                  <p className="text-muted mb-0">
+                    {selectedCustomer.street_number}{" "}
+                    {selectedCustomer.stree_name} {selectedCustomer.postal_code}
+                  </p>
                 </div>
               </div>
             </div>
           </div>
-          <div className="row">
-            <div className="card mb-4 mb-md-0">
-              <div className="card-body">
-                <h3 className="mb-4">
-                  <span className="text-primary font-italic me-1">
-                    Recent Bookings
-                  </span>{" "}
-                </h3>
-                <table
-                  id="example"
-                  className="table table-striped data-table"
-                  style={{ width: "100%" }}
-                >
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                      <td>Edinburgh</td>
-                      <td>61</td>
-                      <td>2011/04/25</td>
-                      <td>$320,800</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+
         </div>
       </div>
       {/* hi */}
       {/* <h3>{selectedCustomer.street_number}</h3> */}
-      {selectedCustomer && (
+      {/* {selectedCustomer && (
         <>
           <h2 className="text-center">
             User Customer: {selectedCustomer.customer.customer_ssn}
@@ -153,7 +124,7 @@ const EmpDetailPage = () => {
 
           <hr />
         </>
-      )}
+      )} */}
     </div>
   );
 };

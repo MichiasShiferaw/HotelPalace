@@ -57,7 +57,7 @@ const EmployeeSignUp = () => {
               id="form_1_checkbox"
               checked=""
             />
-            <label for="form_1_checkbox" className="mt-25 color-heading w-full">
+            <label htmlFor="form_1_checkbox" className="mt-25 color-heading w-full">
               I agree to the Terms of Service
             </label>
           </div>

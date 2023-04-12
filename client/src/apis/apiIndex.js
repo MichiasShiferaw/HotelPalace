@@ -5,6 +5,12 @@ export default axios.create({
 });
 
 
+export const axiosPrivate = axios.create({
+  baseURL: "http://localhost:3005",
+  withCredentials:true
+});
+
+
 // Basic Customers
 //   /cust/api/v1/view-customer
 

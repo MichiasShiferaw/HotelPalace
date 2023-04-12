@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS hotel_chain (
 
 CREATE TABLE IF NOT EXISTS hotel (
 	chain_id VARCHAR(20)  NOT NULL,
-    hotel_id INT NOT NULL UNIQUE,
+    hotel_id serial,
     hotel_name VARCHAR(100)  NOT NULL,
     street_name VARCHAR(50) NOT NULL,
     street_number SMALLINT NOT NULL,
@@ -245,7 +245,7 @@ CREATE TABLE IF NOT EXISTS room(
  
 
 CREATE TABLE IF NOT EXISTS booking_info(
-	booking_id VARCHAR(20) NOT NULL,
+	booking_id serial ,
     hotel_id INT NOT NULL,
     customer_SSN VARCHAR(20) NOT NULL,
     booking_status text NOT NULL CHECK(booking_status IN('start', 'completed', 'cancel', 'archived')),
@@ -282,13 +282,13 @@ CREATE TABLE IF NOT EXISTS booking_info(
 -- CREATE TYPE renting_status AS ENUM ('renting', 'checked-out', 'archive'); 
 
 CREATE TABLE IF NOT EXISTS renting_info(
-	renting_id VARCHAR(20) NOT NULL,
+	renting_id serial ,
     hotel_id INT NOT NULL,
     renting_status text NOT NULL CHECK(renting_status IN('renting', 'checked-out', 'archived')),
     customer_SSN VARCHAR(20)  NOT NULL,
     emp_SSN VARCHAR(20) NOT NULL,
     room_no VARCHAR(20) NOT NULL,
-    booking_id VARCHAR(20) NOT NULL,
+    booking_id VARCHAR(20),
     has_booked VARCHAR(20) NOT NULL,
     arrival_time DATE NOT NULL,
     departure_time DATE NOT NULL,
