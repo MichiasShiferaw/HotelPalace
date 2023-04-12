@@ -4,7 +4,7 @@ import { CustomersContext } from "../Contexts/CustomersContext";
 import api from "../apis/apiIndex";
 
 const UpdateRenting = () => {
-      let updated = Date.now();
+      let updated = new Date();
       const offset = updated.getTimezoneOffset();
       updated = new Date(Date.now() - offset * 60 * 1000);
       updated = updated.toISOString().split("T")[0];
