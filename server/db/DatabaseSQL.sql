@@ -467,3 +467,5 @@ CREATE TRIGGER check_available_renting
 -- DROP DATABASE IF EXISTS dbproject;
 
 -- CREATE DATABASE dbproject;
+
+SELECT * FROM customer;

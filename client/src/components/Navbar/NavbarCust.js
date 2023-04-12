@@ -1,7 +1,10 @@
 import React from "react";
 import { NavLink, Outlet, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-const NavbarCust = () => {
+
+
+
+const NavbarCust = () => {  
   const { id } = useParams();
   const  auth  = useSelector((state) => state.auth);
   return (
@@ -18,7 +21,7 @@ const NavbarCust = () => {
         </button>
         <a
           className="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold"
-          href="#"
+          href="/"
         >
           Hotel Palace
         </a>
@@ -35,15 +38,19 @@ const NavbarCust = () => {
         </button>
         <div className="collapse navbar-collapse" id="topNavBar">
           <div className="d-flex mx-auto my-3 my-lg-0 align-items-lg-center">
-            <button className="btn btn-secondary">Home</button>
+            {/*
+            }
+            <button className="btn btn-secondary" >
+              <a className="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href = "/">
+                Home
+              </a>
+            </button>
+          */}
             <div className="b-example-divider b-example-vr mx-4"></div>
-            <button className="btn btn-secondary ">Popular</button>
-            <div className="b-example-divider b-example-vr mx-4"></div>
-            <button className="btn btn-secondary">Brands</button>
-            <div className="b-example-divider b-example-vr mx-4"></div>
-            <NavLink to={`/cust/home/#recommended-section`}>
+            {/*<NavLink to={`/cust/home/#recommended-section`}>
               <button className="btn btn-secondary">Recommended</button>
             </NavLink>
+  */}
             {/* <button className="btn btn-secondary">Recommended</button> */}
             <div className="b-example-divider b-example-vr mx-4"></div>
           </div>
