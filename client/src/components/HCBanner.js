@@ -9,7 +9,6 @@ const HCBanner = () => {
     const fetchData = async () => {
       try {
         const response = await api.get(`/emp/get-chains`);
-        console.log(response.data.data.chain);
         setInfos(response.data.data.chain)
       } catch (err) {
         console.log(err);

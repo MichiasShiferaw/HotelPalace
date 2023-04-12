@@ -6,7 +6,6 @@ import api from "../apis/apiIndex";
 const UpdateCustomer = () => {
   const { id } = useParams();
   let history = useNavigate();
-  //   console.log(id);
 
   const { customers } = useContext(CustomersContext);
   const [customer_ssn, setCustomer_SSN] = useState("");
@@ -28,9 +27,6 @@ const UpdateCustomer = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await api.get(`/cust/api/v1/view-customer/${id}`);
-      console.log(response.data.data);
-      console.log("Michias");
-      console.log(response.data.data.customer.city);
 
       setCustomer_SSN(response.data.data.customer.customer_ssn);
       setFirst_Name(response.data.data.customer.first_name);

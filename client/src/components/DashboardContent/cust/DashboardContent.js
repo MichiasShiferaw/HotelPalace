@@ -11,21 +11,6 @@ const DashboardContent = () => {
         </div>
       </div>
       <div className="row">
-        <div className="col-md-6 mb-3">
-          <div className="card h-100">
-            <div className="card-header">
-              <span className="me-2">
-                <i className="bi bi-bar-chart-fill" />
-              </span>
-              Profile
-            </div>
-            <div className="card-body">
-              <h1>NAme</h1>
-              <h3>Joined Date</h3>
-              {/* <canvas className="chart" width={400} height={200} /> */}
-            </div>
-          </div>
-        </div>
         <div className="col-md-12 mb-3">
           <div className="card h-100">
             <div className="card-header">

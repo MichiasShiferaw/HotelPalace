@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { CustomersContext } from "../../../Contexts/CustomersContext";
 import api from "../../../apis/apiIndex";
 import CurrBooking from "./CurrBooking";
+import Archived from "./Archived";
 
 const UserDetailPage = () => {
   const { id } = useParams();
@@ -102,10 +103,10 @@ const UserDetailPage = () => {
                 <div className="card-body">
                   <h3 className="mb-4">
                     <span className="text-primary font-italic me-1">
-                      Recent Bookings
+                      All My Bookings (History)
                     </span>{" "}
                   </h3>
-                  <CurrBooking />
+                  <Archived />
                   {/* <table
                   id="example"
                   className="table table-striped data-table"

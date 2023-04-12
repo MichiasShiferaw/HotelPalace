@@ -12,7 +12,7 @@ const UpdateRenting = () => {
   let history = useNavigate();
 
   const { infos } = useContext(CustomersContext);
-  const [booking_id, setBooking_id] = useState("");
+  const [renting_id, setRenting_id] = useState("");
   const [hotel_id, setHotel_id] = useState("");
   const [booking_status, setBooking_status] = useState("");
   const [customer_SSN, setCustomer_SSN] = useState("");
@@ -24,10 +24,7 @@ const UpdateRenting = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await api.get(`/emp/get-renting/${id}`);
-      // console.log(response.data.data);
-      // console.log("Michias");
-      // console.log(response.data.data.booking.city);
-      setBooking_id(response.data.data.booking.booking_id);
+      setRenting_id(response.data.data.booking.renting_id);
       setHotel_id(response.data.data.booking.hotel_id);
       setBooking_status(response.data.data.booking.booking_status);
       setCustomer_SSN(response.data.data.booking.customer_SSN);
@@ -54,11 +51,11 @@ const UpdateRenting = () => {
     <div>
       <form action="">
         <div className="form-group">
-          <label htmlFor="booking_id">booking_id</label>
+          <label htmlFor="renting_id">booking_id</label>
           <input
-            value={booking_id}
-            onChange={(e) => setBooking_id(e.target.value)}
-            id="booking_id"
+            value={renting_id}
+            onChange={(e) => setRenting_id(e.target.value)}
+            id="renting_id"
             className="form-control"
             type="text"
           />
@@ -147,7 +144,6 @@ const UpdateRenting = () => {
           >
             <option value="start">Start</option>
             <option value="cancel">Cancel</option>
-
           </select>
         </div>
         <button

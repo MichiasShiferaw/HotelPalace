@@ -21,7 +21,7 @@ const BookingForm = () => {
   const [values, setValues] = useState({
     hotel_id: "",
     customer_ssn: "",
-    booking_status: "start",
+    booking_status: "booked",
     room_no: "",
     emp_SSN: "",
     arrival_time: checkInDate,

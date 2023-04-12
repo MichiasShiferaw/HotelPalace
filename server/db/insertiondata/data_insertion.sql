@@ -955,7 +955,7 @@ BEGIN
 		INSERT INTO role(emp_SSN, role_id, role_name, salary) VALUES (employee, k + 2, role[k + 1], salary);
 	END LOOP;
 END; 
-$$
+$$;
 
 -- insert sample customer addresses
 INSERT INTO address_info VALUES
