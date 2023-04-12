@@ -2,9 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { CustomersContext } from "../Contexts/CustomersContext";
 import api from "../apis/apiIndex";
+import { useSelector } from "react-redux";
 
 const UpdateBooking = () => {
-    let updated = Date.now()
+    const auth = useSelector((state) => state.auth);
+    let updated = new Date();
       const offset = updated.getTimezoneOffset();
   updated = new Date(Date.now() - offset * 60 * 1000);
   updated= updated.toISOString().split("T")[0];
@@ -45,11 +47,12 @@ const UpdateBooking = () => {
       last_updated: updated,
       id,
     });
-    // history("/");
+    history(`/c/${auth.ssn}/dashboard/booking/all`);
   };
 
   return (
-    <div>
+    <div className="container">
+      <h1>Edit Booking</h1>
       <form action="">
         <div className="form-group">
           <label htmlFor="booking_id">booking_id</label>
@@ -145,7 +148,7 @@ const UpdateBooking = () => {
           >
             <option value="start">Start</option>
             <option value="cancel">Cancel</option>
-
+            <option value="archive">Archive</option>
           </select>
         </div>
         <button

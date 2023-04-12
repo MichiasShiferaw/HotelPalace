@@ -116,96 +116,96 @@ const CheckIn = () => {
   return (
     <>
       <div>
-        <div class="py-5 text-center">
+        <div className="py-5 text-center">
           <img
-            class="d-block mx-auto mb-4"
+            className="d-block mx-auto mb-4"
             src="/docs/5.3/assets/brand/bootstrap-logo.svg"
             alt=""
             width="72"
             height="57"
           />
           <h2>Check In form</h2>
-          <p class="lead">
+          <p className="lead">
             Below is an example form built entirely with Bootstrap’s form
             controls. Each required form group has a validation state that can
             be triggered by attempting to submit the form without completing it.
           </p>
         </div>
 
-        <div class="row g-5">
-          <div class="col-md-5 col-lg-4 order-md-last">
-            <h4 class="d-flex justify-content-between align-items-center mb-3">
-              <span class="text-primary">Your cart</span>
-              <span class="badge bg-primary rounded-pill">3</span>
+        <div className="row g-5">
+          <div className="col-md-5 col-lg-4 order-md-last">
+            <h4 className="d-flex justify-content-between align-items-center mb-3">
+              <span className="text-primary">Your cart</span>
+              <span className="badge bg-primary rounded-pill">3</span>
             </h4>
-            <ul class="list-group mb-3">
-              <li class="list-group-item d-flex justify-content-between lh-sm">
+            <ul className="list-group mb-3">
+              <li className="list-group-item d-flex justify-content-between lh-sm">
                 <div>
-                  <h6 class="my-0">Booking_ID</h6>
-                  <small class="text-body-secondary">Brief description</small>
+                  <h6 className="my-0">Booking_ID</h6>
+                  <small className="text-body-secondary">Brief description</small>
                 </div>
-                <span class="text-body-secondary">$12</span>
+                <span className="text-body-secondary">$12</span>
               </li>
-              <li class="list-group-item d-flex justify-content-between lh-sm">
+              <li className="list-group-item d-flex justify-content-between lh-sm">
                 <div>
-                  <h6 class="my-0">Hotel_ID</h6>
-                  <small class="text-body-secondary">Brief description</small>
+                  <h6 className="my-0">Hotel_ID</h6>
+                  <small className="text-body-secondary">Brief description</small>
                 </div>
-                <span class="text-body-secondary">$8</span>
+                <span className="text-body-secondary">$8</span>
               </li>
 
-              <li class="list-group-item d-flex justify-content-between lh-sm">
+              <li className="list-group-item d-flex justify-content-between lh-sm">
                 <div>
-                  <h6 class="my-0">Room Capacity</h6>
-                  <small class="text-body-secondary">Brief description</small>
+                  <h6 className="my-0">Room Capacity</h6>
+                  <small className="text-body-secondary">Brief description</small>
                 </div>
-                <span class="text-body-secondary">$5</span>
+                <span className="text-body-secondary">$5</span>
               </li>
-              <li class="list-group-item d-flex justify-content-between lh-sm">
+              <li className="list-group-item d-flex justify-content-between lh-sm">
                 <div>
-                  <h6 class="my-0">Room Capacity</h6>
-                  <small class="text-body-secondary">Brief description</small>
+                  <h6 className="my-0">Room Capacity</h6>
+                  <small className="text-body-secondary">Brief description</small>
                 </div>
-                <span class="text-body-secondary">$5</span>
+                <span className="text-body-secondary">$5</span>
               </li>
-              <li class="list-group-item d-flex justify-content-between lh-sm">
+              <li className="list-group-item d-flex justify-content-between lh-sm">
                 <div>
-                  <h6 class="my-0">Room Capacity</h6>
-                  <small class="text-body-secondary">Brief description</small>
+                  <h6 className="my-0">Room Capacity</h6>
+                  <small className="text-body-secondary">Brief description</small>
                 </div>
-                <span class="text-body-secondary">$5</span>
+                <span className="text-body-secondary">$5</span>
               </li>
-              <li class="list-group-item d-flex justify-content-between">
+              <li className="list-group-item d-flex justify-content-between">
                 <span>Total (USD)</span>
                 <strong>$20</strong>
               </li>
             </ul>
 
-            <form class="card p-2">
-              <div class="input-group">
+            <form className="card p-2">
+              <div className="input-group">
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   placeholder="Promo code"
                 />
-                <button type="submit" class="btn btn-secondary">
+                <button type="submit" className="btn btn-secondary">
                   Redeem
                 </button>
               </div>
             </form>
           </div>
-          <div class="col-md-7 col-lg-8">
-            <h4 class="mb-3">Billing address</h4>
-            <form class="needs-validation" novalidate="">
-              <div class="row g-3">
-                <div class="col-sm-7">
-                  <label for="customer_SSN" class="form-label">
+          <div className="col-md-7 col-lg-8">
+            <h4 className="mb-3">Billing address</h4>
+            <form className="needs-validation" novalidate="">
+              <div className="row g-3">
+                <div className="col-sm-7">
+                  <label for="customer_SSN" className="form-label">
                     Customer SSN
                   </label>
                   <input
                     onChange={(e) => setCustomer_SSN(e.target.value)}
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="customer_SSN"
                     placeholder=""
                     value={customer_SSN}
@@ -213,18 +213,18 @@ const CheckIn = () => {
                     disabled
                     readonly
                   />
-                  <div class="invalid-feedback">
+                  <div className="invalid-feedback">
                     Valid Customer SSN is required.
                   </div>
                 </div>
-                <div class="col-sm-5">
-                  <label for="emp_SSN" class="form-label">
+                <div className="col-sm-5">
+                  <label for="emp_SSN" className="form-label">
                     Emp SSN
                   </label>
                   <input
                     onChange={(e) => setCustomer_SSN(e.target.value)}
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="emp_SSN"
                     placeholder=""
                     value={emp_SSN}
@@ -232,41 +232,41 @@ const CheckIn = () => {
                     disabled
                     readonly
                   />
-                  <div class="invalid-feedback">
+                  <div className="invalid-feedback">
                     Valid Customer SSN is required.
                   </div>
                 </div>
 
-                <div class="col-sm-4">
-                  <label for="booking_id" class="form-label">
+                <div className="col-sm-4">
+                  <label for="booking_id" className="form-label">
                     Booking Id
                   </label>
-                  <div class="input-group has-validation">
+                  <div className="input-group has-validation">
                     <input
                       value={booking_id}
                       onChange={(e) => setBooking_id(e.target.value)}
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       id="booking_id"
                       placeholder="Room Number"
                       required=""
                       disabled
                       readonly
                     />
-                    <div class="invalid-feedback">
+                    <div className="invalid-feedback">
                       Your Booking ID is required.
                     </div>
                   </div>
                 </div>
 
-                <div class="col-sm-4">
-                  <label for="hotel_id" class="form-label">
+                <div className="col-sm-4">
+                  <label for="hotel_id" className="form-label">
                     Hotel Id
                   </label>
                   <input
                     onChange={(e) => setHotel_id(e.target.value)}
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="hotel_id"
                     placeholder=""
                     value={hotel_id}
@@ -274,81 +274,81 @@ const CheckIn = () => {
                     disabled
                     readonly
                   />
-                  <div class="invalid-feedback">
+                  <div className="invalid-feedback">
                     Valid last name is required.
                   </div>
                 </div>
 
-                <div class="col-sm-4">
-                  <label for="room_no" class="form-label">
+                <div className="col-sm-4">
+                  <label for="room_no" className="form-label">
                     Room Number
                   </label>
-                  <div class="input-group has-validation">
+                  <div className="input-group has-validation">
                     <input
                       value={room_no}
                       onChange={(e) => setRoom_no(e.target.value)}
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       id="room_no"
                       placeholder="Room Number"
                       required=""
                       disabled
                       readonly
                     />
-                    <div class="invalid-feedback">
+                    <div className="invalid-feedback">
                       Your Room Number is required.
                     </div>
                   </div>
                 </div>
 
-                <div class="col-sm-6">
-                  <label for="arrival_time" class="form-label">
+                <div className="col-sm-6">
+                  <label for="arrival_time" className="form-label">
                     Arrival Date
                   </label>
                   <input
                     value={arrival_time}
                     onChange={(e) => setArrival_time(e.target.value)}
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="arrival_time"
                     placeholder="you@example.com"
                     disabled
                     readonly
                   />
-                  <div class="invalid-feedback">
+                  <div className="invalid-feedback">
                     Please enter a valid email address for shipping updates.
                   </div>
                 </div>
 
-                <div class="col-sm-6">
-                  <label for="departure_time" class="form-label">
+                <div className="col-sm-6">
+                  <label for="departure_time" className="form-label">
                     Departure Time
                   </label>
                   <input
                     value={departure_time}
                     onChange={(e) => setDeparture_time(e.target.value)}
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="departure_time"
                     placeholder="1234 Main St"
                     required=""
                     disabled
                     readonly
                   />
-                  <div class="invalid-feedback">
+                  <div className="invalid-feedback">
                     Please enter your shipping address.
                   </div>
                 </div>
 
-                <div class="col-12">
-                  <label for="created_at" class="form-label">
+                <div className="col-12">
+                  <label for="created_at" className="form-label">
                     Created On
                   </label>
                   <input
                     value={created_at}
                     onChange={(e) => setCreated_at(e.target.value)}
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="created_at"
                     placeholder="Apartment or suite"
                     disabled
@@ -357,131 +357,131 @@ const CheckIn = () => {
                 </div>
               </div>
 
-              <hr class="my-4" />
+              <hr className="my-4" />
 
               <p>Check if the case is applied</p>
-              <div class="form-check">
+              <div className="form-check">
                 <input
                   type="checkbox"
-                  class="form-check-input"
+                  className="form-check-input"
                   id="same-address"
                 />
-                <label class="form-check-label" for="same-address">
+                <label className="form-check-label" for="same-address">
                   The Customer is Present
                 </label>
               </div>
 
-              <hr class="my-4" />
+              <hr className="my-4" />
 
-              <h4 class="mb-3">Payment</h4>
+              <h4 className="mb-3">Payment</h4>
 
-              <div class="my-3">
-                <div class="form-check">
+              <div className="my-3">
+                <div className="form-check">
                   <input
                     id="credit"
                     name="paymentMethod"
                     type="radio"
-                    class="form-check-input"
+                    className="form-check-input"
                     checked=""
                     required=""
                   />
-                  <label class="form-check-label" for="credit">
+                  <label className="form-check-label" for="credit">
                     Credit card
                   </label>
                 </div>
-                <div class="form-check">
+                <div className="form-check">
                   <input
                     id="debit"
                     name="paymentMethod"
                     type="radio"
-                    class="form-check-input"
+                    className="form-check-input"
                     required=""
                   />
-                  <label class="form-check-label" for="debit">
+                  <label className="form-check-label" for="debit">
                     Debit card
                   </label>
                 </div>
-                <div class="form-check">
+                <div className="form-check">
                   <input
                     id="paypal"
                     name="paymentMethod"
                     type="radio"
-                    class="form-check-input"
+                    className="form-check-input"
                     required=""
                   />
-                  <label class="form-check-label" for="paypal">
+                  <label className="form-check-label" for="paypal">
                     PayPal
                   </label>
                 </div>
               </div>
 
-              <div class="row gy-3">
-                <div class="col-md-6">
-                  <label for="cc-name" class="form-label">
+              <div className="row gy-3">
+                <div className="col-md-6">
+                  <label for="cc-name" className="form-label">
                     Name on card
                   </label>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="cc-name"
                     placeholder=""
                     required=""
                   />
-                  <small class="text-body-secondary">
+                  <small className="text-body-secondary">
                     Full name as displayed on card
                   </small>
-                  <div class="invalid-feedback">Name on card is required</div>
+                  <div className="invalid-feedback">Name on card is required</div>
                 </div>
 
-                <div class="col-md-6">
-                  <label for="cc-number" class="form-label">
+                <div className="col-md-6">
+                  <label for="cc-number" className="form-label">
                     Credit card number
                   </label>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="cc-number"
                     placeholder=""
                     required=""
                   />
-                  <div class="invalid-feedback">
+                  <div className="invalid-feedback">
                     Credit card number is required
                   </div>
                 </div>
 
-                <div class="col-md-3">
-                  <label for="cc-expiration" class="form-label">
+                <div className="col-md-3">
+                  <label for="cc-expiration" className="form-label">
                     Expiration
                   </label>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="cc-expiration"
                     placeholder=""
                     required=""
                   />
-                  <div class="invalid-feedback">Expiration date required</div>
+                  <div className="invalid-feedback">Expiration date required</div>
                 </div>
 
-                <div class="col-md-3">
-                  <label for="cc-cvv" class="form-label">
+                <div className="col-md-3">
+                  <label for="cc-cvv" className="form-label">
                     CVV
                   </label>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="cc-cvv"
                     placeholder=""
                     required=""
                   />
-                  <div class="invalid-feedback">Security code required</div>
+                  <div className="invalid-feedback">Security code required</div>
                 </div>
               </div>
 
-              <hr class="my-4" />
+              <hr className="my-4" />
 
               <button
-                class="w-100 btn btn-primary btn-lg"
+                className="w-100 btn btn-primary btn-lg"
                 type="submit"
                 onClick={handleSubmit}
               >

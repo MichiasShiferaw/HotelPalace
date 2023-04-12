@@ -66,6 +66,7 @@ router.get("/api/v1/booking/:booking_id", async (req, res) => {
 router.post("/create", async (req, res) => {
 
   try {
+    console.log(req.body);
     const results = await db.query(
       "INSERT INTO booking_info (hotel_id, customer_ssn, booking_status, room_no, emp_SSN, arrival_time, departure_time, created_at, last_updated) values ($1,$2, $3,$4,$5,$6,$7,$8,$9) returning *",
       [
@@ -86,6 +87,27 @@ router.post("/create", async (req, res) => {
         booking: results.rows[0],
       },
     });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+
+router.get("/room/:id/room_cate/:room_category", async (req, res) => {
+  try {
+    console.log(req.params);
+    const results = await db.query(
+      "select * from room where hotel_id = $1 AND room_category_id = $2",
+      [req.params.id, req.params.room_category]
+    );
+    res.status(200).json({
+      status: "success",
+      data: {
+        room: results.rows,
+      },
+    });
+
+    
   } catch (err) {
     console.log(err);
   }

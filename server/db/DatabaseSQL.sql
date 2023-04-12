@@ -219,7 +219,7 @@ CREATE TABLE IF NOT EXISTS room_category(
 -- FK = hotel_id, room_category_id
 
 CREATE TABLE IF NOT EXISTS room(
-	room_no VARCHAR(20) NOT NULL,
+	room_no serial,
     hotel_id INT NOT NULL,
     price DECIMAL(6,2) NOT NULL,
     room_category_id VARCHAR(20) NOT NULL,
@@ -249,7 +249,7 @@ CREATE TABLE IF NOT EXISTS booking_info(
     hotel_id INT NOT NULL,
     customer_SSN VARCHAR(20) NOT NULL,
     booking_status text NOT NULL CHECK(booking_status IN('booked', 'start', 'completed', 'cancel','archive')),
-    room_no VARCHAR(20) NOT NULL,
+    room_no INT NOT NULL,
     emp_SSN VARCHAR(20) NOT NULL,
     arrival_time DATE NOT NULL,
     departure_time DATE NOT NULL,
@@ -287,7 +287,7 @@ CREATE TABLE IF NOT EXISTS renting_info(
     renting_status text NOT NULL CHECK(renting_status IN('renting', 'checked-out', 'archived')),
     customer_SSN VARCHAR(20)  NOT NULL,
     emp_SSN VARCHAR(20) NOT NULL,
-    room_no VARCHAR(20) NOT NULL,
+    room_no INT NOT NULL,
     booking_id VARCHAR(20),
     has_booked BOOLEAN,
     arrival_time DATE NOT NULL,
@@ -463,7 +463,7 @@ CREATE TRIGGER check_available_renting
     for each row
     execute function check_available_room();
 
--- DROP/CREATE Whole Database
+    -- DROP/CREATE Whole Database
 -- DROP DATABASE IF EXISTS dbproject;
 
 -- CREATE DATABASE dbproject;

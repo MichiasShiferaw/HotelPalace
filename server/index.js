@@ -22,13 +22,13 @@ app.use("/cust", require("./routes/retrieveCustomer_basic"));
 
 app.use("/booking", require("./routes/booking"));
 
-app.use("/location", require("./routes/location_search"));
+app.use("/filter", require("./routes/location_search"));
 
 app.use("/log", require("./routes/auth"));
 
 app.use("/emp", require("./routes/employee"));
 
-const port = process.env.PORT || 3006;
+const port = process.env.PORT || 3005;
 
 app.listen(port, () => {
   console.log(`Server is up! Listening to ${port}`);

@@ -26,9 +26,6 @@ router.get("/api/v1/view-customer", async (req, res) => {
 
 // Get a Customer
 router.get("/api/v1/view-customer/:customer_ssn", async (req, res) => {
-  // const hi = req.body;
-  console.log("Michias")
-  console.log(req.body);
 
   try {
     const results = await db.query(

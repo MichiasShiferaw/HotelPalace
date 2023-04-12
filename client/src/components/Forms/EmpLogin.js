@@ -4,8 +4,10 @@ import Layout from "../Layout/Layout";
 import { useDispatch } from "react-redux";
 import { authenticateEmp } from "../../redux/authSlice";
 import Footer from "../Footer/Footer";
+import { useNavigate } from "react-router-dom";
 
 const EmpLogin = () => {
+  let history=useNavigate();
   const [values, setValues] = useState({
     emp_SSN: "",
     password: "",
@@ -36,7 +38,9 @@ const EmpLogin = () => {
         "hotel",
         `${hotel_info.data.data.employee[0].hotel_id}`
       );
+
       localStorage.setItem("ssn", `${values.emp_SSN}`);
+      history(`/emp/${values.emp_SSN}/dashboard`);
     } catch (error) {
       console.log(error.response.data.errors[0].msg);
       setError(error.response.data.errors[0].msg);

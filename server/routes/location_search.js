@@ -5,7 +5,7 @@ const router = express.Router();
 const db = require("../db/index");
 
 // All
-router.get("/", async (req, res) => {
+router.get("/location", async (req, res) => {
   try {
     const { location } = req.query;
     const results = await db.query(
@@ -28,7 +28,7 @@ router.get("/", async (req, res) => {
 // Get One
 
 // Get a Customer
-router.get("/:city", async (req, res) => {
+router.get("city/:city", async (req, res) => {
   try {
     const results = await db.query(
       "SELECT hotel_name FROM hotel where city = $1",
@@ -39,6 +39,24 @@ router.get("/:city", async (req, res) => {
       status: "success",
       data: {
         location: results.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+
+// Get All Rooms
+router.get("/rooms", async (req, res) => {
+  try {
+    const results = await db.query(
+      "SELECT * FROM searching",
+    );
+    res.status(200).json({
+      status: "success",
+      data: {
+        room: results.rows,
       },
     });
   } catch (err) {

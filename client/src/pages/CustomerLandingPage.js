@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import LocationFilter from '../components/Filter/LocationFilter';
 import HCBanner from '../components/HCBanner';
 import Overview from '../components/AllHotelDetails/Overview1';
-
+import RoomsContainer from '../components/Filter/RoomsContainer';
 import Recommended from '../components/Recommended';
 import Footer from '../components/Footer/Footer_small';
 import Layout from '../components/Layout/Layout';
+// import RoomsContainer from '../components/Filter/RoomsContainer';
 
 
 const CustomerLandingPage = () => {
@@ -35,60 +36,7 @@ const CustomerLandingPage = () => {
               </div>
             </div>
           </section>
-
-          {/* <header>
-        <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-          <div className="container-fluid">
-            <a className="navbar-brand" href="#">
-              Hotel Place
-            </a>
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarCollapse"
-              aria-controls="navbarCollapse"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarCollapse">
-              <ul className="navbar-nav me-auto ms-5 mb-2 mb-md-0">
-                <li className="nav-item">
-                  <a className="nav-link active" aria-current="page" href="#">
-                    Home
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Popular
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Brands
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Recommended
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link disabled">Disabled</a>
-                </li>
-              </ul>
-              <div className="d-flex" role="search">
-                <button className="btn btn-outline-success" type="submit">
-                  Login
-                </button>
-              </div>
-            </div>
-          </div>
-        </nav>
-      </header> */}
-          <LocationFilter />
+          <RoomsContainer/>
           {/* 
       <Overview /> */}
           <Recommended />

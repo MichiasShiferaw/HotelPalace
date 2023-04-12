@@ -861,7 +861,7 @@ VALUES (1,'single','mountain',TRUE),
 DO $$
 DECLARE 
 	numHotels INTEGER := (SELECT COUNT(*) FROM hotel);
-	numRooms INTEGER;
+	numRooms INTEGER:= 25;
 	room_category_type INTEGER;
 	room_size TEXT;
 	price DECIMAL(6,2);
@@ -873,7 +873,8 @@ DECLARE
 	m INTEGER;
 BEGIN
 	FOR i IN 1..numHotels LOOP
-		numRooms := (SELECT num_of_rooms FROM hotel WHERE hotel_id = i);
+-- 		numRooms 
+-- 		//:= (SELECT num_of_rooms FROM hotel WHERE hotel_id = i);
 		FOR j in 1..numRooms LOOP
 			room_category_type := (SELECT MOD(j, 16) + 1);
 			room_size := (SELECT room_capacity FROM room_category WHERE room_category_id = room_category_type::text);
@@ -909,11 +910,15 @@ BEGIN
             END;
 
 			INSERT INTO room(room_no, hotel_id, price, room_category_id, amenities, damages, last_updated)
-			VALUES (j, i, price, room_category_type, all_amenities, all_damages, DEFAULT);
+						VALUES (j, i, price, room_category_type, all_amenities, all_damages, DEFAULT);
 		END LOOP;
 	END LOOP;
 END; 
-$$
+$$;
+
+
+-- select * from room;
+-- delete from room;
 
 -- inserting managers into roles (postgresql version)
 DO $$

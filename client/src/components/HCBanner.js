@@ -30,7 +30,7 @@ const HCBanner = () => {
           <div className="row gap-3 justify-content-center">
             {infos && infos.map((hotel_chains)=>{
               return (
-                <div className="col-lg-3 col-md-5 col-sm-6 mw-270">
+                <div className="col-lg-3 col-md-5 col-sm-6 mw-270" key={hotel_chains.chain_name}>
                   <div className="mx-auto my-2 d-flex justify-content-center align-items-center block">
                     <h3>{hotel_chains.chain_name}</h3>
                   </div>

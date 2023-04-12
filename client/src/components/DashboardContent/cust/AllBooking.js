@@ -110,12 +110,6 @@ const AllBooking = () => {
                         >
                           Update
                         </button>
-                        <button
-                          onClick={() => handleDelete(booking.booking_id)}
-                          className="btn btn-danger"
-                        >
-                          Delete
-                        </button>
                       </div>
                     </td>
                   </tr>

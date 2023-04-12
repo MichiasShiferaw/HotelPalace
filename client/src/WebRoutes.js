@@ -18,7 +18,6 @@ import {
 } from "react-router-dom";
 import Rooms from "./pages/Rooms";
 import SingleRoom from "./pages/SingleRoom";
-import Home from "./pages/Home";
 import { CustomersContextProvider } from "./Contexts/CustomersContext";
 import UpdatePage from "./components/customer_exclus_comp/UpdateCustomer";
 import Error from "./pages/Error";

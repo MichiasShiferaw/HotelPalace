@@ -126,13 +126,13 @@ const CustDashboard = () => {
 
                     <li>
                       <NavLink
-                        to={`/c/${id}/dashboard/booking/add`}
+                        to={`/cust/home`}
                         className="nav-link px-3"
                       >
                         <span className="me-2">
                           <i className="bi bi-speedometer2" />
                         </span>
-                        <span>Add Booking</span>
+                        <span>Create A Booking</span>
                       </NavLink>
                     </li>
                   </ul>

@@ -13,7 +13,7 @@ exports.getStaff = async (req, res) => {
         employee: response.rows,
       },
     });
-    console.log(response.rows);
+
   } catch (err) {
     console.log(err);
   }
@@ -31,7 +31,7 @@ exports.getEmp = async (req, res) => {
         employee: response.rows,
       },
     });
-    console.log(response.rows);
+
   } catch (err) {
     console.log(err);
   }
@@ -50,7 +50,6 @@ exports.getEmpRole = async (req, res) => {
         role: response.rows,
       },
     });
-    console.log(response.rows);
   } catch (err) {
     console.log(err);
   }
@@ -60,7 +59,6 @@ exports.getEmpRole = async (req, res) => {
 // Add Staff
 
 exports.onboarding = async (req, res) => {
-  console.log(req.body);
   try {
     const response = await db.query(
       "INSERT INTO employee (emp_SSN, first_name, middle_name, last_name, street_name, street_number, city, province, postal_code, country, hotel_id, start_date, password, last_update) values ($1,$2, $3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) returning *",
@@ -87,7 +85,7 @@ exports.onboarding = async (req, res) => {
         customer: response.rows[0],
       },
     });
-    // console.log(response.rows);
+
   } catch (err) {
     // console.log(err.message);
 
@@ -109,7 +107,6 @@ exports.getRooms = async (req, res) => {
         room: response.rows,
       },
     });
-    console.log(response.rows);
   } catch (err) {
     console.log(err);
   }
@@ -118,7 +115,6 @@ exports.getRooms = async (req, res) => {
 // Add Rooms
 
 exports.addRoom = async (req, res) => {
-  console.log(req.body);
   try {
     const response = await db.query(
       "INSERT INTO room (room_no, hotel_id, price, room_category, amenities, damages, last_updated) values ($1,$2, $3,$4,$5,$6,$7) returning *",
@@ -151,7 +147,6 @@ exports.addRoom = async (req, res) => {
 
 //Edit Rooms
 exports.setRooms = async (req, res) => {
-  console.log(req.body);
   try {
     const response = await db.query(
       "UPDATE room SET price=$1, room_category_id=$2, amentities=$3, damages=$4, last_updated=$5 where room_no =$6 and hotel_id=$6 returning *",
@@ -242,7 +237,6 @@ exports.getAllBooking = async (req, res) => {
         booking: response.rows,
       },
     });
-    console.log(response.rows);
   } catch (err) {
     console.log(err);
   }
@@ -251,7 +245,7 @@ exports.getAllBooking = async (req, res) => {
 
 exports.getAllRenting = async (req, res) => {
   try {
-    console.log(req.body);
+
     const response = await db.query(
       "select * from renting_info where hotel_id=$1",
       [req.params.id]
@@ -262,7 +256,7 @@ exports.getAllRenting = async (req, res) => {
         renting: response.rows,
       },
     });
-    console.log(response.rows);
+
   } catch (err) {
     console.log(err);
   }
@@ -280,7 +274,6 @@ exports.getBooking = async (req, res) => {
         booking: response.rows[0],
       },
     });
-    console.log(response.rows);
   } catch (err) {
     console.log(err);
   }
@@ -360,6 +353,7 @@ exports.setBooking = async (req, res) => {
         booking: results.rows[0],
       },
     });
+    // console.log()
   } catch (err) {
     console.log(err);
   }
@@ -378,7 +372,6 @@ exports.getChains = async (req, res) => {
         chain: response.rows,
       },
     });
-    console.log(response.rows);
   } catch (err) {
     console.log(err);
   }
@@ -416,7 +409,7 @@ exports.addChain = async (req, res) => {
           hotel: response.rows[0],
         },
       });
-      // console.log(response.rows);
+
     } catch (err) {
       // console.log(err.message);
 
@@ -453,7 +446,6 @@ exports.getHotels = async (req, res) => {
         room: response.rows,
       },
     });
-    console.log(response.rows);
   } catch (err) {
     console.log(err);
   }
