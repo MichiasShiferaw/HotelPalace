@@ -1,4 +1,6 @@
-# CSI2132 Database Project
+# Hotel Palace
+
+[Online Website]()
 
 ## Table of Contents
 
@@ -10,10 +12,16 @@
 
 Objective is to prepare an application that will allow their customers to easily book rooms in their hotels, seeing room availability in real time.
 
+
+
+![Home Page](https://github.com/MichiasShiferaw/database-proj/blob/main/client/public/assets/README-images/Home.png)
+
 ## Technologies
 
 <h3 align="left">Languages and Tools:</h3>
+
 <p align="left"> 
+
 <a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/> </a>
  <a href="https://www.postgresql.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg" alt="postgresql" width="40" height="40"/> </a> 
 <a href="https://www.linux.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt="linux" width="40" height="40"/> </a>
@@ -87,3 +95,11 @@ npm start on client
 
 
 ```
+
+
+## License
+
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
+
+- **[MIT license](http://opensource.org/licenses/mit-license.php)**
+- Copyright 2015 © <a href="http://fvcproductions.com" target="_blank">FVCproductions</a>.
