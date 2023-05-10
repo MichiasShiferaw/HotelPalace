@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book</title>
+
+    <link rel = "stylesheet" href = "book.css">
+</head>
+<body>
+
+    <div class = "header">
+        <h1>BookIO</h1>
+    </div>
+
+    
+    <form class = "container">
+        <label class = "text" for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+  
+        <label class = "text" for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+  
+        <label class = "text" for="age">Age:</label>
+        <input type="number" id="age" name="age" required>
+  
+        <label class = "text" for="Arrival Time">Arrival Time:</label>
+        <input type="time" id="appt" name="appt" min="09:00" max="18:00" required>  
+      
+        <input class = "book_now" type = "submit" value="Book Now">
+
+        <a class = "button" href="displayPage.html">Go Back</a>
+          
+        
+      </form>
+
+     
+</body>
+</html>
